@@ -73,6 +73,7 @@ export default defineComponent({
   methods: {
     doorOpen: function () {
       this.isOpen = true;
+      this.$emit("doorOpen")
     },
   },
   data() {
@@ -86,6 +87,7 @@ export default defineComponent({
 <style scoped>
 svg {
   width: 11.065rem;
+  overflow: visible;
 }
 
 #door__body {

@@ -574,35 +574,6 @@ svg {
   animation: Blink 5s infinite;
 }
 
-@keyframes MoveUpDown {
-  0%,
-  100% {
-    transform: translateY(20px);
-  }
-  50% {
-    transform: translateY(50px);
-  }
-}
-
-@keyframes Swing {
-  0% {
-    transform: rotate(3deg);
-  }
-  100% {
-    transform: rotate(-3deg);
-  }
-}
-
-@keyframes Blink {
-    0%, 100% {
-        transform: scaleY(.0);
-    }
-    5%,
-    95% {
-        transform: scaleY(1);
-    }
-}
-
 .cls-1 {
   fill: #004537;
 }
