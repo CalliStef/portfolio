@@ -5,7 +5,11 @@
       <div class="home__layer--floor"></div>
       <CharacterComponent class="home__scene"></CharacterComponent>
     </div>
-    <Intro ref="intro__layer" @show-home="zoomHomeLayer" v-if="!showHome"></Intro>
+    <Intro
+      ref="intro__layer"
+      @show-home="zoomHomeLayer"
+      v-if="!showHome"
+    ></Intro>
   </div>
 </template>
 
@@ -18,15 +22,22 @@ export default {
   name: "App",
   mounted() {
     const homeLayerElem = this.$refs.home_layer as HTMLElement;
-    Panzoom(homeLayerElem, { startScale: 0, startY: 60 });
+    Panzoom(homeLayerElem, {
+      startScale: 0,
+      startY: 60,
+      disablePan: true,
+      cursor: "auto",
+    });
   },
   methods: {
     zoomHomeLayer() {
       const homeLayerElem = this.$refs.home_layer as HTMLElement;
-      const panzoom = Panzoom(homeLayerElem);
+      const panzoom = Panzoom(homeLayerElem, {
+        disablePan: true,
+        cursor: "auto",
+      });
       panzoom.zoom(1, { animate: true, duration: 800, easing: "ease-in-out" });
       panzoom.zoomIn;
-      panzoom.pan(0, 0, { disableXAxis: true, disableYAxis: true })
       setTimeout(() => {
         this.showHome = true;
       }, 1000);
@@ -95,5 +106,4 @@ export default {
     transform: translate(-50%, 95%);
   }
 }
-
 </style>

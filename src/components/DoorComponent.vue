@@ -21,14 +21,14 @@
           points="90.67 482.91 90.67 0 321.72 0 321.72 482.91 309.23 482.91 310.62 10.41 101.77 11.8 102.47 482.91 90.67 482.91"
         />
         <image
-            ref="door__inside"
-            href="/assets/home-scene-day.png"
-            x="101.77"
-            y="15.41"
-            width="208.85"
-            height="472.51"
-            z-index="2"
-          />
+          ref="door__inside"
+          href="/assets/home-scene-day.png"
+          x="101.77"
+          y="15.41"
+          width="208.85"
+          height="472.51"
+          z-index="2"
+        />
         <g id="door__inner" :class="{ doorOpened: isOpen }">
           <rect
             class="cls-1"
@@ -81,9 +81,9 @@ export default defineComponent({
   methods: {
     doorOpen() {
       this.isOpen = true;
-      (this.$refs.door__inside as HTMLElement).remove()
+      (this.$refs.door__inside as HTMLElement).remove();
       this.$emit("door-open");
-    }
+    },
   },
   mounted() {
     this.$emit("door-rendered");

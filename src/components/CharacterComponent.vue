@@ -569,7 +569,7 @@ svg {
   animation: Swing ease-in-out 1.3s infinite alternate;
 }
 
-#character__eye{
+#character__eye {
   transform-origin: 711.38px 179.89px;
   animation: Blink 5s infinite;
 }

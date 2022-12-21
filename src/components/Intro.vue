@@ -19,7 +19,6 @@
 import DoorComponent from "./DoorComponent.vue";
 import Typewriter from "./Typewriter.vue";
 import Panzoom from "@panzoom/panzoom";
-import { NONAME } from "dns";
 
 export default {
   name: "Intro-layer",
@@ -32,13 +31,21 @@ export default {
       console.log;
       setTimeout(() => {
         this.createHeader = true;
-        this.$emit("render-home")
+        this.$emit("render-home");
       }, 1500);
     },
     zoomToHome() {
       const elem = this.$refs.panzoom__element as HTMLElement;
-      const panzoom = Panzoom(elem, { maxScale: 10 });
-      panzoom.zoom(10, { animate: true, duration: 1000, easing: "ease-in-out" });
+      const panzoom = Panzoom(elem, {
+        maxScale: 15,
+        disablePan: true,
+        cursor: "auto",
+      });
+      panzoom.zoom(15, {
+        animate: true,
+        duration: 1000,
+        easing: "ease-in-out",
+      });
       panzoom.zoomIn;
       this.$emit("show-home");
     },
