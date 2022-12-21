@@ -1,47 +1,44 @@
 <template>
-  <div ref="panzoom__element" class="intro__body">
-    <Typewriter
-      v-if="createHeader"
-      class="intro__header"
-      textProp="Welcome to my portfolio 👋"
-    ></Typewriter>
-
-    <DoorComponent
-      class="intro__door"
-      @door-open="zoomToHome"
-      @door-rendered="onAfterEnter"
-    ></DoorComponent>
+  <div class="main__layer">
+    <div ref="home_layer" class="home__layer">
+      <div class="home__layer--wall"></div>
+      <div class="home__layer--floor"></div>
+      <CharacterComponent class="home__scene"></CharacterComponent>
+    </div>
+    <Intro ref="intro__layer" @show-home="zoomHomeLayer" v-if="!showHome"></Intro>
   </div>
 </template>
 
 <script lang="ts">
-import DoorComponent from "@/components/DoorComponent.vue";
-import Typewriter from "./components/Typewriter.vue";
+import Intro from "@/components/Intro.vue";
+import CharacterComponent from "@/components/CharacterComponent.vue";
 import Panzoom from "@panzoom/panzoom";
 
 export default {
   name: "App",
-  components: {
-    DoorComponent,
-    Typewriter,
+  mounted() {
+    const homeLayerElem = this.$refs.home_layer as HTMLElement;
+    Panzoom(homeLayerElem, { startScale: 0, startY: 60 });
   },
   methods: {
-    onAfterEnter() {
-      console.log;
-      setTimeout(() => {
-        this.createHeader = true;
-      }, 1500);
-    },
-    zoomToHome() {
-      const elem = this.$refs.panzoom__element as HTMLElement;
-      const panzoom = Panzoom(elem, { maxScale: 7 });
-      panzoom.zoom(7, { animate: true, duration: 1000, easing: "ease-in-out" });
+    zoomHomeLayer() {
+      const homeLayerElem = this.$refs.home_layer as HTMLElement;
+      const panzoom = Panzoom(homeLayerElem);
+      panzoom.zoom(1, { animate: true, duration: 800, easing: "ease-in-out" });
       panzoom.zoomIn;
+      panzoom.pan(0, 0, { disableXAxis: true, disableYAxis: true })
+      setTimeout(() => {
+        this.showHome = true;
+      }, 1000);
     },
+  },
+  components: {
+    Intro,
+    CharacterComponent,
   },
   data() {
     return {
-      createHeader: false,
+      showHome: false,
     };
   },
 };
@@ -60,25 +57,43 @@ export default {
     url("/assets/fonts/FuzzyBubbles-Bold.ttf") format("truetype");
 }
 
-.intro {
-  &__body {
+.main__layer {
+  width: 100vw;
+  height: 100vh;
+  background-color: $color-beige;
+  touch-action: manipulation;
+}
+
+.home {
+  &__layer {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
     width: 100vw;
     height: 100vh;
     background-color: $color-beige;
+    position: absolute;
+
+    &--wall {
+      display: flex;
+      width: 100%;
+      height: 36rem;
+      background-color: $color-beige;
+    }
+
+    &--floor {
+      display: flex;
+      width: 100%;
+      height: 17rem;
+      background-color: $color-soft-orange;
+    }
   }
 
-  &__header {
-    font-family: "FuzzyBubbles-Bold";
-    font-size: $font-size-medium;
-    bottom: 2rem;
-  }
-
-  &__door {
-    animation: popOut 1s ease-in-out backwards;
+  &__scene {
+    width: 21rem;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 95%);
   }
 }
+
 </style>
