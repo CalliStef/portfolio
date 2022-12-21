@@ -14,9 +14,14 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "@panzoom/panzoom": "^4.5.1",
     "pinia": "^2.0.28",
+    "typewriter-effect": "^2.19.0",
+    "typewriter-vue": "^0.5.19",
     "vue": "^3.2.45",
-    "vue-router": "^4.1.6"
+    "vue-router": "^4.1.6",
+    "vue-typer": "^1.2.0",
+    "vue-writer": "^1.2.0"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.4",

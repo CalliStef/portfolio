@@ -73,8 +73,11 @@ export default defineComponent({
   methods: {
     doorOpen: function () {
       this.isOpen = true;
-      this.$emit("doorOpen")
+      this.$emit("door-open")
     },
+  },
+  mounted(){
+    this.$emit('door-rendered')
   },
   data() {
     return {
