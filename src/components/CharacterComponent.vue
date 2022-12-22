@@ -559,19 +559,23 @@ svg {
   }
 }
 
-#character__leg-right--bottom {
-  transform-origin: 768.19px 596.09px;
-  animation: Swing ease-in-out 1s infinite alternate;
-}
+#character{
 
-#character__leg-left--bottom {
-  transform-origin: 672.05px 590.81px;
-  animation: Swing ease-in-out 1.3s infinite alternate;
-}
+  &__leg-right--bottom{
+    transform-origin: 768.19px 596.09px;
+    animation: Swing ease-in-out 1s infinite alternate;
+  }
 
-#character__eye {
-  transform-origin: 711.38px 179.89px;
-  animation: Blink 5s infinite;
+  &__leg-left--bottom{
+    transform-origin: 672.05px 590.81px;
+    animation: Swing ease-in-out 1.3s infinite alternate;
+  }
+
+  &__eye{
+    transform-origin: 711.38px 179.89px;
+    animation: Blink 5s infinite;
+  }
+
 }
 
 .cls-1 {
