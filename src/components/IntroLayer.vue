@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts">
-import DoorComponent from "./DoorComponent.vue";
+import DoorComponent from "./Door.vue";
 import Typewriter from "./Typewriter.vue";
 import Panzoom from "@panzoom/panzoom";
 

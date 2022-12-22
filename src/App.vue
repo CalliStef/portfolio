@@ -14,8 +14,8 @@
 </template>
 
 <script lang="ts">
-import Intro from "@/components/Intro.vue";
-import CharacterComponent from "@/components/CharacterComponent.vue";
+import Intro from "@/components/IntroLayer.vue";
+import CharacterComponent from "@/components/Character.vue";
 import Panzoom from "@panzoom/panzoom";
 
 export default {
