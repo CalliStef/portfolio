@@ -3,6 +3,25 @@
     <div ref="home_layer" class="home__layer">
       <div class="home__layer--wall"></div>
       <div class="home__layer--floor"></div>
+      <Transition name="stagger" appear>
+        <template v-if="showHome">
+          <div class="home__header-container">
+            <Typewriter
+              class="home__header home__header--black"
+              textProp="My name is Callista Stefanie Taswin,"
+            ></Typewriter>
+            <Typewriter
+              class="home__header home__header--blue"
+              textProp="Full-Stack Web Developer"
+            >
+            </Typewriter>
+          </div>
+          
+        </template>
+      </Transition>
+      <!-- <TextBubble>
+
+      </TextBubble> -->
       <CharacterComponent class="home__scene"></CharacterComponent>
     </div>
     <Intro
@@ -16,10 +35,18 @@
 <script lang="ts">
 import Intro from "@/components/IntroLayer.vue";
 import CharacterComponent from "@/components/Character.vue";
+import TextBubble from "@/components/TextBubble.vue";
 import Panzoom from "@panzoom/panzoom";
+import Typewriter from "./components/Typewriter.vue";
 
 export default {
   name: "App",
+  components: {
+    Intro,
+    CharacterComponent,
+    TextBubble,
+    Typewriter,
+  },
   mounted() {
     const homeLayerElem = this.$refs.home_layer as HTMLElement;
     Panzoom(homeLayerElem, {
@@ -42,10 +69,6 @@ export default {
         this.showHome = true;
       }, 1000);
     },
-  },
-  components: {
-    Intro,
-    CharacterComponent,
   },
   data() {
     return {
@@ -75,7 +98,43 @@ export default {
   touch-action: manipulation;
 }
 
+.stagger-enter-active .home__header--blue {
+  color: red;
+  transition-delay: 2s;
+}
+
 .home {
+  &__header {
+    font-family: "FuzzyBubbles-Regular";
+    font-size: $font-size-medium;
+
+    &--transition {
+      &-enter-active {
+        transition-delay: 1s;
+      }
+    }
+
+    &-container {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      width: 20rem;
+      height: 10rem;
+      text-align: center;
+      left: 50%;
+      top: 20%;
+      transform: translate(-50%, 0);
+    }
+
+    &--black {
+      color: $color-black;
+    }
+
+    &--blue {
+      color: $color-turquoise;
+    }
+  }
+
   &__layer {
     display: flex;
     flex-direction: column;
@@ -103,7 +162,8 @@ export default {
     width: 21rem;
     position: absolute;
     left: 50%;
-    transform: translate(-50%, 95%);
+    top: 40%;
+    transform: translate(-50%, 0);
   }
 }
 </style>
