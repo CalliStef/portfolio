@@ -3,7 +3,7 @@
     <div ref="home_layer" class="home__layer">
       <div class="home__layer--wall"></div>
       <div class="home__layer--floor"></div>
-      <Transition name="stagger" appear>
+      <!-- <Transition name="stagger" appear> -->
         <template v-if="showHome">
           <div class="home__header-container">
             <Typewriter
@@ -15,12 +15,17 @@
               textProp="Full-Stack Web Developer"
             >
             </Typewriter>
+            <ToolList :toolList="toolArr" />
           </div>
-          
         </template>
-      </Transition>
+      <!-- </Transition> -->
       <!-- <TextBubble>
+        <slot name="header">
 
+        </slot>
+        <slot name="tools">
+
+        </slot>
       </TextBubble> -->
       <CharacterComponent class="home__scene"></CharacterComponent>
     </div>
@@ -35,17 +40,19 @@
 <script lang="ts">
 import Intro from "@/components/IntroLayer.vue";
 import CharacterComponent from "@/components/Character.vue";
-import TextBubble from "@/components/TextBubble.vue";
+// import TextBubble from "@/components/TextBubble.vue";
 import Panzoom from "@panzoom/panzoom";
 import Typewriter from "./components/Typewriter.vue";
+import ToolList from "./components/ToolList.vue";
 
 export default {
   name: "App",
   components: {
     Intro,
     CharacterComponent,
-    TextBubble,
+    // TextBubble,
     Typewriter,
+    ToolList,
   },
   mounted() {
     const homeLayerElem = this.$refs.home_layer as HTMLElement;
@@ -73,6 +80,48 @@ export default {
   data() {
     return {
       showHome: false,
+      toolArr: [
+        {
+          toolName: "HTML",
+          toolIcon: "vscode-icons:file-type-html",
+        },
+        {
+          toolName: "CSS",
+          toolIcon: "vscode-icons:file-type-css",
+        },
+        {
+          toolName: "SASS",
+          toolIcon: "logos:sass",
+        },
+        {
+          toolName: "Javascript",
+          toolIcon: "logos:javascript",
+        },
+        {
+          toolName: "React",
+          toolIcon: "logos:react",
+        },
+        {
+          toolName: "Next.js",
+          toolIcon: "logos:nextjs-icon",
+        },
+        {
+          toolName: "Vue",
+          toolIcon: "logos:vue",
+        },
+        {
+          toolName: "MySQL",
+          toolIcon: "logos:mysql-icon",
+        },
+        {
+          toolName: "Prisma",
+          toolIcon: "vscode-icons:file-type-light-prisma",
+        },
+        {
+          toolName: "Storybook",
+          toolIcon: "logos:storybook-icon",
+        },
+      ],
     };
   },
 };

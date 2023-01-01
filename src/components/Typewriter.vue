@@ -11,7 +11,6 @@ export default defineComponent({
     textProp: { type: String, required: true },
   },
   mounted() {
-    console.log("this", this.textContent);
     this.animate();
   },
   methods: {

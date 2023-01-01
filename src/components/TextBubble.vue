@@ -10,16 +10,13 @@
     </h1>
     <main>
       <slot name="tools">
-        <Typewriter
-          class="textBubble__tools"
-          textProp="Tools used:"
-        ></Typewriter>
+        <Typewriter class="textBubble__tools" textProp="Tools used:" />
       </slot>
       <slot name="content">
         <Typewriter
           class="textBubble__content"
           textProp="Text Bubble Content"
-        ></Typewriter>
+        />
       </slot>
     </main>
   </div>
@@ -48,7 +45,6 @@ export default defineComponent({
 
 <style scoped lang="scss">
 .textBubble {
-
   display: flex;
   position: absolute;
   flex-direction: column;

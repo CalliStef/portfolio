@@ -19,6 +19,7 @@
     "typewriter-effect": "^2.19.0",
     "typewriter-vue": "^0.5.19",
     "vue": "^3.2.45",
+    "vue-plugin-autoscroll": "^0.1.4",
     "vue-router": "^4.1.6",
     "vue-typer": "^1.2.0",
     "vue-writer": "^1.2.0"

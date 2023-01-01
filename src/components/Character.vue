@@ -559,6 +559,8 @@ svg {
   }
 }
 
+
+
 #character{
 
   &__leg-right--bottom{
