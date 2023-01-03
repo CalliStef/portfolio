@@ -7,24 +7,32 @@
         <div class="home__header-container">
           <Typewriter
             class="home__header home__header--black"
-            textProp="My name is Callista Stefanie Taswin,"
+            textProp="My name is Callista Stefanie Taswin, Full-Stack Web Developer"
           ></Typewriter>
-          <Typewriter
+          <!-- <Typewriter
             class="home__header home__header--blue"
             textProp="Full-Stack Web Developer"
           >
-          </Typewriter>
-          <Toolbar :toolList="toolArr" />
+          </Typewriter> -->
+          <Toolbar class="home__toolbar" :toolList="toolArr" />
         </div>
+        <TextBubble
+          class="text-bubble_contact"
+          headerText="Contact"
+          tailDirection="bottom-right"
+        />
+        <TextBubble
+          class="text-bubble_about"
+          headerText="About Me"
+          tailDirection="bottom-right"
+        />
+        <TextBubble
+          class="text-bubble_projects"
+          headerText="Projects"
+          tailDirection="top-left"
+        />
       </template>
-      <!-- <TextBubble>
-        <slot name="header">
 
-        </slot>
-        <slot name="tools">
-
-        </slot>
-      </TextBubble> -->
       <CharacterComponent class="home__scene"></CharacterComponent>
     </div>
     <Intro
@@ -38,7 +46,7 @@
 <script lang="ts">
 import Intro from "@/components/IntroLayer.vue";
 import CharacterComponent from "@/components/Character.vue";
-// import TextBubble from "@/components/TextBubble.vue";
+import TextBubble from "@/components/TextBubble.vue";
 import Panzoom from "@panzoom/panzoom";
 import Typewriter from "./components/Typewriter.vue";
 import Toolbar from "./components/Toolbar.vue";
@@ -48,7 +56,7 @@ export default {
   components: {
     Intro,
     CharacterComponent,
-    // TextBubble,
+    TextBubble,
     Typewriter,
     Toolbar,
   },
@@ -186,6 +194,10 @@ export default {
     }
   }
 
+  &__toolbar{
+    animation: fadeIn 1s ease-in-out forwards;
+  }
+
   &__layer {
     display: flex;
     flex-direction: column;
@@ -215,6 +227,20 @@ export default {
     left: 50%;
     top: 40%;
     transform: translate(-50%, 0);
+  }
+}
+
+.text-bubble {
+  &_contact {
+    transform: translate(2rem, 25rem);
+  }
+
+  &_about {
+    transform: translate(8rem, 20rem);
+  }
+
+  &_projects {
+    transform: translate(17rem, 30rem);
   }
 }
 </style>
