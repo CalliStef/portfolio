@@ -3,22 +3,20 @@
     <div ref="home_layer" class="home__layer">
       <div class="home__layer--wall"></div>
       <div class="home__layer--floor"></div>
-      <!-- <Transition name="stagger" appear> -->
-        <template v-if="showHome">
-          <div class="home__header-container">
-            <Typewriter
-              class="home__header home__header--black"
-              textProp="My name is Callista Stefanie Taswin,"
-            ></Typewriter>
-            <Typewriter
-              class="home__header home__header--blue"
-              textProp="Full-Stack Web Developer"
-            >
-            </Typewriter>
-            <ToolList :toolList="toolArr" />
-          </div>
-        </template>
-      <!-- </Transition> -->
+      <template v-if="showHome">
+        <div class="home__header-container">
+          <Typewriter
+            class="home__header home__header--black"
+            textProp="My name is Callista Stefanie Taswin,"
+          ></Typewriter>
+          <Typewriter
+            class="home__header home__header--blue"
+            textProp="Full-Stack Web Developer"
+          >
+          </Typewriter>
+          <Toolbar :toolList="toolArr" />
+        </div>
+      </template>
       <!-- <TextBubble>
         <slot name="header">
 
@@ -43,7 +41,7 @@ import CharacterComponent from "@/components/Character.vue";
 // import TextBubble from "@/components/TextBubble.vue";
 import Panzoom from "@panzoom/panzoom";
 import Typewriter from "./components/Typewriter.vue";
-import ToolList from "./components/ToolList.vue";
+import Toolbar from "./components/Toolbar.vue";
 
 export default {
   name: "App",
@@ -52,7 +50,7 @@ export default {
     CharacterComponent,
     // TextBubble,
     Typewriter,
-    ToolList,
+    Toolbar,
   },
   mounted() {
     const homeLayerElem = this.$refs.home_layer as HTMLElement;
