@@ -68,7 +68,7 @@ export default defineComponent({
   border-radius: 100%;
   background-color: $color-white;
   z-index: 2;
-  animation: fadeIn 1s ease-in-out forwards;
+  animation: popOut 1s ease-in-out forwards;
 
   &__tail {
     display: block;

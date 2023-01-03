@@ -194,7 +194,7 @@ export default {
     }
   }
 
-  &__toolbar{
+  &__toolbar {
     animation: fadeIn 1s ease-in-out forwards;
   }
 
@@ -232,15 +232,18 @@ export default {
 
 .text-bubble {
   &_contact {
-    transform: translate(2rem, 25rem);
+    left: 2rem;
+    top: 25rem;
   }
 
   &_about {
-    transform: translate(8rem, 20rem);
+    left: 8rem;
+    top: 20rem;
   }
 
   &_projects {
-    transform: translate(17rem, 30rem);
+    right: 1rem;
+    top: 30rem;
   }
 }
 </style>
