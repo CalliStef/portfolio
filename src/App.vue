@@ -110,6 +110,10 @@ export default {
           toolIcon: "logos:vue",
         },
         {
+          toolName: "Node.js",
+          toolIcon: "logos:nodejs-icon",
+        },
+        {
           toolName: "MySQL",
           toolIcon: "logos:mysql-icon",
         },
