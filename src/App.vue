@@ -14,30 +14,34 @@
               textProp="Full-Stack Web Developer"
             >
             </Typewriter> -->
-          <Toolbar v-if="showHome" class="home__toolbar" :toolList="toolArr" />
+          <Toolbar class="home__toolbar" :toolList="toolArr" />
         </div>
         <TextBubble
-          class="text-bubble__nav text-bubble_contact"
+          class="text-bubble_contact"
           headerText="Contact"
           tailDirection="bottom-right"
+          @click="getSection(90, -40, 'contact')"
         />
         <TextBubble
-          class="text-bubble__nav text-bubble_about"
+          class="text-bubble_about"
           headerText="About Me"
           tailDirection="bottom-right"
+          @click="getSection(-60, -100, 'about')"
         />
         <TextBubble
-          class="text-bubble__nav text-bubble_projects"
+          class="text-bubble_projects"
           headerText="Projects"
           tailDirection="top-left"
         />
       </template>
-      <CharacterComponent class="home__scene"></CharacterComponent>
+      <template v-if="showContact"> </template>
+
+      <CharacterComponent ref="home_something" class="home__scene" />
     </div>
     <Intro
       ref="intro__layer"
       @show-home="zoomHomeLayer"
-      v-if="!showHome"
+      v-if="!hideIntro"
     ></Intro>
   </div>
 </template>
@@ -70,21 +74,47 @@ export default {
   },
   methods: {
     zoomHomeLayer() {
-      const homeLayerElem = this.$refs.home_layer as HTMLElement;
-      const panzoom = Panzoom(homeLayerElem, {
+      this.homeLayerElem = this.$refs.home_layer as HTMLElement;
+      this.panzoom = Panzoom(this.homeLayerElem, {
         disablePan: true,
         cursor: "auto",
       });
-      panzoom.zoom(1, { animate: true, duration: 800, easing: "ease-in-out" });
-      panzoom.zoomIn;
+      this.panzoom.zoom(1, {
+        animate: true,
+        duration: 800,
+        easing: "ease-in-out",
+      });
+      this.panzoom.zoomIn;
       setTimeout(() => {
         this.showHome = true;
+        this.hideIntro = true;
       }, 1000);
     },
+    getSection(x: number, y: number, sectionName: string) {
+      this.panzoom.pan(x, y, { force: true, relative: true });
+      this.panzoom.zoom(2, {
+        animate: true,
+        duration: 800,
+        easing: "ease-in-out",
+      });
+      this.panzoom.zoomIn;
+      this.showHome = false;
+      sectionName === "contact"
+        ? (this.showContact = true)
+        : sectionName === "about"
+        ? (this.showAbout = true)
+        : this.getProjectPage();
+    },
+    getProjectPage() {},
   },
   data() {
     return {
+      hideIntro: false,
       showHome: false,
+      showContact: false,
+      showAbout: false,
+      panzoom: null as any,
+      homeLayerElem: null as any as HTMLElement,
       toolArr: [
         {
           toolName: "HTML",
@@ -225,7 +255,6 @@ export default {
 }
 
 .text-bubble {
-
   /* &__nav:hover{
     animation: scaleUpDown 1.5s ease 0s infinite backwards;
   } */
