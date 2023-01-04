@@ -10,29 +10,28 @@
             textProp="My name is Callista Stefanie Taswin, Full-Stack Web Developer"
           ></Typewriter>
           <!-- <Typewriter
-            class="home__header home__header--blue"
-            textProp="Full-Stack Web Developer"
-          >
-          </Typewriter> -->
-          <Toolbar class="home__toolbar" :toolList="toolArr" />
+              class="home__header home__header--blue"
+              textProp="Full-Stack Web Developer"
+            >
+            </Typewriter> -->
+          <Toolbar v-if="showHome" class="home__toolbar" :toolList="toolArr" />
         </div>
         <TextBubble
-          class="text-bubble_contact"
+          class="text-bubble__nav text-bubble_contact"
           headerText="Contact"
           tailDirection="bottom-right"
         />
         <TextBubble
-          class="text-bubble_about"
+          class="text-bubble__nav text-bubble_about"
           headerText="About Me"
           tailDirection="bottom-right"
         />
         <TextBubble
-          class="text-bubble_projects"
+          class="text-bubble__nav text-bubble_projects"
           headerText="Projects"
           tailDirection="top-left"
         />
       </template>
-
       <CharacterComponent class="home__scene"></CharacterComponent>
     </div>
     <Intro
@@ -157,21 +156,16 @@ export default {
   touch-action: manipulation;
 }
 
-.stagger-enter-active .home__header--blue {
-  color: red;
-  transition-delay: 2s;
+.wait {
+  &-enter-active {
+    transition-delay: 2s;
+  }
 }
 
 .home {
   &__header {
     font-family: "FuzzyBubbles-Regular";
     font-size: $font-size-medium;
-
-    &--transition {
-      &-enter-active {
-        transition-delay: 1s;
-      }
-    }
 
     &-container {
       position: absolute;
@@ -195,7 +189,7 @@ export default {
   }
 
   &__toolbar {
-    animation: fadeIn 1s ease-in-out forwards;
+    animation: fadeIn 1s ease-in-out 3s backwards;
   }
 
   &__layer {
@@ -231,19 +225,27 @@ export default {
 }
 
 .text-bubble {
+
+  /* &__nav:hover{
+    animation: scaleUpDown 1.5s ease 0s infinite backwards;
+  } */
+
   &_contact {
     left: 2rem;
     top: 25rem;
+    animation-delay: 4s;
   }
 
   &_about {
     left: 8rem;
     top: 20rem;
+    animation-delay: 5s;
   }
 
   &_projects {
     right: 1rem;
     top: 30rem;
+    animation-delay: 6s;
   }
 }
 </style>

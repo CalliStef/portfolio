@@ -68,7 +68,7 @@ export default defineComponent({
   border-radius: 100%;
   background-color: $color-white;
   z-index: 2;
-  animation: popOut 1s ease-in-out forwards;
+  animation: popOut 1s ease-in-out backwards;
 
   &__tail {
     display: block;
@@ -88,7 +88,7 @@ export default defineComponent({
       transform: rotateZ(65deg);
     }
 
-    &--top-left{
+    &--top-left {
       top: 0.5rem;
       transform: rotateZ(-335deg);
     }
