@@ -34,7 +34,23 @@
           tailDirection="top-left"
         />
       </template>
-      <template v-if="showContact"> </template>
+      <div class="home__sub-section" v-if="showContact || showAbout">
+        <template v-if="showContact">
+          <TextBubble
+            class="contact__text-bubble"
+            headerText="Contact"
+            contentText="email,phonenumber"
+          />
+        </template>
+        <template v-if="showAbout"> </template>
+        <Icon
+          class="home__button"
+          :icon="'material-symbols:keyboard-double-arrow-down-rounded'"
+          :color="'#0AC4B2'"
+          :height="30"
+          @click="navigateHome('contact')"
+        />
+      </div>
 
       <CharacterComponent ref="home_something" class="home__scene" />
     </div>
@@ -47,12 +63,13 @@
 </template>
 
 <script lang="ts">
+import { Icon } from "@iconify/vue";
 import Intro from "@/components/IntroLayer.vue";
 import CharacterComponent from "@/components/Character.vue";
 import TextBubble from "@/components/TextBubble.vue";
 import Panzoom from "@panzoom/panzoom";
-import Typewriter from "./components/Typewriter.vue";
-import Toolbar from "./components/Toolbar.vue";
+import Typewriter from "@/components/Typewriter.vue";
+import Toolbar from "@/components/Toolbar.vue";
 
 export default {
   name: "App",
@@ -62,6 +79,7 @@ export default {
     TextBubble,
     Typewriter,
     Toolbar,
+    Icon,
   },
   mounted() {
     const homeLayerElem = this.$refs.home_layer as HTMLElement;
@@ -89,6 +107,27 @@ export default {
         this.showHome = true;
         this.hideIntro = true;
       }, 1000);
+    },
+    navigateHome(sectionName: string) {
+      // this.panzoom.pan(0, 0, { force: true, relative: true });
+
+      // this.panzoom.zoom(1, {
+      //   animate: true,
+      //   duration: 800,
+      //   easing: "ease-in-out",
+      // });
+      this.panzoom.reset({
+        animate: true,
+        duration: 800,
+        easing: "ease-in-out",
+      });
+
+      sectionName === "contact"
+        ? (this.showContact = false)
+        : (this.showAbout = false);
+
+      // this.panzoom.zoomOut;
+      this.showHome = true;
     },
     getSection(x: number, y: number, sectionName: string) {
       this.panzoom.pan(x, y, { force: true, relative: true });
