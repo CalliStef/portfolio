@@ -41,15 +41,14 @@
             headerText="Contact"
             contentText="email,phonenumber"
           />
+          <Icon
+            class="home__button"
+            :icon="'material-symbols:keyboard-double-arrow-down-rounded'"
+            :color="'#0AC4B2'"
+            :height="30"
+            @click="navigateHome('contact')"
+          />
         </template>
-        <template v-if="showAbout"> </template>
-        <Icon
-          class="home__button"
-          :icon="'material-symbols:keyboard-double-arrow-down-rounded'"
-          :color="'#0AC4B2'"
-          :height="30"
-          @click="navigateHome('contact')"
-        />
       </div>
 
       <CharacterComponent ref="home_something" class="home__scene" />
@@ -109,13 +108,6 @@ export default {
       }, 1000);
     },
     navigateHome(sectionName: string) {
-      // this.panzoom.pan(0, 0, { force: true, relative: true });
-
-      // this.panzoom.zoom(1, {
-      //   animate: true,
-      //   duration: 800,
-      //   easing: "ease-in-out",
-      // });
       this.panzoom.reset({
         animate: true,
         duration: 800,
@@ -225,12 +217,6 @@ export default {
   touch-action: manipulation;
 }
 
-.wait {
-  &-enter-active {
-    transition-delay: 2s;
-  }
-}
-
 .home {
   &__header {
     font-family: "FuzzyBubbles-Regular";
@@ -261,6 +247,13 @@ export default {
     animation: fadeIn 1s ease-in-out 3s backwards;
   }
 
+  &__button {
+    position: absolute;
+    bottom: 35%;
+    left: 25%;
+    z-index: 3;
+  }
+
   &__layer {
     display: flex;
     flex-direction: column;
@@ -278,10 +271,19 @@ export default {
 
     &--floor {
       display: flex;
+      position: absolute;
+      bottom: 0;
       width: 100%;
       height: 17rem;
       background-color: $color-soft-orange;
     }
+  }
+
+  &__sub-section {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    position: relative;
   }
 
   &__scene {
@@ -314,6 +316,15 @@ export default {
     right: 1rem;
     top: 30rem;
     animation-delay: 6s;
+  }
+}
+
+.contact {
+  &__text-bubble {
+    left: 8%;
+    top: -10%;
+    /* top: 30%; */
+    /* transform: translate(-50%, -50%); */
   }
 }
 </style>
