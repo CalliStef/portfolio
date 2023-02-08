@@ -31,7 +31,8 @@ export default defineComponent({
   &__container &__text {
     overflow: hidden;
     white-space: nowrap;
-    animation: typing 2s steps(30, end) backwards;
+    margin: 0 auto;
+    animation: typing 1.5s steps(20, end) backwards;
   }
 }
 </style>

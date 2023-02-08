@@ -550,11 +550,11 @@ svg {
 #clothes {
   &__poncho {
     &--armL {
-      animation: MoveUpDown 1.4s linear infinite;
+      animation: moveUpDown 1.4s linear infinite;
     }
 
     &--armR {
-      animation: MoveUpDown 1s linear infinite;
+      animation: moveUpDown 1s linear infinite;
     }
   }
 }
@@ -562,17 +562,17 @@ svg {
 #character {
   &__leg-right--bottom {
     transform-origin: 768.19px 596.09px;
-    animation: Swing ease-in-out 1s infinite alternate;
+    animation: swing ease-in-out 1s infinite alternate;
   }
 
   &__leg-left--bottom {
     transform-origin: 672.05px 590.81px;
-    animation: Swing ease-in-out 1.3s infinite alternate;
+    animation: swing ease-in-out 1.3s infinite alternate;
   }
 
   &__eye {
     transform-origin: 711.38px 179.89px;
-    animation: Blink 5s infinite;
+    animation: blink 5s infinite;
   }
 }
 

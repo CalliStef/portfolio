@@ -1,54 +1,54 @@
-@import './variables';
+@import "./variables";
 
-@keyframes MoveUpDown {
-    0%,
-    100% {
-      transform: translateY(20px);
-    }
-    50% {
-      transform: translateY(50px);
-    }
+@keyframes moveUpDown {
+  0%,
+  100% {
+    transform: translateY(20px);
   }
-  
-  @keyframes Swing {
-    0% {
-      transform: rotate(3deg);
-    }
-    100% {
-      transform: rotate(-3deg);
-    }
+  50% {
+    transform: translateY(30px);
   }
-  
-  @keyframes Blink {
-      0%, 100% {
-          transform: scaleY(.0);
-      }
-      5%,
-      95% {
-          transform: scaleY(1);
-      }
-  }
+}
 
+@keyframes swing {
+  0% {
+    transform: rotate(3deg);
+  }
+  100% {
+    transform: rotate(-3deg);
+  }
+}
 
-@keyframes popOut{
-  0%{
+@keyframes blink {
+  0%,
+  100% {
+    transform: scaleY(0);
+  }
+  5%,
+  95% {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes popOut {
+  0% {
     transform: scale(0);
   }
-  80%{
+  80% {
     transform: scale(1.2);
   }
-  100%{
+  100% {
     transform: scale(1);
   }
 }
 
-@keyframes fadeIn{
-  0%{
-    opacity: 0
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
   }
 
-  100%{
-    opacity: 1
+  100% {
+    opacity: 1;
   }
 }
 
@@ -67,11 +67,20 @@
 }
 
 @keyframes typing {
-  from { width: 0 }
-  to { width: 100% }
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
 }
 
 @keyframes blink-caret {
-  from, to { border-color: transparent }
-  50% { border-color: $color-soft-orange }
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: $color-soft-orange;
+  }
 }

@@ -108,8 +108,8 @@ export default defineComponent({
         this.hideIntro = true;
       }, 1000);
     },
-    onNavigateHome(sectionName: string) {
-      console.log("section name", sectionName);
+    onNavigateHome(sectionObject: {sectionName: string}) {
+      // console.log("section name", sectionName);
 
       this.panzoom.reset({
         animate: true,
@@ -117,7 +117,7 @@ export default defineComponent({
         easing: "ease-in-out",
       });
 
-      sectionName === "contact"
+      sectionObject.sectionName === "contact"
         ? (this.showContact = false)
         : (this.showAbout = false);
 

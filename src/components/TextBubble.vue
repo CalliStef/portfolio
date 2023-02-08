@@ -9,7 +9,7 @@
         <slot name="tools"> </slot>
       </div>
       <div class="text-bubble__content">
-        <slot name="tools"> </slot>
+        <slot name="content"> </slot>
       </div>
     </div>
   </Transition>
@@ -107,10 +107,10 @@ export default defineComponent({
   &__tools,
   &__content {
     font-family: "FuzzyBubbles-Regular";
-    font-size: $font-size-small;
+    font-size: $font-size-xs-small;
 
     @include respond(tab-land) {
-      font-size: $font-size-medium;
+      font-size: $font-size-small;
     }
   }
 }
