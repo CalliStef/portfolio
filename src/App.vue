@@ -1,5 +1,10 @@
 <template>
   <div class="main__layer">
+      <Intro
+        ref="intro__layer"
+        @show-home="zoomHomeLayer"
+        v-if="!hideIntro"
+      ></Intro>
     <div ref="home_layer" class="home__layer">
       <div class="home__layer--wall"></div>
       <div class="home__layer--floor"></div>
@@ -7,70 +12,66 @@
         <div class="home__header-container">
           <Typewriter
             class="home__header home__header--black"
-            textProp="My name is Callista Stefanie Taswin, Full-Stack Web Developer"
-          ></Typewriter>
-          <!-- <Typewriter
-              class="home__header home__header--blue"
-              textProp="Full-Stack Web Developer"
-            >
-            </Typewriter> -->
+            textProp="My name is Callista Stefanie Taswin,"
+          />
+          <Typewriter
+            class="home__header home__header--blue"
+            textProp="Full-Stack Web Developer"
+            delay="2s"
+          />
           <Toolbar class="home__toolbar" :toolList="toolArr" />
         </div>
         <TextBubble
-          class="text-bubble_contact"
-          headerText="Contact"
+          class="text-bubble--contact"
+          delay="4s"
           tailDirection="bottom-right"
           @click="getSection(90, -40, 'contact')"
-        />
+        >
+          <template #header>
+            <Typewriter textProp="Contact" delay="1s" />
+          </template>
+        </TextBubble>
+
         <TextBubble
-          class="text-bubble_about"
-          headerText="About Me"
+          class="text-bubble--about"
+          delay="5s"
           tailDirection="bottom-right"
           @click="getSection(-60, -100, 'about')"
-        />
+        >
+          <template #header>About</template>
+        </TextBubble>
+
         <TextBubble
-          class="text-bubble_projects"
-          headerText="Projects"
+          class="text-bubble--projects"
+          delay="6s"
           tailDirection="top-left"
-        />
+        >
+          <template #header>Projects</template>
+        </TextBubble>
       </template>
-      <div class="home__sub-section" v-if="showContact || showAbout">
+      <div v-if="showContact || showAbout">
         <template v-if="showContact">
-          <TextBubble
-            class="contact__text-bubble"
-            headerText="Contact"
-            contentText="email,phonenumber"
-          />
-          <Icon
-            class="home__button"
-            :icon="'material-symbols:keyboard-double-arrow-down-rounded'"
-            :color="'#0AC4B2'"
-            :height="30"
-            @click="navigateHome('contact')"
-          />
+          <ContactSection @navigateHome="onNavigateHome" />
         </template>
+        <template v-else-if="showAbout"> </template>
       </div>
 
-      <CharacterComponent ref="home_something" class="home__scene" />
+      <CharacterComponent class="home__scene" />
     </div>
-    <Intro
-      ref="intro__layer"
-      @show-home="zoomHomeLayer"
-      v-if="!hideIntro"
-    ></Intro>
   </div>
 </template>
 
 <script lang="ts">
-import { Icon } from "@iconify/vue";
+import { defineComponent } from "vue";
 import Intro from "@/components/IntroLayer.vue";
 import CharacterComponent from "@/components/Character.vue";
 import TextBubble from "@/components/TextBubble.vue";
 import Panzoom from "@panzoom/panzoom";
 import Typewriter from "@/components/Typewriter.vue";
 import Toolbar from "@/components/Toolbar.vue";
+import ContactSection from "./components/Contact.vue";
 
-export default {
+export default defineComponent({
   name: "App",
   components: {
     Intro,
@@ -78,7 +79,7 @@ export default {
     TextBubble,
     Typewriter,
     Toolbar,
-    Icon,
+    ContactSection,
   },
   mounted() {
     const homeLayerElem = this.$refs.home_layer as HTMLElement;
@@ -98,7 +99,7 @@ export default {
       });
       this.panzoom.zoom(1, {
         animate: true,
-        duration: 800,
+        duration: 1000,
         easing: "ease-in-out",
       });
       this.panzoom.zoomIn;
@@ -107,7 +108,9 @@ export default {
         this.hideIntro = true;
       }, 1000);
     },
-    navigateHome(sectionName: string) {
+    onNavigateHome(sectionName: string) {
+      console.log("section name", sectionName);
+
       this.panzoom.reset({
         animate: true,
         duration: 800,
@@ -180,6 +183,10 @@ export default {
           toolIcon: "logos:nodejs-icon",
         },
         {
+          toolName: "Express.js",
+          toolIcon: "logos:express",
+        },
+        {
           toolName: "MySQL",
           toolIcon: "logos:mysql-icon",
         },
@@ -191,10 +198,38 @@ export default {
           toolName: "Storybook",
           toolIcon: "logos:storybook-icon",
         },
+        {
+          toolName: "Docker",
+          toolIcon: "logos:docker-icon",
+        },
+        {
+          toolName: "MongoDB",
+          toolIcon: "skill-icons:mongodb",
+        },
+        {
+          toolName: "Socket.IO",
+          toolIcon: "logos:socket-io",
+        },
+        {
+          toolName: "Typescript",
+          toolIcon: "logos:typescript-icon",
+        },
+        {
+          toolName: "PHP",
+          toolIcon: "logos:php",
+        },
+        {
+          toolName: "C#",
+          toolIcon: "logos:c-sharp",
+        },
+        {
+          toolName: ".NET",
+          toolIcon: "skill-icons:dotnet",
+        },
       ],
     };
   },
-};
+});
 </script>
 
 <style scoped lang="scss">
@@ -217,21 +252,33 @@ export default {
   touch-action: manipulation;
 }
 
+
 .home {
   &__header {
     font-family: "FuzzyBubbles-Regular";
     font-size: $font-size-medium;
 
+    @include respond(tab-land) {
+      font-size: $font-size-big;
+    }
+
     &-container {
       position: absolute;
       display: flex;
       flex-direction: column;
-      width: 20rem;
+      min-width: auto;
+      /* width: 20rem; */
       height: 10rem;
       text-align: center;
       left: 50%;
       top: 20%;
       transform: translate(-50%, 0);
+
+      @include respond(tab-land) {
+        left: 30%;
+        top: 40%;
+        text-align: left;
+      }
     }
 
     &--black {
@@ -247,13 +294,6 @@ export default {
     animation: fadeIn 1s ease-in-out 3s backwards;
   }
 
-  &__button {
-    position: absolute;
-    bottom: 35%;
-    left: 25%;
-    z-index: 3;
-  }
-
   &__layer {
     display: flex;
     flex-direction: column;
@@ -261,6 +301,8 @@ export default {
     height: 100vh;
     background-color: $color-beige;
     position: absolute;
+    animation: fadeIn 1s ease-in-out 3s backwards;
+
 
     &--wall {
       display: flex;
@@ -292,6 +334,12 @@ export default {
     left: 50%;
     top: 40%;
     transform: translate(-50%, 0);
+
+    @include respond(tab-land) {
+      width: 30rem;
+      left: 65%;
+      top: 25%;
+    }
   }
 }
 
@@ -300,31 +348,35 @@ export default {
     animation: scaleUpDown 1.5s ease 0s infinite backwards;
   } */
 
-  &_contact {
+  &--contact {
     left: 2rem;
     top: 25rem;
-    animation-delay: 4s;
+    transition: all 0.2s;
+
+    @include respond(tab-land) {
+      left: 42rem;
+      top: 18rem;
+    }
   }
 
-  &_about {
+  &--about {
     left: 8rem;
     top: 20rem;
-    animation-delay: 5s;
+
+    @include respond(tab-land) {
+      left: 50rem;
+      top: 12rem;
+    }
   }
 
-  &_projects {
+  &--projects {
     right: 1rem;
     top: 30rem;
-    animation-delay: 6s;
-  }
-}
 
-.contact {
-  &__text-bubble {
-    left: 8%;
-    top: -10%;
-    /* top: 30%; */
-    /* transform: translate(-50%, -50%); */
+    @include respond(tab-land) {
+      right: 15rem;
+      top: 25rem;
+    }
   }
 }
 </style>

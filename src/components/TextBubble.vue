@@ -1,41 +1,36 @@
 <template>
-  <div class="text-bubble">
-    <div :class="['text-bubble__tail', getTailDirection]"></div>
-    <h1 v-if="headerText">
-      <Typewriter class="text-bubble__header" :textProp="headerText" />
-    </h1>
-    <main>
-      <div v-if="toolArr" class="text-bubble__tools">
-        <Typewriter class="text-bubble__tools" textProp="Tools used:" />
+  <Transition appear :style="{ animationDelay: delay }">
+    <div class="text-bubble">
+      <div :class="['text-bubble__tail', getTailDirection]"></div>
+      <div class="text-bubble__header">
+        <slot name="header"> </slot>
       </div>
-
-      <div v-if="contentText">
-        <Typewriter class="text-bubble__content" :textProp="contentText" />
+      <div class="text-bubble__tools">
+        <slot name="tools"> </slot>
       </div>
-    </main>
-  </div>
+      <div class="text-bubble__content">
+        <slot name="tools"> </slot>
+      </div>
+    </div>
+  </Transition>
 </template>
 
 <!-- bottom left, bottom right, top left, top right -->
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import Typewriter from "./Typewriter.vue";
 
 export default defineComponent({
   name: "text-bubble",
-  components: {
-    Typewriter,
-  },
+  components: {},
   props: {
+    delay: { type: String, default: null },
     headerText: { type: String, default: null },
     tailDirection: { type: String, default: null },
     contentText: { type: String, default: null },
     toolArr: { type: Array, default: null },
   },
-  methods: {
-    name() {},
-  },
+  methods: {},
   computed: {
     getTailDirection(): string {
       return this.tailDirection === "bottom-left"
@@ -70,6 +65,11 @@ export default defineComponent({
   z-index: 2;
   animation: popOut 1s ease-in-out backwards;
 
+  @include respond(tab-land) {
+    min-width: 8rem;
+    min-height: 5rem;
+  }
+
   &__tail {
     display: block;
     position: absolute;
@@ -98,12 +98,20 @@ export default defineComponent({
     text-align: center;
     font-family: "FuzzyBubbles-Bold";
     font-size: $font-size-small;
+
+    @include respond(tab-land) {
+      font-size: $font-size-medium;
+    }
   }
 
   &__tools,
   &__content {
     font-family: "FuzzyBubbles-Regular";
     font-size: $font-size-small;
+
+    @include respond(tab-land) {
+      font-size: $font-size-medium;
+    }
   }
 }
 </style>

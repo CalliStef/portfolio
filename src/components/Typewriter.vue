@@ -1,5 +1,9 @@
 <template>
-  <p ref="type__text"></p>
+  <div class="typewriter__container">
+    <Transition appear :style="{ animationDelay: delay }">
+      <p class="typewriter__text" ref="type__text">{{ textProp }}</p>
+    </Transition>
+  </div>
 </template>
 
 <script lang="ts">
@@ -8,23 +12,11 @@ import { defineComponent } from "vue";
 export default defineComponent({
   name: "Type-writer",
   props: {
+    delay: { type: String, default: null },
     textProp: { type: String, required: true },
   },
-  mounted() {
-    this.animate();
-  },
-  methods: {
-    animate() {
-      if (this.characterIndex < this.textContent.length) {
-        (this.$refs.type__text as HTMLElement).innerHTML +=
-          this.textContent.charAt(this.characterIndex);
-        this.characterIndex++;
-        setTimeout(this.animate, 50);
-      } else {
-        this.$emit("typewriting-done");
-      }
-    },
-  },
+  computed: {},
+  methods: {},
   data() {
     return {
       textContent: this.textProp,
@@ -34,4 +26,12 @@ export default defineComponent({
 });
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.typewriter {
+  &__container &__text {
+    overflow: hidden;
+    white-space: nowrap;
+    animation: typing 2s steps(30, end) backwards;
+  }
+}
+</style>

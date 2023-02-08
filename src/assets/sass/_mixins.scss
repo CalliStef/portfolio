@@ -1,0 +1,30 @@
+@mixin respond($breakpoint) {
+  // passess a parameter
+  @if $breakpoint == phone {
+    @media (max-width: 37.5em) {
+      @content;
+    } // apply to any width that is smaller than 600px
+  } // 600px/ 16 = 37.5em
+
+  // em and rem are not effected by the root font sizing-
+  // one em or one rem is equal to the browser's font sizing which is 16px
+  // but if user changes the default font-sizing to 20px, then everything will be 20px
+
+  @if $breakpoint == tab-land {
+    @media (min-width: 700px) {
+      @content;
+    } // 900
+  }
+
+  @if $breakpoint == tab-land {
+    @media (min-width: 1200px) {
+      @content;
+    } // 1200
+  }
+
+  @if $breakpoint == big-desktop {
+    @media (min-width: 1800px) {
+      @content;
+    } // 1800
+  }
+}

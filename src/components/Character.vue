@@ -559,25 +559,21 @@ svg {
   }
 }
 
-
-
-#character{
-
-  &__leg-right--bottom{
+#character {
+  &__leg-right--bottom {
     transform-origin: 768.19px 596.09px;
     animation: Swing ease-in-out 1s infinite alternate;
   }
 
-  &__leg-left--bottom{
+  &__leg-left--bottom {
     transform-origin: 672.05px 590.81px;
     animation: Swing ease-in-out 1.3s infinite alternate;
   }
 
-  &__eye{
+  &__eye {
     transform-origin: 711.38px 179.89px;
     animation: Blink 5s infinite;
   }
-
 }
 
 .cls-1 {

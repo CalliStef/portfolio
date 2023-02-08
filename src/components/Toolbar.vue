@@ -1,12 +1,13 @@
 <template>
   <div class="toolbar__container">
-    <Vue3Marquee :duration="10">
+    <Vue3Marquee :duration="20">
       <Icon
         v-for="(tool, index) in toolArr"
         :key="index"
         class="toolbar__icon"
         :icon="tool.toolIcon"
-        :height="20"
+        :height="toolbarSize"
+        :width="toolbarSize"
       />
     </Vue3Marquee>
   </div>
@@ -25,15 +26,37 @@ export default defineComponent({
     Icon,
     Vue3Marquee,
   },
-  methods: {},
+  methods: {
+    onResize() {
+      this.windowWidth = window.innerWidth;
+      if (this.windowWidth >= 1200) {
+        this.toolbarSize = 30;
+      } else {
+        this.toolbarSize = 20;
+      }
+    },
+  },
   mounted() {
     this.toolArr = JSON.parse(JSON.stringify(this.toolList));
+    this.$nextTick(() => {
+      window.addEventListener("resize", this.onResize);
+    });
+    if (this.windowWidth >= 1200) {
+      this.toolbarSize = 30;
+    } else {
+      this.toolbarSize = 20;
+    }
+  },
+  beforeUnmount() {
+    window.removeEventListener("resize", this.onResize);
   },
   props: {
     toolList: { type: Array, required: true },
   },
   data() {
     return {
+      toolbarSize: 20,
+      windowWidth: window.innerWidth,
       toolArr: [] as { toolName: string; toolIcon: string }[],
     };
   },
@@ -50,6 +73,11 @@ export default defineComponent({
     height: 2rem;
     align-self: center;
     overflow: hidden;
+
+    @include respond(tab-land) {
+      width: 25rem;
+      height: 2rem;
+    }
   }
 
   &__icon {

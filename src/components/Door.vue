@@ -4,6 +4,7 @@
     data-name="door"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 423.21 493.41"
+    ref="svg"
   >
     <g id="door_group" data-name="door group">
       <ellipse
@@ -27,7 +28,6 @@
           y="15.41"
           width="208.85"
           height="472.51"
-          z-index="2"
         />
         <g id="door__inner" :class="{ doorOpened: isOpen }">
           <rect
@@ -82,6 +82,7 @@ export default defineComponent({
     doorOpen() {
       this.isOpen = true;
       (this.$refs.door__inside as HTMLElement).remove();
+      (this.$refs.svg as HTMLElement).style.backgroundColor = "transparent";
       this.$emit("door-open");
     },
   },
@@ -96,10 +97,11 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 svg {
-  width: 11.065rem;
+  width: 12.065rem;
   overflow: visible;
+  background-color: $color-beige;
 }
 
 #door__body {
