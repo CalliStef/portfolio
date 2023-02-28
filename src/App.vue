@@ -1,10 +1,10 @@
 <template>
   <div class="main__layer">
-      <Intro
-        ref="intro__layer"
-        @show-home="zoomHomeLayer"
-        v-if="!hideIntro"
-      ></Intro>
+    <Intro
+      ref="intro__layer"
+      @show-home="zoomHomeLayer"
+      v-if="!hideIntro"
+    ></Intro>
     <div ref="home_layer" class="home__layer">
       <div class="home__layer--wall"></div>
       <div class="home__layer--floor"></div>
@@ -108,7 +108,7 @@ export default defineComponent({
         this.hideIntro = true;
       }, 1000);
     },
-    onNavigateHome(sectionObject: {sectionName: string}) {
+    onNavigateHome(sectionObject: { sectionName: string }) {
       // console.log("section name", sectionName);
 
       this.panzoom.reset({
@@ -252,13 +252,12 @@ export default defineComponent({
   touch-action: manipulation;
 }
 
-
 .home {
   &__header {
     font-family: "FuzzyBubbles-Regular";
     font-size: $font-size-medium;
 
-    @include respond(tab-land) {
+    @include respond(tablets-landscape) {
       font-size: $font-size-big;
     }
 
@@ -274,7 +273,7 @@ export default defineComponent({
       top: 20%;
       transform: translate(-50%, 0);
 
-      @include respond(tab-land) {
+      @include respond(tablets-landscape) {
         left: 30%;
         top: 40%;
         text-align: left;
@@ -302,7 +301,6 @@ export default defineComponent({
     background-color: $color-beige;
     position: absolute;
     animation: fadeIn 1s ease-in-out 3s backwards;
-
 
     &--wall {
       display: flex;
@@ -335,7 +333,7 @@ export default defineComponent({
     top: 40%;
     transform: translate(-50%, 0);
 
-    @include respond(tab-land) {
+    @include respond(tablets-landscape) {
       width: 30rem;
       left: 65%;
       top: 25%;
@@ -353,7 +351,7 @@ export default defineComponent({
     top: 25rem;
     transition: all 0.2s;
 
-    @include respond(tab-land) {
+    @include respond(tablets-landscape) {
       left: 42rem;
       top: 18rem;
     }
@@ -363,7 +361,7 @@ export default defineComponent({
     left: 8rem;
     top: 20rem;
 
-    @include respond(tab-land) {
+    @include respond(tablets-landscape) {
       left: 50rem;
       top: 12rem;
     }
@@ -373,7 +371,7 @@ export default defineComponent({
     right: 1rem;
     top: 30rem;
 
-    @include respond(tab-land) {
+    @include respond(tablets-landscape) {
       right: 15rem;
       top: 25rem;
     }

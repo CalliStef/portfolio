@@ -74,7 +74,7 @@ export default defineComponent({
     align-self: center;
     overflow: hidden;
 
-    @include respond(tab-land) {
+    @include respond(tablets-landscape) {
       width: 25rem;
       height: 2rem;
     }

@@ -24,7 +24,7 @@
         ref="door"
         class="intro__door"
         @door-open="zoomToHome"
-      ></DoorComponent>
+      />
     </div>
   </div>
   <!-- </div> -->
@@ -93,18 +93,18 @@ export default {
     align-items: center;
     transition: all 0.2s ease-in;
 
-    /* @include respond(tab-land) {
+    /* @include respond(tablets-landscape) {
       flex-direction: row;
     } */
   }
 
   &__header {
     font-family: "FuzzyBubbles-Bold";
-    font-size: $font-size-medium;
+    font-size: $font-size-small;
     text-align: center;
 
-    @include respond(tab-land) {
-      font-size: $font-size-big;
+    @include respond(tablets-portrait) {
+      font-size: $font-size-medium;
     }
 
     &-container {
@@ -112,7 +112,7 @@ export default {
       gap: 0.2rem;
       align-items: flex-end;
 
-      @include respond(tab-land) {
+      @include respond(tablets-portrait) {
         /* order: 2; */
       }
     }

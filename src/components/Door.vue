@@ -99,9 +99,13 @@ export default defineComponent({
 
 <style scoped lang="scss">
 svg {
-  width: 12.065rem;
+  width: 9.065rem;
   overflow: visible;
   background-color: $color-beige;
+
+  @include respond(tablets-portrait) {
+    width: 12.065rem;
+  }
 }
 
 #door__body {

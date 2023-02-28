@@ -55,7 +55,8 @@
       class="contact__button"
       :icon="'material-symbols:keyboard-double-arrow-down-rounded'"
       :color="'#0AC4B2'"
-      :height="30"
+      :height="homeIconSize"
+      :width="homeIconSize"
       @click="navigateHome"
     />
   </div>
@@ -80,10 +81,12 @@ export default defineComponent({
     },
     onResize() {
       this.windowWidth = window.innerWidth;
-      if (this.windowWidth >= 1200) {
-        this.mediaIconSize = 30;
+      if (this.windowWidth >= 992) {
+        this.mediaIconSize = 20;
+        this.homeIconSize = 40;
       } else {
         this.mediaIconSize = 10;
+        this.homeIconSize = 30;
       }
     },
   },
@@ -91,10 +94,12 @@ export default defineComponent({
     this.$nextTick(() => {
       window.addEventListener("resize", this.onResize);
     });
-    if (this.windowWidth >= 1200) {
-      this.windowWidth = 30;
+    if (this.windowWidth >= 992) {
+      this.mediaIconSize = 20;
+      this.homeIconSize = 40;
     } else {
-      this.windowWidth = 10;
+      this.mediaIconSize = 10;
+      this.homeIconSize = 30;
     }
   },
   beforeUnmount() {
@@ -104,6 +109,7 @@ export default defineComponent({
     return {
       windowWidth: window.innerWidth,
       mediaIconSize: 10,
+      homeIconSize: 20,
     };
   },
 });
@@ -123,10 +129,29 @@ export default defineComponent({
   }
 
   &__text-bubble {
-    left: 15%;
+    left: 30%;
     top: 40%;
     gap: 0.2rem;
     width: 10rem;
+    justify-content: center;
+    align-items: center;
+    transform: translateX(-50%);
+
+    @include respond(phones) {
+      left: 35%;
+      top: 43%;
+    }
+
+    @include respond(tablets-landscape) {
+      left: 30%;
+      top: 40%;
+      width: 15rem;
+      height: 10rem;
+    }
+
+    @include respond(laptops) {
+      left: 35%;
+    }
   }
 
   &__button {
@@ -135,6 +160,19 @@ export default defineComponent({
     left: 30.5%;
     z-index: 3;
     animation: moveUpDown 1s ease-in-out infinite;
+    transform: translateX(-50%);
+
+    @include respond(phones) {
+      left: 33%;
+    }
+
+    @include respond(tablets-portrait) {
+      left: 40%;
+    }
+
+    @include respond(laptops) {
+      left: 42%;
+    }
   }
 }
 
@@ -142,12 +180,14 @@ export default defineComponent({
   &__list {
     display: flex;
     flex-direction: column;
+    /* align-items: center; */
     gap: 0.2rem;
     padding-bottom: 0.5rem;
   }
 
   &__container {
     display: flex;
+    align-items: center;
     gap: 0.2rem;
     padding-left: 0.5rem;
     padding-right: 0.5rem;

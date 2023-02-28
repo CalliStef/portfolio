@@ -65,7 +65,7 @@ export default defineComponent({
   z-index: 2;
   animation: popOut 1s ease-in-out backwards;
 
-  @include respond(tab-land) {
+  @include respond(tablets-landscape) {
     min-width: 8rem;
     min-height: 5rem;
   }
@@ -83,7 +83,7 @@ export default defineComponent({
     }
 
     &--bottom-right {
-      bottom: -1.8rem;
+      bottom: -1.3rem;
       right: 0;
       transform: rotateZ(65deg);
     }
@@ -99,7 +99,7 @@ export default defineComponent({
     font-family: "FuzzyBubbles-Bold";
     font-size: $font-size-small;
 
-    @include respond(tab-land) {
+    @include respond(tablets-landscape) {
       font-size: $font-size-medium;
     }
   }
@@ -109,7 +109,7 @@ export default defineComponent({
     font-family: "FuzzyBubbles-Regular";
     font-size: $font-size-xs-small;
 
-    @include respond(tab-land) {
+    @include respond(tablets-landscape) {
       font-size: $font-size-small;
     }
   }
