@@ -29,7 +29,7 @@ export default defineComponent({
   methods: {
     onResize() {
       this.windowWidth = window.innerWidth;
-      if (this.windowWidth >= 1200) {
+      if (this.windowWidth >= 992) {
         this.toolbarSize = 30;
       } else {
         this.toolbarSize = 20;
@@ -41,7 +41,7 @@ export default defineComponent({
     this.$nextTick(() => {
       window.addEventListener("resize", this.onResize);
     });
-    if (this.windowWidth >= 1200) {
+    if (this.windowWidth >= 992) {
       this.toolbarSize = 30;
     } else {
       this.toolbarSize = 20;
@@ -75,8 +75,12 @@ export default defineComponent({
     overflow: hidden;
 
     @include respond(tablets-landscape) {
-      width: 25rem;
+      width: 20rem;
       height: 2rem;
+    }
+
+    @include respond(laptops) {
+      width: 25rem;
     }
   }
 

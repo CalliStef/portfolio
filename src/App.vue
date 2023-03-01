@@ -1,5 +1,5 @@
 <template>
-  <div class="main__layer">
+  <div class="main__layer" @touchmove.prevent.stop>
     <Intro
       ref="intro__layer"
       @show-home="zoomHomeLayer"
@@ -63,6 +63,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { useMeta } from "vue-meta";
 import Intro from "@/components/IntroLayer.vue";
 import CharacterComponent from "@/components/Character.vue";
 import TextBubble from "@/components/TextBubble.vue";
@@ -73,6 +74,13 @@ import ContactSection from "./components/Contact.vue";
 
 export default defineComponent({
   name: "App",
+  setup() {
+    useMeta({
+      title: "Callista Stefanie Taswin",
+      viewport:
+        "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no",
+    });
+  },
   components: {
     Intro,
     CharacterComponent,
@@ -83,61 +91,70 @@ export default defineComponent({
   },
   mounted() {
     const homeLayerElem = this.$refs.home_layer as HTMLElement;
-    Panzoom(homeLayerElem, {
-      startScale: 0,
-      startY: 60,
-      disablePan: true,
-      cursor: "auto",
-    });
+    // Panzoom(homeLayerElem, {
+    //   startScale: 0,
+    //   startY: 60,
+    //   disablePan: true,
+    //   cursor: "auto",
+    // });
   },
   methods: {
+    preventMove(e: any) {
+      console.log("HELLO", e);
+      e.preventDefault();
+      e.stopPropagation();
+    },
     zoomHomeLayer() {
       this.homeLayerElem = this.$refs.home_layer as HTMLElement;
+      this.homeLayerElem.classList.add('home__layer--zoom-in');
       this.panzoom = Panzoom(this.homeLayerElem, {
         disablePan: true,
         cursor: "auto",
       });
-      this.panzoom.zoom(1, {
-        animate: true,
-        duration: 1000,
-        easing: "ease-in-out",
-      });
-      this.panzoom.zoomIn;
+      // this.panzoom.zoom(1, {
+      //   animate: true,
+      //   duration: 1000,
+      //   easing: "ease-in-out",
+      //   force: true,
+      // });
+      // this.panzoom.zoomIn;
       setTimeout(() => {
         this.showHome = true;
         this.hideIntro = true;
       }, 1000);
     },
     onNavigateHome(sectionObject: { sectionName: string }) {
-      // console.log("section name", sectionName);
+      const { sectionName } = sectionObject;
 
-      this.panzoom.reset({
-        animate: true,
-        duration: 800,
-        easing: "ease-in-out",
-      });
+      switch(sectionName){
+        case 'contact':
+          this.homeLayerElem.classList.remove('home__layer--zoom-contact');
+          this.showContact = false;
+          break;
+        case 'about':
+          this.homeLayerElem.classList.remove('home__layer--zoom-about');
+          this.showAbout = false;
+          break;
+      }
 
-      sectionObject.sectionName === "contact"
-        ? (this.showContact = false)
-        : (this.showAbout = false);
-
-      // this.panzoom.zoomOut;
       this.showHome = true;
+      this.homeLayerElem.classList.add('home__layer--zoom-reset');
+    
     },
     getSection(x: number, y: number, sectionName: string) {
-      this.panzoom.pan(x, y, { force: true, relative: true });
-      this.panzoom.zoom(2, {
-        animate: true,
-        duration: 800,
-        easing: "ease-in-out",
-      });
-      this.panzoom.zoomIn;
       this.showHome = false;
-      sectionName === "contact"
-        ? (this.showContact = true)
-        : sectionName === "about"
-        ? (this.showAbout = true)
-        : this.getProjectPage();
+      switch(sectionName) {
+        case 'contact':
+          this.homeLayerElem.classList.remove('home__layer--zoom-in');
+          this.homeLayerElem.classList.add('home__layer--zoom-contact');
+          this.showContact = true;
+          break;
+        case 'about':
+          this.showAbout = true;
+          break;
+        case 'projects':
+          this.getProjectPage();
+      }
     },
     getProjectPage() {},
   },
@@ -245,11 +262,14 @@ export default defineComponent({
     url("/assets/fonts/FuzzyBubbles-Bold.ttf") format("truetype");
 }
 
+
 .main__layer {
+  position:relative;
   width: 100vw;
   height: 100vh;
   background-color: $color-beige;
   touch-action: manipulation;
+  position: fixed;
 }
 
 .home {
@@ -258,6 +278,10 @@ export default defineComponent({
     font-size: $font-size-medium;
 
     @include respond(tablets-landscape) {
+      font-size: $font-size-medium;
+    }
+
+    @include respond(laptops) {
       font-size: $font-size-big;
     }
 
@@ -274,6 +298,12 @@ export default defineComponent({
       transform: translate(-50%, 0);
 
       @include respond(tablets-landscape) {
+        left: 25%;
+        top: 40%;
+        text-align: left;
+      }
+
+      @include respond(laptops) {
         left: 30%;
         top: 40%;
         text-align: left;
@@ -300,7 +330,25 @@ export default defineComponent({
     height: 100vh;
     background-color: $color-beige;
     position: absolute;
-    animation: fadeIn 1s ease-in-out 3s backwards;
+    transition: all 1s ease-in-out;
+    /* animation: fadeIn 1s ease-in-out 3s backwards; */
+    transform: scale(0);
+
+    &--zoom-in{
+      animation: zoomToFull 1s ease-in-out forwards;
+      top: 0;
+      left: 0;
+    }
+
+    &--zoom-reset{
+      transform: scale(0);
+      top: 0;
+      left: 0;
+    }
+
+    &--zoom-contact{
+      animation: zoomToContact 1s ease-in-out forwards;
+    }
 
     &--wall {
       display: flex;
@@ -334,9 +382,13 @@ export default defineComponent({
     transform: translate(-50%, 0);
 
     @include respond(tablets-landscape) {
-      width: 30rem;
+      width: 25rem;
       left: 65%;
       top: 25%;
+    }
+
+    @include respond(laptops) {
+      width: 30rem;
     }
   }
 }
@@ -347,32 +399,47 @@ export default defineComponent({
   } */
 
   &--contact {
-    left: 2rem;
+    left: 25%;
     top: 25rem;
     transition: all 0.2s;
+    transform: translateX(-50%);
+
+    @include respond(tablets-portrait) {
+      left: 30%;
+    }
 
     @include respond(tablets-landscape) {
-      left: 42rem;
+      left: 50%;
       top: 18rem;
     }
   }
 
   &--about {
-    left: 8rem;
+    left: 40%;
     top: 20rem;
+    transform: translateX(-50%);
+
+    @include respond(tablets-portrait) {
+      left: 40%;
+    }
 
     @include respond(tablets-landscape) {
-      left: 50rem;
+      left: 60%;
       top: 12rem;
     }
   }
 
   &--projects {
-    right: 1rem;
+    right: 5%;
     top: 30rem;
+    transform: translateX(-50%);
+
+    @include respond(tablets-portrait) {
+      right: 20%;
+    }
 
     @include respond(tablets-landscape) {
-      right: 15rem;
+      right: 3%;
       top: 25rem;
     }
   }

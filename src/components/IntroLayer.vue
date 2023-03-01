@@ -20,11 +20,7 @@
             height="30"
         /></Transition>
       </div>
-      <DoorComponent
-        ref="door"
-        class="intro__door"
-        @door-open="zoomToHome"
-      />
+      <DoorComponent ref="door" class="intro__door" @door-open="zoomToHome" />
     </div>
   </div>
   <!-- </div> -->
