@@ -64,7 +64,68 @@
   }
 }
 
-@keyframes zoomToContact {
+@keyframes zoomToContactOriginal {
+  0% {
+    transform: scale(1), translateX(0);
+    top: 0;
+    left: 0;
+  }
+  
+
+  100% {
+    transform: scale(2.2);
+    left: 45%;
+    top: -15%;
+  }
+}
+
+@keyframes zoomToContactPhones {
+  0% {
+    transform: scale(1), translateX(0);
+    top: 0;
+    left: 0;
+  }
+  
+
+  100% {
+    transform: scale(2.2);
+    left: 35%;
+    top: -15%;
+  }
+}
+
+@keyframes zoomToContactPortrait {
+  0% {
+    transform: scale(1), translateX(0);
+    top: 0;
+    left: 0;
+  }
+  
+
+  100% {
+    transform: scale(2.5);
+    left: 40%;
+    top: -25%;
+  }
+}
+
+@keyframes zoomToContactLandscape {
+  0% {
+    transform: scale(1), translateX(0);
+    top: 0;
+    left: 0;
+  }
+  
+
+  100% {
+    transform: scale(2);
+    left: 17%;
+    top: -10%;
+  }
+}
+
+
+@keyframes zoomToContactLaptops {
   0% {
     transform: scale(1), translateX(0);
     top: 0;
@@ -75,7 +136,22 @@
   100% {
     transform: scale(2);
     left: 12%;
-    top: -15%;
+    top: -10%;
+  }
+}
+
+@keyframes zoomToReset {
+  0% {
+    transform: scale(2);
+    left: 20%;
+    top: -10%;
+  }
+  
+
+  100% {
+    transform: scale(0), translateX(0);
+    top: 0;
+    left: 0;
   }
 }
 

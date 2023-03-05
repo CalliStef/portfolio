@@ -126,6 +126,9 @@ export default defineComponent({
     onNavigateHome(sectionObject: { sectionName: string }) {
       const { sectionName } = sectionObject;
 
+      this.homeLayerElem.classList.add('home__layer--zoom-reset');
+
+      // FIXME: Navigation to home doesn't fully animate well, change the css
       switch(sectionName){
         case 'contact':
           this.homeLayerElem.classList.remove('home__layer--zoom-contact');
@@ -138,7 +141,7 @@ export default defineComponent({
       }
 
       this.showHome = true;
-      this.homeLayerElem.classList.add('home__layer--zoom-reset');
+      
     
     },
     getSection(x: number, y: number, sectionName: string) {
@@ -341,13 +344,33 @@ export default defineComponent({
     }
 
     &--zoom-reset{
-      transform: scale(0);
+      transition: all 1s ease-in-out;
+      animation: zoomToReset 1s ease-in-out forwards;
+      /* transform: scale(0);
       top: 0;
-      left: 0;
+      left: 0; */
     }
 
     &--zoom-contact{
-      animation: zoomToContact 1s ease-in-out forwards;
+
+      animation: zoomToContactOriginal 1s ease-in-out forwards;
+
+      @include respond(phones) {
+        animation: zoomToContactPhones 1s ease-in-out forwards;
+      }
+
+      @include respond(tablets-portrait) {
+        animation: zoomToContactPortrait 1s ease-in-out forwards;
+      }
+
+      @include respond(tablets-landscape) {
+        animation: zoomToContactLandscape 1s ease-in-out forwards;
+      }
+
+      @include respond(laptops) {
+        animation: zoomToContactLaptops 1s ease-in-out forwards;
+      }
+
     }
 
     &--wall {
@@ -399,47 +422,56 @@ export default defineComponent({
   } */
 
   &--contact {
-    left: 25%;
-    top: 25rem;
+    left: 15%;
+    top: 24rem;
     transition: all 0.2s;
-    transform: translateX(-50%);
+
+    @include respond(phones) {
+      left: 25%;
+    }
 
     @include respond(tablets-portrait) {
       left: 30%;
     }
 
     @include respond(tablets-landscape) {
-      left: 50%;
-      top: 18rem;
+      left: 47%;
+      top: 17rem;
     }
   }
 
   &--about {
-    left: 40%;
+    left: 30%;
     top: 20rem;
-    transform: translateX(-50%);
+
+    @include respond(phones) {
+      left: 35%;
+    }
 
     @include respond(tablets-portrait) {
       left: 40%;
     }
 
     @include respond(tablets-landscape) {
-      left: 60%;
+      left: 55%;
       top: 12rem;
     }
   }
 
   &--projects {
-    right: 5%;
+    right: 10%;
     top: 30rem;
-    transform: translateX(-50%);
 
-    @include respond(tablets-portrait) {
+    @include respond(phones) {
       right: 20%;
     }
 
+    @include respond(tablets-portrait) {
+      right: 30%;
+    }
+
     @include respond(tablets-landscape) {
-      right: 3%;
+      right: 15%;
       top: 25rem;
     }
   }

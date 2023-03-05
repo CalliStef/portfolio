@@ -129,44 +129,61 @@ export default defineComponent({
   }
 
   &__text-bubble {
-    left: 30%;
+    left: 10%;
     top: 40%;
     gap: 0.2rem;
     width: 10rem;
     justify-content: center;
     align-items: center;
-    transform: translateX(-50%);
 
-    @include respond(phones) {
-      left: 35%;
+    @include respond(small-phones) {
+      left: 15%;
       top: 43%;
     }
 
+    @include respond(phones) {
+      left: 20%;
+      top: 43%;
+    }
+
+    @include respond(tablets-portrait) {
+      left: 20%;
+    }
+
     @include respond(tablets-landscape) {
-      left: 30%;
+      left: 20%;
       top: 40%;
       width: 15rem;
       height: 10rem;
     }
 
     @include respond(laptops) {
-      left: 35%;
+      left: 25%;
     }
   }
 
   &__button {
     position: absolute;
     bottom: 24%;
-    left: 30.5%;
+    left: 26%;
     z-index: 3;
     animation: moveUpDown 1s ease-in-out infinite;
     transform: translateX(-50%);
+
+    @include respond(small-phones) {
+      left: 30%;
+    }
+
 
     @include respond(phones) {
       left: 33%;
     }
 
     @include respond(tablets-portrait) {
+      left: 32%;
+    }
+
+    @include respond(tablets-landscape) {
       left: 40%;
     }
 
