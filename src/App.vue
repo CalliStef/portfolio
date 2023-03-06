@@ -12,28 +12,34 @@
         <div class="home__header-container">
           <Typewriter
             class="home__header home__header--black"
+            :isHomeAnimated="isHomeAnimated"
             textProp="My name is Callista Stefanie Taswin,"
           />
           <Typewriter
             class="home__header home__header--blue"
+            :isHomeAnimated="isHomeAnimated"
             textProp="Full-Stack Web Developer"
             delay="2s"
           />
-          <Toolbar class="home__toolbar" :toolList="toolArr" />
+          <Toolbar
+            class="home__toolbar"
+            :class="isHomeAnimated && 'animation-disabled'"
+            :toolList="toolArr"
+          />
         </div>
         <TextBubble
           class="text-bubble--contact"
+          :class="isHomeAnimated && 'animation-disabled'"
           delay="4s"
           tailDirection="bottom-right"
           @click="getSection(90, -40, 'contact')"
         >
-          <template #header>
-            <Typewriter textProp="Contact" delay="1s" />
-          </template>
+          <template #header>Contact</template>
         </TextBubble>
 
         <TextBubble
           class="text-bubble--about"
+          :class="isHomeAnimated && 'animation-disabled'"
           delay="5s"
           tailDirection="bottom-right"
           @click="getSection(-60, -100, 'about')"
@@ -43,6 +49,7 @@
 
         <TextBubble
           class="text-bubble--projects"
+          :class="isHomeAnimated && 'animation-disabled'"
           delay="6s"
           tailDirection="top-left"
         >
@@ -89,35 +96,20 @@ export default defineComponent({
     Toolbar,
     ContactSection,
   },
-  mounted() {
-    const homeLayerElem = this.$refs.home_layer as HTMLElement;
-    // Panzoom(homeLayerElem, {
-    //   startScale: 0,
-    //   startY: 60,
-    //   disablePan: true,
-    //   cursor: "auto",
-    // });
-  },
   methods: {
     preventMove(e: any) {
       console.log("HELLO", e);
       e.preventDefault();
       e.stopPropagation();
     },
+    disableAnimation() {},
     zoomHomeLayer() {
       this.homeLayerElem = this.$refs.home_layer as HTMLElement;
-      this.homeLayerElem.classList.add('home__layer--zoom-in');
+      this.homeLayerElem.classList.add("home__layer--zoom-in");
       this.panzoom = Panzoom(this.homeLayerElem, {
         disablePan: true,
         cursor: "auto",
       });
-      // this.panzoom.zoom(1, {
-      //   animate: true,
-      //   duration: 1000,
-      //   easing: "ease-in-out",
-      //   force: true,
-      // });
-      // this.panzoom.zoomIn;
       setTimeout(() => {
         this.showHome = true;
         this.hideIntro = true;
@@ -126,36 +118,35 @@ export default defineComponent({
     onNavigateHome(sectionObject: { sectionName: string }) {
       const { sectionName } = sectionObject;
 
-      this.homeLayerElem.classList.add('home__layer--zoom-reset');
+      this.isHomeAnimated = true;
 
-      // FIXME: Navigation to home doesn't fully animate well, change the css
-      switch(sectionName){
-        case 'contact':
-          this.homeLayerElem.classList.remove('home__layer--zoom-contact');
+      this.homeLayerElem.classList.add("home__layer--zoom-reset");
+
+      switch (sectionName) {
+        case "contact":
+          this.homeLayerElem.classList.remove("home__layer--zoom-contact");
           this.showContact = false;
           break;
-        case 'about':
-          this.homeLayerElem.classList.remove('home__layer--zoom-about');
+        case "about":
+          this.homeLayerElem.classList.remove("home__layer--zoom-about");
           this.showAbout = false;
           break;
       }
 
       this.showHome = true;
-      
-    
     },
     getSection(x: number, y: number, sectionName: string) {
       this.showHome = false;
-      switch(sectionName) {
-        case 'contact':
-          this.homeLayerElem.classList.remove('home__layer--zoom-in');
-          this.homeLayerElem.classList.add('home__layer--zoom-contact');
+      switch (sectionName) {
+        case "contact":
+          this.homeLayerElem.classList.remove("home__layer--zoom-in");
+          this.homeLayerElem.classList.add("home__layer--zoom-contact");
           this.showContact = true;
           break;
-        case 'about':
+        case "about":
           this.showAbout = true;
           break;
-        case 'projects':
+        case "projects":
           this.getProjectPage();
       }
     },
@@ -163,6 +154,7 @@ export default defineComponent({
   },
   data() {
     return {
+      isHomeAnimated: false,
       hideIntro: false,
       showHome: false,
       showContact: false,
@@ -265,9 +257,8 @@ export default defineComponent({
     url("/assets/fonts/FuzzyBubbles-Bold.ttf") format("truetype");
 }
 
-
 .main__layer {
-  position:relative;
+  position: relative;
   width: 100vw;
   height: 100vh;
   background-color: $color-beige;
@@ -337,13 +328,13 @@ export default defineComponent({
     /* animation: fadeIn 1s ease-in-out 3s backwards; */
     transform: scale(0);
 
-    &--zoom-in{
+    &--zoom-in {
       animation: zoomToFull 1s ease-in-out forwards;
       top: 0;
       left: 0;
     }
 
-    &--zoom-reset{
+    &--zoom-reset {
       transition: all 1s ease-in-out;
       animation: zoomToReset 1s ease-in-out forwards;
       /* transform: scale(0);
@@ -351,8 +342,7 @@ export default defineComponent({
       left: 0; */
     }
 
-    &--zoom-contact{
-
+    &--zoom-contact {
       animation: zoomToContactOriginal 1s ease-in-out forwards;
 
       @include respond(phones) {
@@ -370,7 +360,6 @@ export default defineComponent({
       @include respond(laptops) {
         animation: zoomToContactLaptops 1s ease-in-out forwards;
       }
-
     }
 
     &--wall {

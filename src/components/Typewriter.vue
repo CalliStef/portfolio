@@ -1,7 +1,16 @@
 <template>
-  <div class="typewriter__container">
+  <div
+    class="typewriter__container"
+    :class="isHomeAnimated && 'animation-disabled'"
+  >
     <Transition appear :style="{ animationDelay: delay }">
-      <p class="typewriter__text" ref="type__text">{{ textProp }}</p>
+      <p
+        class="typewriter__text"
+        :class="isHomeAnimated && 'animation-disabled'"
+        ref="type__text"
+      >
+        {{ textProp }}
+      </p>
     </Transition>
   </div>
 </template>
@@ -14,6 +23,7 @@ export default defineComponent({
   props: {
     delay: { type: String, default: null },
     textProp: { type: String, required: true },
+    isHomeAnimated: { type: Boolean },
   },
   computed: {},
   methods: {},
