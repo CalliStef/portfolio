@@ -23,13 +23,13 @@
           />
           <Toolbar
             class="home__toolbar"
-            :class="isHomeAnimated && 'animation-disabled'"
+            :class="isHomeAnimated && 'animation-fadeIn'"
             :toolList="toolArr"
           />
         </div>
         <TextBubble
           class="text-bubble--contact"
-          :class="isHomeAnimated && 'animation-disabled'"
+          :class="isHomeAnimated && 'animation-fadeIn'"
           delay="4s"
           tailDirection="bottom-right"
           @click="getSection(90, -40, 'contact')"
@@ -39,7 +39,7 @@
 
         <TextBubble
           class="text-bubble--about"
-          :class="isHomeAnimated && 'animation-disabled'"
+          :class="isHomeAnimated && 'animation-fadeIn'"
           delay="5s"
           tailDirection="bottom-right"
           @click="getSection(-60, -100, 'about')"
@@ -49,7 +49,7 @@
 
         <TextBubble
           class="text-bubble--projects"
-          :class="isHomeAnimated && 'animation-disabled'"
+          :class="isHomeAnimated && 'animation-fadeIn'"
           delay="6s"
           tailDirection="top-left"
         >

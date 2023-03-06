@@ -1,12 +1,12 @@
 <template>
   <div
     class="typewriter__container"
-    :class="isHomeAnimated && 'animation-disabled'"
+    :class="isHomeAnimated && 'animation-fadeIn'"
   >
     <Transition appear :style="{ animationDelay: delay }">
       <p
         class="typewriter__text"
-        :class="isHomeAnimated && 'animation-disabled'"
+        :class="isHomeAnimated && 'animation-fadeIn'"
         ref="type__text"
       >
         {{ textProp }}
