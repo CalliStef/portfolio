@@ -122,13 +122,14 @@ export default defineComponent({
   }
 
   &__content {
-    overflow-y: scroll;
-    -ms-overflow-style: none; /* Internet Explorer 10+ */
-    scrollbar-width: none; /* Firefox */
+    overflow: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
   }
 
   &__content::-webkit-scrollbar {
-    display: none; /* Safari and Chrome */
+    display: none;
   }
 }
 </style>

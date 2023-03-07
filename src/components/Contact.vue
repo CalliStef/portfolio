@@ -170,6 +170,10 @@ export default defineComponent({
     animation: moveUpDown 1s ease-in-out infinite;
     transform: translateX(-50%);
 
+    @include respond(taller-devices){
+      bottom: 20%;
+    }
+
     @include respond(small-phones) {
       left: 26%;
     }

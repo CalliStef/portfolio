@@ -1,5 +1,5 @@
 <template>
-  <div class="about__section">
+  <div class="about__section" @click="skipAnimation = true">
     <TextBubble
       class="about__text-bubble"
       :tailDirection="windowWidth >= 576 ? 'top-left' : 'top-right'"
@@ -18,6 +18,7 @@
           
           Nice to meet you! :)"
             delay="2s"
+            :skipAnimation="skipAnimation"
           />
         </div>
       </template>
@@ -70,6 +71,7 @@ export default defineComponent({
     return {
       windowWidth: window.innerWidth,
       homeIconSize: 20,
+      skipAnimation: false,
     };
   },
 });
@@ -102,10 +104,13 @@ export default defineComponent({
     }
   }
 
+  
+
   &__text-bubble {
     left: 43%;
     bottom: 25%;
     gap: 0.2rem;
+    z-index: 5;
     width: 10.5rem;
     height: 8.5rem;
     padding: 1rem;

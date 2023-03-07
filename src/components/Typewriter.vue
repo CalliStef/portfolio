@@ -1,9 +1,5 @@
 <template>
-  <p
-    class="typewriter__text"
-    :class="isHomeAnimated && 'animation-fadeIn'"
-    ref="type__text"
-  ></p>
+  <p class="typewriter__text" ref="type__text" ></p>
 </template>
 
 <script lang="ts">
@@ -14,15 +10,23 @@ export default defineComponent({
   props: {
     delay: { type: String, default: null },
     textProp: { type: String, required: true },
-    isHomeAnimated: { type: Boolean },
+    skipAnimation: { type: Boolean },
   },
   mounted() {
-    if (!this.isHomeAnimated) {
+    console.log('skip', this.delay)
+    if (!this.skipAnimation) {
       let delayTime = parseInt(this.delay) * 1000;
       setTimeout(this.animate, delayTime);
     } else {
-      this.skipAnimate();
+      this.animate();
     }
+  },
+  watch: {
+    skipAnimation: function (newState, prevState) {
+      if (newState === true) {
+        this.$forceUpdate();
+      }
+    },
   },
   methods: {
     animate() {
@@ -31,7 +35,7 @@ export default defineComponent({
       const escapeSequence = /\\n/g;
       let match = escapeSequence.exec(currentLine);
 
-      if (this.characterIndex < currentLine.length) {
+      if (this.characterIndex < currentLine.length && !this.skipAnimation) {
         if (match !== null && match.index === this.characterIndex) {
           (this.$refs.type__text as HTMLElement).innerHTML += "<br>";
           this.lineIndex++;
@@ -44,14 +48,24 @@ export default defineComponent({
         );
         this.characterIndex++;
         setTimeout(this.animate, 50);
-      } else if (this.lineIndex < lines.length - 1) {
+      } else if (this.lineIndex < lines.length - 1 && !this.skipAnimation) {
         (this.$refs.type__text as HTMLElement).innerHTML += "<br>";
         this.lineIndex++;
         this.characterIndex = 0;
         setTimeout(this.animate, 50);
+      } else if (this.skipAnimation) {
+        // If skipping is true, immediately show the entire remaining string
+        const remainingText = lines
+          .slice(this.lineIndex)
+          .join("<br>")
+          .substring(this.characterIndex)
+          .replace(/\n/g, "<br>");
+        (this.$refs.type__text as HTMLElement).innerHTML += remainingText;
+        this.characterIndex = currentLine.length;
       }
     },
     skipAnimate() {
+      (this.$refs.type__text as HTMLElement).innerHTML = "";
       (this.$refs.type__text as HTMLElement).innerHTML = this.textContent;
     },
   },
@@ -65,6 +79,4 @@ export default defineComponent({
 });
 </script>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>

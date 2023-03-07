@@ -1,4 +1,11 @@
 @mixin respond($breakpoint) {
+
+  @if breakpoint == taller-devices{
+    @media (min-height: 800px){
+      @content;
+    }
+  }
+
   @if $breakpoint == small-phones {
     @media (min-width: 320px) {
       @content;

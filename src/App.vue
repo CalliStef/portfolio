@@ -1,35 +1,35 @@
 <template>
-  <div class="main__layer" @touchmove.prevent.stop>
+  <div class="main__layer">
     <Intro
       ref="intro__layer"
       @show-home="zoomHomeLayer"
       v-if="!hideIntro"
     ></Intro>
-    <div ref="home_layer" class="home__layer">
+    <div ref="home_layer" class="home__layer" @click="skipAnimation = true">
       <div class="home__layer--wall"></div>
       <div class="home__layer--floor"></div>
       <template v-if="showHome">
         <div class="home__header-container">
           <Typewriter
             class="home__header home__header--black"
-            :isHomeAnimated="isHomeAnimated"
+            :skipAnimation="skipAnimation"
             textProp="My name is Callista Stefanie Taswin,"
           />
           <Typewriter
             class="home__header home__header--blue"
-            :isHomeAnimated="isHomeAnimated"
+            :skipAnimation="skipAnimation"
             textProp="Full-Stack Web Developer"
-            delay="2s"
+            :delay="skipAnimation ? '0s' : '2s'"
           />
           <Toolbar
             class="home__toolbar"
-            :class="isHomeAnimated && 'animation-fadeIn'"
+            :class="skipAnimation && 'animation-fadeIn'"
             :toolList="toolArr"
           />
         </div>
         <TextBubble
           class="text-bubble--contact"
-          :class="isHomeAnimated && 'animation-fadeIn'"
+          :class="skipAnimation && 'animation-fadeIn'"
           delay="4s"
           tailDirection="bottom-right"
           @click="getSection(90, -40, 'contact')"
@@ -39,7 +39,7 @@
 
         <TextBubble
           class="text-bubble--about"
-          :class="isHomeAnimated && 'animation-fadeIn'"
+          :class="skipAnimation && 'animation-fadeIn'"
           delay="5s"
           tailDirection="bottom-right"
           @click="getSection(-60, -100, 'about')"
@@ -49,7 +49,7 @@
 
         <TextBubble
           class="text-bubble--projects"
-          :class="isHomeAnimated && 'animation-fadeIn'"
+          :class="skipAnimation && 'animation-fadeIn'"
           delay="6s"
           tailDirection="top-left"
         >
@@ -61,7 +61,7 @@
         <template v-if="showContact">
           <ContactSection @navigateHome="onNavigateHome" />
         </template>
-        <template v-else-if="showAbout"> 
+        <template v-else-if="showAbout">
           <AboutSection @navigateHome="onNavigateHome" />
         </template>
       </div>
@@ -73,7 +73,6 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { useMeta } from "vue-meta";
 import Intro from "@/components/IntroLayer.vue";
 import CharacterComponent from "@/components/Character.vue";
 import TextBubble from "@/components/TextBubble.vue";
@@ -81,7 +80,7 @@ import Panzoom from "@panzoom/panzoom";
 import Typewriter from "@/components/Typewriter.vue";
 import Toolbar from "@/components/Toolbar.vue";
 import ContactSection from "./components/Contact.vue";
-import AboutSection from "./components/About.vue"
+import AboutSection from "./components/About.vue";
 
 export default defineComponent({
   name: "App",
@@ -92,14 +91,9 @@ export default defineComponent({
     Typewriter,
     Toolbar,
     ContactSection,
-    AboutSection
+    AboutSection,
   },
   methods: {
-    preventMove(e: any) {
-      console.log("HELLO", e);
-      e.preventDefault();
-      e.stopPropagation();
-    },
     zoomHomeLayer() {
       this.homeLayerElem = this.$refs.home_layer as HTMLElement;
       this.homeLayerElem.classList.add("home__layer--zoom-in");
@@ -107,6 +101,7 @@ export default defineComponent({
         disablePan: true,
         disableZoom: true,
         cursor: "auto",
+        touchAction: "",
       });
       setTimeout(() => {
         this.showHome = true;
@@ -116,7 +111,7 @@ export default defineComponent({
     onNavigateHome(sectionObject: { sectionName: string }) {
       const { sectionName } = sectionObject;
 
-      this.isHomeAnimated = true;
+      this.skipAnimation = true;
 
       this.homeLayerElem.classList.add("home__layer--zoom-reset");
 
@@ -154,7 +149,7 @@ export default defineComponent({
   },
   data() {
     return {
-      isHomeAnimated: false,
+      skipAnimation: false,
       hideIntro: false,
       showHome: false,
       showContact: false,
@@ -262,7 +257,6 @@ export default defineComponent({
   width: 100vw;
   height: 100vh;
   background-color: $color-beige;
-  touch-action: manipulation;
   position: fixed;
 }
 
@@ -363,8 +357,7 @@ export default defineComponent({
       }
     }
 
-    &--zoom-about{
-
+    &--zoom-about {
       animation: zoomToAboutOriginal 1s ease-in-out forwards;
 
       @include respond(phones) {
@@ -382,7 +375,6 @@ export default defineComponent({
       @include respond(laptops) {
         /* animation: zoomToAboutLaptops 1s ease-in-out forwards; */
       }
-
     }
 
     &--wall {
@@ -434,8 +426,8 @@ export default defineComponent({
   } */
 
   &--contact {
-    left: 15%;
-    top: 50%;
+    left: 10%;
+    top: 48%;
     transition: all 0.2s;
 
     @include respond(phones) {
@@ -472,7 +464,7 @@ export default defineComponent({
 
   &--projects {
     right: 5%;
-    top: 60%;
+    top: 58%;
 
     @include respond(phones) {
       right: 20%;
