@@ -1,5 +1,5 @@
 <template>
-  <div class="main__layer">
+  <div class="main__layer" @touchmove.prevent.stop>
     <Intro
       ref="intro__layer"
       @show-home="zoomHomeLayer"
@@ -19,7 +19,6 @@
             class="home__header home__header--blue"
             :skipAnimation="skipAnimation"
             textProp="Full-Stack Web Developer"
-            :delay="skipAnimation ? '0s' : '2s'"
           />
           <Toolbar
             class="home__toolbar"

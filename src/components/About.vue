@@ -1,11 +1,16 @@
 <template>
-  <div class="about__section" @click="skipAnimation = true">
+  <div class="about__section" @click.prevent="skipAnimate">
     <TextBubble
       class="about__text-bubble"
       :tailDirection="windowWidth >= 576 ? 'top-left' : 'top-right'"
     >
       <template #header>
-        <Typewriter class="about__header" textProp="About Me" delay="1s" />
+        <Typewriter
+          class="about__header"
+          textProp="About Me"
+          delay="1s"
+          :skipAnimation="skipAnimation"
+        />
       </template>
       <template #content>
         <div class="about__content">
@@ -48,6 +53,9 @@ export default defineComponent({
     Icon,
   },
   methods: {
+    skipAnimate(){
+      this.skipAnimation = true;
+    },
     navigateHome() {
       this.$emit("navigateHome", { sectionName: "about" });
     },
@@ -99,12 +107,10 @@ export default defineComponent({
     text-align: center;
     font-size: $font-size-xs-small;
 
-    @include respond(laptops){
+    @include respond(laptops) {
       width: 13rem;
     }
   }
-
-  
 
   &__text-bubble {
     left: 43%;

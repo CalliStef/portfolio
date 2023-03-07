@@ -13,7 +13,6 @@ export default defineComponent({
     skipAnimation: { type: Boolean },
   },
   mounted() {
-    console.log('skip', this.delay)
     if (!this.skipAnimation) {
       let delayTime = parseInt(this.delay) * 1000;
       setTimeout(this.animate, delayTime);
@@ -25,6 +24,7 @@ export default defineComponent({
     skipAnimation: function (newState, prevState) {
       if (newState === true) {
         this.$forceUpdate();
+        // this.animate();
       }
     },
   },
