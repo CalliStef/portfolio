@@ -12,6 +12,21 @@
           :skipAnimation="skipAnimation"
         />
       </template>
+      <template #tools>
+        <Transition appear style="animation-delay: 2s">
+          <a
+            :class="skipAnimation && 'animation-fadeIn'"
+            class="about__link"
+            @click.prevent="
+              linkClick(
+                'https://drive.google.com/file/d/12cJyRCQj83TLZ_6qPNmCTd4TmML_MFgH/view?usp=share_link'
+              )
+            "
+          >
+            RESUME
+          </a>
+        </Transition>
+      </template>
       <template #content>
         <div class="about__content">
           <Typewriter
@@ -52,8 +67,16 @@ export default defineComponent({
     Typewriter,
     Icon,
   },
+  computed: {
+    // getFileUrl(){
+    //   const newFile = new Blob('')
+    // }
+  },
   methods: {
-    skipAnimate(){
+    linkClick(url: string) {
+      window.open(url, "_blank");
+    },
+    skipAnimate() {
       this.skipAnimation = true;
     },
     navigateHome() {
@@ -95,7 +118,7 @@ export default defineComponent({
   }
 
   &__header {
-    padding-top: 0.5rem;
+    padding-top: 0.3rem;
     font-size: $font-size-small;
   }
 
@@ -109,6 +132,32 @@ export default defineComponent({
 
     @include respond(laptops) {
       width: 13rem;
+    }
+  }
+
+  &__link {
+    text-decoration: none;
+    display: flex;
+    font-family: FuzzyBubbles-Bold;
+    font-size: $font-size-xs-small;
+    color: white;
+    background-color: $color-turquoise;
+    border: none;
+    border-radius: 4rem;
+    justify-self: center;
+    transition: all 0.2s ease-in-out;
+    margin-bottom: 0.2rem;
+    padding: 0.1rem 0.3rem;
+    animation: fadeIn 0.5s ease-in-out backwards;
+
+    &:hover {
+      transform: translateY(-1px);
+      box-shadow: 0px 1px 1px $color-white-variant;
+    }
+
+    &:active {
+      transform: translateY(-0.5px);
+      box-shadow: 0px 1px 1px $color-white-variant;
     }
   }
 
