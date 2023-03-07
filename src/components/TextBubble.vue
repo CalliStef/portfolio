@@ -90,7 +90,14 @@ export default defineComponent({
 
     &--top-left {
       top: 0.5rem;
-      transform: rotateZ(-335deg);
+      left: 2rem;
+      transform: rotateZ(-348deg);
+    }
+
+    &--top-right {
+      top: 0.5rem;
+      right: 1.5rem;
+      transform: rotateZ(-304deg);
     }
   }
 
@@ -112,6 +119,16 @@ export default defineComponent({
     @include respond(tablets-landscape) {
       font-size: $font-size-small;
     }
+  }
+
+  &__content {
+    overflow-y: scroll;
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  &__content::-webkit-scrollbar {
+    display: none; /* Safari and Chrome */
   }
 }
 </style>

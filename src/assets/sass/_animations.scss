@@ -73,9 +73,9 @@
   
 
   100% {
-    transform: scale(2.2);
-    left: 45%;
-    top: -15%;
+    transform: scale(2);
+    left: 40%;
+    top: -17%;
   }
 }
 
@@ -140,11 +140,41 @@
   }
 }
 
+@keyframes zoomToAboutOriginal{
+  0% {
+    transform: scale(1), translateX(0);
+    top: 0;
+    right: 0;
+  }
+
+  100%{
+    transform: scale(2);
+    right: 43%;
+    top: -15%;
+  }
+}
+
+@keyframes zoomToAboutLandscape{
+  0% {
+    transform: scale(1), translateX(0);
+    top: 0;
+    right: 0;
+  }
+
+  100%{
+    transform: scale(2.5);
+    right: 70%;
+    top: 10%;
+  }
+}
+
+
+
 @keyframes zoomToReset {
   0% {
     transform: scale(2);
-    left: 20%;
-    top: -10%;
+    left: 0%;
+    top: 0%;
   }
   
 
@@ -180,12 +210,3 @@
   }
 }
 
-@keyframes blink-caret {
-  from,
-  to {
-    border-color: transparent;
-  }
-  50% {
-    border-color: $color-soft-orange;
-  }
-}

@@ -137,7 +137,7 @@ export default defineComponent({
     align-items: center;
 
     @include respond(small-phones) {
-      left: 15%;
+      left: 8%;
       top: 43%;
     }
 
@@ -171,9 +171,8 @@ export default defineComponent({
     transform: translateX(-50%);
 
     @include respond(small-phones) {
-      left: 30%;
+      left: 26%;
     }
-
 
     @include respond(phones) {
       left: 33%;
@@ -217,6 +216,11 @@ export default defineComponent({
   &__link {
     text-decoration: none;
     color: $color-turquoise;
+    font-size: 0.5rem;
+
+    @include respond(tablets-landscape) {
+      font-size: $font-size-small;
+    }
   }
 }
 </style>

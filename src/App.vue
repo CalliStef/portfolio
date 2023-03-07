@@ -54,13 +54,16 @@
           tailDirection="top-left"
         >
           <template #header>Projects</template>
+          <template #content>under construction 🛠</template>
         </TextBubble>
       </template>
       <div v-if="showContact || showAbout">
         <template v-if="showContact">
           <ContactSection @navigateHome="onNavigateHome" />
         </template>
-        <template v-else-if="showAbout"> </template>
+        <template v-else-if="showAbout"> 
+          <AboutSection @navigateHome="onNavigateHome" />
+        </template>
       </div>
 
       <CharacterComponent class="home__scene" />
@@ -78,16 +81,10 @@ import Panzoom from "@panzoom/panzoom";
 import Typewriter from "@/components/Typewriter.vue";
 import Toolbar from "@/components/Toolbar.vue";
 import ContactSection from "./components/Contact.vue";
+import AboutSection from "./components/About.vue"
 
 export default defineComponent({
   name: "App",
-  setup() {
-    useMeta({
-      title: "Callista Stefanie Taswin",
-      viewport:
-        "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no",
-    });
-  },
   components: {
     Intro,
     CharacterComponent,
@@ -95,6 +92,7 @@ export default defineComponent({
     Typewriter,
     Toolbar,
     ContactSection,
+    AboutSection
   },
   methods: {
     preventMove(e: any) {
@@ -102,12 +100,12 @@ export default defineComponent({
       e.preventDefault();
       e.stopPropagation();
     },
-    disableAnimation() {},
     zoomHomeLayer() {
       this.homeLayerElem = this.$refs.home_layer as HTMLElement;
       this.homeLayerElem.classList.add("home__layer--zoom-in");
       this.panzoom = Panzoom(this.homeLayerElem, {
         disablePan: true,
+        disableZoom: true,
         cursor: "auto",
       });
       setTimeout(() => {
@@ -144,6 +142,8 @@ export default defineComponent({
           this.showContact = true;
           break;
         case "about":
+          this.homeLayerElem.classList.remove("home__layer--zoom-in");
+          this.homeLayerElem.classList.add("home__layer--zoom-about");
           this.showAbout = true;
           break;
         case "projects":
@@ -270,6 +270,7 @@ export default defineComponent({
   &__header {
     font-family: "FuzzyBubbles-Regular";
     font-size: $font-size-medium;
+    white-space: nowrap;
 
     @include respond(tablets-landscape) {
       font-size: $font-size-medium;
@@ -362,6 +363,28 @@ export default defineComponent({
       }
     }
 
+    &--zoom-about{
+
+      animation: zoomToAboutOriginal 1s ease-in-out forwards;
+
+      @include respond(phones) {
+        /* animation: zoomToAboutPhones 1s ease-in-out forwards; */
+      }
+
+      @include respond(tablets-portrait) {
+        /* animation: zoomToAboutPortrait 1s ease-in-out forwards; */
+      }
+
+      @include respond(tablets-landscape) {
+        animation: zoomToAboutLandscape 1s ease-in-out forwards;
+      }
+
+      @include respond(laptops) {
+        /* animation: zoomToAboutLaptops 1s ease-in-out forwards; */
+      }
+
+    }
+
     &--wall {
       display: flex;
       width: 100%;
@@ -412,7 +435,7 @@ export default defineComponent({
 
   &--contact {
     left: 15%;
-    top: 24rem;
+    top: 50%;
     transition: all 0.2s;
 
     @include respond(phones) {
@@ -431,7 +454,7 @@ export default defineComponent({
 
   &--about {
     left: 30%;
-    top: 20rem;
+    top: 40%;
 
     @include respond(phones) {
       left: 35%;
@@ -448,8 +471,8 @@ export default defineComponent({
   }
 
   &--projects {
-    right: 10%;
-    top: 30rem;
+    right: 5%;
+    top: 60%;
 
     @include respond(phones) {
       right: 20%;
