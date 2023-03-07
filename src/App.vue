@@ -1,5 +1,5 @@
 <template>
-  <div class="main__layer" @touchmove.prevent.stop>
+  <div class="main__layer">
     <Intro
       ref="intro__layer"
       @show-home="zoomHomeLayer"
@@ -19,6 +19,7 @@
             class="home__header home__header--blue"
             :skipAnimation="skipAnimation"
             textProp="Full-Stack Web Developer"
+            :delay="skipAnimation ? '0s' : '2s'"
           />
           <Toolbar
             class="home__toolbar"
@@ -31,7 +32,7 @@
           :class="skipAnimation && 'animation-fadeIn'"
           delay="4s"
           tailDirection="bottom-right"
-          @click="getSection(90, -40, 'contact')"
+          @click="getSection('contact')"
         >
           <template #header>Contact</template>
         </TextBubble>
@@ -41,7 +42,7 @@
           :class="skipAnimation && 'animation-fadeIn'"
           delay="5s"
           tailDirection="bottom-right"
-          @click="getSection(-60, -100, 'about')"
+          @click="getSection('about')"
         >
           <template #header>About</template>
         </TextBubble>
@@ -127,7 +128,7 @@ export default defineComponent({
 
       this.showHome = true;
     },
-    getSection(x: number, y: number, sectionName: string) {
+    getSection(sectionName: string) {
       this.showHome = false;
       switch (sectionName) {
         case "contact":

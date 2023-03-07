@@ -1,5 +1,5 @@
 <template>
-  <p class="typewriter__text" ref="type__text" ></p>
+  <p class="typewriter__text" ref="type__text"></p>
 </template>
 
 <script lang="ts">
@@ -63,10 +63,6 @@ export default defineComponent({
         (this.$refs.type__text as HTMLElement).innerHTML += remainingText;
         this.characterIndex = currentLine.length;
       }
-    },
-    skipAnimate() {
-      (this.$refs.type__text as HTMLElement).innerHTML = "";
-      (this.$refs.type__text as HTMLElement).innerHTML = this.textContent;
     },
   },
   data() {
