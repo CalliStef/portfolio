@@ -5,74 +5,97 @@
       @show-home="zoomHomeLayer"
       v-if="!hideIntro"
     ></Intro>
-    <div ref="home_layer" class="home__layer" @click="skipAnimation = true">
-      <div class="home__layer--wall"></div>
-      <div class="home__layer--floor"></div>
-      <template v-if="showHome">
-        <div class="home__header-container">
-          <Typewriter
-            class="home__header home__header--black"
-            :skipAnimation="skipAnimation"
-            textProp="My name is Callista Stefanie Taswin,"
-          />
-          <Typewriter
-            class="home__header home__header--blue"
-            :skipAnimation="skipAnimation"
-            textProp="Full-Stack Web Developer"
-            :delay="skipAnimation ? '0s' : '2s'"
-          />
-          <Toolbar
-            class="home__toolbar"
+    <Transition
+      enter-active-class="animate-moveInLeft"
+      leave-active-class="animate-moveOutLeft"
+    >
+      <div
+        ref="home_layer"
+        class="home__layer"
+        v-if="!showProjects"
+        @click.prevent.stop="skipAnimation = true"
+      >
+        <div class="home__layer--wall"></div>
+        <div class="home__layer--floor"></div>
+        <template v-if="showHome">
+          <div class="home__header-container">
+            <Typewriter
+              class="home__header home__header--black"
+              :skipAnimation="skipAnimation"
+              textProp="My name is Callista Stefanie Taswin,"
+            />
+            <Typewriter
+              class="home__header home__header--blue"
+              :skipAnimation="skipAnimation"
+              textProp="Full-Stack Web Developer"
+              :delay="skipAnimation ? '0s' : '2s'"
+            />
+            <Toolbar
+              class="home__toolbar"
+              :class="skipAnimation && 'animation-fadeIn'"
+              :toolList="toolArr"
+              delay="3s"
+            />
+          </div>
+          <TextBubble
+            class="text-bubble--contact"
             :class="skipAnimation && 'animation-fadeIn'"
-            :toolList="toolArr"
-          />
+            delay="4s"
+            tailDirection="bottom-right"
+            @click="getSection('contact')"
+          >
+            <template #header>Contact</template>
+          </TextBubble>
+
+          <TextBubble
+            class="text-bubble--about"
+            :class="skipAnimation && 'animation-fadeIn'"
+            delay="5s"
+            tailDirection="bottom-right"
+            @click="getSection('about')"
+          >
+            <template #header>About</template>
+          </TextBubble>
+
+          <TextBubble
+            class="text-bubble--projects"
+            :class="skipAnimation && 'animation-fadeIn'"
+            delay="6s"
+            tailDirection="top-left"
+            @click="getSection('projects')"
+          >
+            <template #header>Projects</template>
+            <template #content>under construction 🛠</template>
+          </TextBubble>
+        </template>
+        <div v-if="showContact || showAbout">
+          <template v-if="showContact">
+            <ContactSection @navigateHome="onNavigateHome" />
+          </template>
+          <template v-else-if="showAbout">
+            <AboutSection @navigateHome="onNavigateHome" />
+          </template>
         </div>
-        <TextBubble
-          class="text-bubble--contact"
-          :class="skipAnimation && 'animation-fadeIn'"
-          delay="4s"
-          tailDirection="bottom-right"
-          @click="getSection('contact')"
-        >
-          <template #header>Contact</template>
-        </TextBubble>
 
-        <TextBubble
-          class="text-bubble--about"
-          :class="skipAnimation && 'animation-fadeIn'"
-          delay="5s"
-          tailDirection="bottom-right"
-          @click="getSection('about')"
-        >
-          <template #header>About</template>
-        </TextBubble>
-
-        <TextBubble
-          class="text-bubble--projects"
-          :class="skipAnimation && 'animation-fadeIn'"
-          delay="6s"
-          tailDirection="top-left"
-        >
-          <template #header>Projects</template>
-          <template #content>under construction 🛠</template>
-        </TextBubble>
-      </template>
-      <div v-if="showContact || showAbout">
-        <template v-if="showContact">
-          <ContactSection @navigateHome="onNavigateHome" />
-        </template>
-        <template v-else-if="showAbout">
-          <AboutSection @navigateHome="onNavigateHome" />
-        </template>
+        <CharacterComponent class="home__scene" />
       </div>
+    </Transition>
 
-      <CharacterComponent class="home__scene" />
-    </div>
+    <Transition
+      enter-active-class="animate-moveInRight"
+      leave-active-class="animate-moveOutRight"
+    >
+      <template v-if="showProjects">
+        <ProjectsView />
+      </template>
+    </Transition>
   </div>
+  
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import toolbar_data from "@/data/app_toolbar_data.json";
 import Intro from "@/components/IntroLayer.vue";
 import CharacterComponent from "@/components/Character.vue";
 import TextBubble from "@/components/TextBubble.vue";
@@ -81,6 +104,7 @@ import Typewriter from "@/components/Typewriter.vue";
 import Toolbar from "@/components/Toolbar.vue";
 import ContactSection from "./components/Contact.vue";
 import AboutSection from "./components/About.vue";
+import ProjectsView from "./components/ProjectsSection.vue";
 
 export default defineComponent({
   name: "App",
@@ -92,6 +116,7 @@ export default defineComponent({
     Toolbar,
     ContactSection,
     AboutSection,
+    ProjectsView,
   },
   methods: {
     zoomHomeLayer() {
@@ -142,7 +167,9 @@ export default defineComponent({
           this.showAbout = true;
           break;
         case "projects":
-          this.getProjectPage();
+          // this.$router.push("/projects");
+          this.showProjects = true;
+          break;
       }
     },
     getProjectPage() {},
@@ -154,86 +181,10 @@ export default defineComponent({
       showHome: false,
       showContact: false,
       showAbout: false,
+      showProjects: false,
       panzoom: null as any,
       homeLayerElem: null as any as HTMLElement,
-      toolArr: [
-        {
-          toolName: "HTML",
-          toolIcon: "vscode-icons:file-type-html",
-        },
-        {
-          toolName: "CSS",
-          toolIcon: "vscode-icons:file-type-css",
-        },
-        {
-          toolName: "SASS",
-          toolIcon: "logos:sass",
-        },
-        {
-          toolName: "Javascript",
-          toolIcon: "logos:javascript",
-        },
-        {
-          toolName: "React",
-          toolIcon: "logos:react",
-        },
-        {
-          toolName: "Next.js",
-          toolIcon: "logos:nextjs-icon",
-        },
-        {
-          toolName: "Vue",
-          toolIcon: "logos:vue",
-        },
-        {
-          toolName: "Node.js",
-          toolIcon: "logos:nodejs-icon",
-        },
-        {
-          toolName: "Express.js",
-          toolIcon: "logos:express",
-        },
-        {
-          toolName: "MySQL",
-          toolIcon: "logos:mysql-icon",
-        },
-        {
-          toolName: "Prisma",
-          toolIcon: "vscode-icons:file-type-light-prisma",
-        },
-        {
-          toolName: "Storybook",
-          toolIcon: "logos:storybook-icon",
-        },
-        {
-          toolName: "Docker",
-          toolIcon: "logos:docker-icon",
-        },
-        {
-          toolName: "MongoDB",
-          toolIcon: "skill-icons:mongodb",
-        },
-        {
-          toolName: "Socket.IO",
-          toolIcon: "logos:socket-io",
-        },
-        {
-          toolName: "Typescript",
-          toolIcon: "logos:typescript-icon",
-        },
-        {
-          toolName: "PHP",
-          toolIcon: "logos:php",
-        },
-        {
-          toolName: "C#",
-          toolIcon: "logos:c-sharp",
-        },
-        {
-          toolName: ".NET",
-          toolIcon: "skill-icons:dotnet",
-        },
-      ],
+      toolArr: toolbar_data,
     };
   },
 });
@@ -308,9 +259,9 @@ export default defineComponent({
     }
   }
 
-  &__toolbar {
+  /* &__toolbar {
     animation: fadeIn 1s ease-in-out 3s backwards;
-  }
+  } */
 
   &__layer {
     display: flex;

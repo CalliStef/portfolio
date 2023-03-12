@@ -1,3 +1,21 @@
+// animation classes
 .animation-fadeIn {
   animation: fadeIn 1s ease-in-out forwards !important;
 }
+
+.animate-moveInLeft{
+  animation: moveInLeft 1s ease-in-out forwards !important;
+}
+
+.animate-moveInRight{
+  animation: moveInRight 1s ease-in-out forwards !important;
+}
+
+.animate-moveOutLeft{
+  animation: moveOutLeft 1s ease-in-out forwards !important;
+}
+
+.animate-moveOutRight{
+  animation: moveOutRight 1s ease-in-out forwards !important;
+}
+
