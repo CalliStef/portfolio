@@ -217,10 +217,6 @@ export default defineComponent({
     font-size: $font-size-medium;
     white-space: nowrap;
 
-    @include respond(tablets-landscape) {
-      font-size: $font-size-medium;
-    }
-
     @include respond(laptops) {
       font-size: $font-size-big;
     }
@@ -340,7 +336,7 @@ export default defineComponent({
       position: absolute;
       bottom: 0;
       width: 100%;
-      height: 17rem;
+      height: 14rem;
       background-color: $color-soft-orange;
     }
   }

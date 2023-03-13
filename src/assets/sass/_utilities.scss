@@ -19,3 +19,23 @@
   animation: moveOutRight 1s ease-in-out forwards !important;
 }
 
+.animate-fadeInBottom{
+  animation: fadeInBottom 1s ease-in-out forwards !important;
+}
+
+.animate-fadeInTop{
+  animation: fadeInTop 1s ease-in-out forwards !important;
+}
+
+// text-alignment
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
