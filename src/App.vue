@@ -157,7 +157,6 @@ export default defineComponent({
       this.showHome = true;
     },
     getSection(sectionName: string) {
-      
       switch (sectionName) {
         case "contact":
           this.homeLayerElem.classList.remove("home__layer--zoom-in");

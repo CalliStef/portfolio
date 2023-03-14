@@ -171,29 +171,18 @@ export default defineComponent({
   }
 
   &__thumbnail {
-    /* width: 100%;
-    height: 100%; */
+    width: 100%;
+    height: 100%;
     box-shadow: 3px 3px 3px 0 rgba(0, 0, 0, 0.2);
     /* object-fit: contain; */
     object-fit: fill;
 
-    &--1 {
-      width: 100%;
-      height: 100%;
-    }
-
-    &--2 {
-      width: 100%;
-      height: 100%;
+    &:hover {
+      animation: tilt-shaking 0.5s ease-in;
     }
 
     &--3 {
       width: 60%;
-      height: 100%;
-    }
-
-    &--4 {
-      width: 100%;
       height: 100%;
     }
   }
