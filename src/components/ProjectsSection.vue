@@ -1,5 +1,13 @@
 <template>
   <div class="projects__page">
+    <Icon
+      class="projects__button"
+      :icon="'material-symbols:keyboard-double-arrow-left-rounded'"
+      :color="'#0AC4B2'"
+      :height="projectIconSize"
+      :width="projectIconSize"
+      @click="navigateHome"
+    />
     <div class="projects__floor"></div>
     <div class="projects__content">
       <div class="projects__content--child animate-fadeInBottom">
@@ -43,11 +51,44 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { Icon } from "@iconify/vue";
 
 export default defineComponent({
   name: "ProjectsSection",
+  components: {
+    Icon,
+  },
   data() {
-    return {};
+    return {
+      projectIconSize: 50,
+      windowWidth: window.innerWidth,
+    };
+  },
+  methods: {
+    navigateHome() {
+      this.$emit("navigateHome", { sectionName: "projects" });
+    },
+    onResize() {
+      this.windowWidth = window.innerWidth;
+      if (this.windowWidth >= 992) {
+        this.projectIconSize = 70;
+      } else {
+        this.projectIconSize = 50;
+      }
+    },
+  },
+  mounted() {
+    this.$nextTick(() => {
+      window.addEventListener("resize", this.onResize);
+    });
+    if (this.windowWidth >= 992) {
+      this.projectIconSize = 70;
+    } else {
+      this.projectIconSize = 50;
+    }
+  },
+  beforeUnmount() {
+    window.removeEventListener("resize", this.onResize);
   },
 });
 </script>
@@ -63,6 +104,12 @@ export default defineComponent({
     background-color: $color-beige;
   }
 
+  &__button {
+    position: absolute;
+    top: 50%;
+    left: 2%;
+  }
+
   &__content {
     display: flex;
     flex-direction: column;
@@ -74,7 +121,7 @@ export default defineComponent({
     top: 37%;
     transform: translate(-50%, -50%);
 
-    @include respond(tablets-portrait){
+    @include respond(tablets-portrait) {
       width: 50%;
     }
 

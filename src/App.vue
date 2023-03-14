@@ -12,7 +12,7 @@
       <div
         ref="home_layer"
         class="home__layer"
-        v-if="!showProjects"
+        v-show="!showProjects"
         @click.prevent.stop="skipAnimation = true"
       >
         <div class="home__layer--wall"></div>
@@ -86,11 +86,10 @@
       leave-active-class="animate-moveOutRight"
     >
       <template v-if="showProjects">
-        <ProjectsView />
+        <ProjectsView @navigateHome="onNavigateHome" />
       </template>
     </Transition>
   </div>
-  
 </template>
 
 <script lang="ts">
@@ -138,23 +137,27 @@ export default defineComponent({
 
       this.skipAnimation = true;
 
-      this.homeLayerElem.classList.add("home__layer--zoom-reset");
-
       switch (sectionName) {
         case "contact":
+          this.homeLayerElem.classList.add("home__layer--zoom-reset");
           this.homeLayerElem.classList.remove("home__layer--zoom-contact");
           this.showContact = false;
           break;
         case "about":
+          this.homeLayerElem.classList.add("home__layer--zoom-reset");
           this.homeLayerElem.classList.remove("home__layer--zoom-about");
           this.showAbout = false;
+          break;
+        case "projects":
+          this.homeLayerElem.classList.remove("home__layer--zoom-in");
+          this.showProjects = false;
           break;
       }
 
       this.showHome = true;
     },
     getSection(sectionName: string) {
-      this.showHome = false;
+      
       switch (sectionName) {
         case "contact":
           this.homeLayerElem.classList.remove("home__layer--zoom-in");
@@ -167,10 +170,11 @@ export default defineComponent({
           this.showAbout = true;
           break;
         case "projects":
-          // this.$router.push("/projects");
           this.showProjects = true;
           break;
       }
+
+      this.showHome = false;
     },
     getProjectPage() {},
   },
