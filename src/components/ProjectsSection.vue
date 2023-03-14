@@ -26,7 +26,7 @@
             class="artifact__thumbnail artifact__thumbnail--3"
             src="/assets/project-thumbnails/thumbnail-pathfinder.png"
           />
-          <h2 class="artifact__header text-left">Pathfinder</h2>
+          <h2 class="artifact__header text-right">Pathfinder</h2>
         </div>
 
         <div class="artifact__container">
@@ -68,23 +68,28 @@ export default defineComponent({
     flex-direction: column;
     align-items: center;
     position: absolute;
-    width: 20rem;
+    width: 80%;
     gap: 0.5rem;
     left: 50%;
     top: 37%;
     transform: translate(-50%, -50%);
 
+    @include respond(tablets-portrait){
+      width: 50%;
+    }
+
     &--child {
       display: flex;
       min-width: auto;
       height: 100%;
-      /* flex-direction: column; */
-      /* justify-content: center;
-      align-items: center; */
       gap: 0.5rem;
 
-      &:nth-child(1){
+      &:nth-child(1) {
         align-items: end;
+      }
+
+      &:nth-child(2) {
+        align-items: start;
       }
     }
   }
@@ -104,7 +109,7 @@ export default defineComponent({
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: end;
     width: 100%;
     height: 100%;
     cursor: pointer;
@@ -116,9 +121,6 @@ export default defineComponent({
     font-family: "FuzzyBubbles-Bold";
     font-size: $font-size-small;
     color: $color-black;
-
-
-    
   }
 
   &__thumbnail {
@@ -129,22 +131,22 @@ export default defineComponent({
     object-fit: fill;
 
     &--1 {
-      width: 10rem;
+      width: 100%;
       height: 100%;
     }
 
     &--2 {
-      width: 10rem;
+      width: 100%;
       height: 100%;
     }
 
     &--3 {
-      width: 7rem;
-      height: 5rem;
+      width: 60%;
+      height: 100%;
     }
 
     &--4 {
-      width: 10rem;
+      width: 100%;
       height: 100%;
     }
   }
