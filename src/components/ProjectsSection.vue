@@ -123,6 +123,7 @@ export default defineComponent({
 
     @include respond(tablets-portrait) {
       width: 50%;
+      gap: 1rem;
     }
 
     &--child {
@@ -130,6 +131,10 @@ export default defineComponent({
       min-width: auto;
       height: 100%;
       gap: 0.5rem;
+
+      @include respond(tablets-portrait) {
+        gap: 1rem;
+      }
 
       &:nth-child(1) {
         align-items: end;
