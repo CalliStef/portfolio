@@ -61,7 +61,7 @@
         <template #header>
           <Typewriter
             class="artifact__name"
-            :textProp="currentProject?.name"
+            :textProp="currentProject?.name!"
             delay="2s"
           />
         </template>
@@ -75,7 +75,7 @@
                 :width="mediaIconSize"
               />
             </Transition>
-            <a class="media__link" :href="currentProject?.githubLink">
+            <a class="media__link" :href="currentProject?.githubLink!">
               <Typewriter textProp="Github site" delay="4s" />
             </a>
             <Transition appear :style="{ animationDelay: '5s' }">
@@ -86,7 +86,7 @@
                 :width="mediaIconSize"
               />
             </Transition>
-            <a class="media__link" :href="currentProject.productionLink">
+            <a class="media__link" :href="currentProject.productionLink!">
               <Typewriter textProp="Live site" delay="6s" />
             </a>
           </div>
@@ -94,7 +94,7 @@
             <Typewriter textProp="Tools used:" delay="7s" />
             <Toolbar
               class="artifact__toolbar"
-              :toolList="currentProject?.tools"
+              :toolList="currentProject?.tools!"
               delay="8s"
             />
           </div>
@@ -102,7 +102,7 @@
         <template #content>
           <Typewriter
             class="artifact__description text-center"
-            :textProp="currentProject?.description"
+            :textProp="currentProject?.description!"
             delay="9s"
           />
         </template>
@@ -114,7 +114,7 @@
         :color="'#0AC4B2'"
         :height="mediaIconSize + 10"
         :width="mediaIconSize + 10"
-        @click.prevent="hideProjectContent(currentProject?.dataName)"
+        @click.prevent="hideProjectContent(currentProject?.dataName!)"
       />
     </template>
   </div>
