@@ -5,6 +5,7 @@ export interface Tool {
 
 export interface Project {
   name: string;
+  dataName: string;
   tools: Tool[];
   description: string;
   githubLink: string;
