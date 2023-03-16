@@ -86,7 +86,7 @@
                 :width="mediaIconSize"
               />
             </Transition>
-            <a class="media__link" :href="currentProject.productionLink!">
+            <a class="media__link" :href="currentProject?.productionLink!">
               <Typewriter textProp="Live site" delay="6s" />
             </a>
           </div>
