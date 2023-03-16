@@ -13,7 +13,7 @@
   }
 
   @if $breakpoint == phones {
-    @media (min-width: 576px) {
+    @media (min-width: 500px) {
       @content;
     }
   }

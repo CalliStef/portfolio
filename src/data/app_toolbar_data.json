@@ -12,6 +12,10 @@
     "toolIcon": "logos:sass"
   },
   {
+    "toolName": "Tailwind CSS",
+    "toolIcon": "logos:tailwindcss-icon"
+  },
+  {
     "toolName": "Javascript",
     "toolIcon": "logos:javascript"
   },
@@ -74,5 +78,13 @@
   {
     "toolName": ".NET",
     "toolIcon": "skill-icons:dotnet"
+  },
+  {
+    "toolName": "Railway",
+    "toolIcon": "simple-icons:railway"
+  },
+  {
+    "toolName": "AWS",
+    "toolIcon": "logos:aws"
   }
 ]

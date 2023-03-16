@@ -1,7 +1,7 @@
 <template>
   <Transition appear :style="{ animationDelay: delay }">
     <div class="toolbar__container">
-      <Vue3Marquee :duration="20">
+      <Vue3Marquee :duration="20" v-if="toolArr.length > 10">
         <Icon
           v-for="(tool, index) in toolArr"
           :key="index"
@@ -11,6 +11,16 @@
           :width="toolbarSize"
         />
       </Vue3Marquee>
+      <template v-else>
+        <Icon 
+          v-for="(tool, index) in toolArr"
+          :key="index"
+          class="toolbar__icon"
+          :icon="tool.toolIcon"
+          :height="toolbarSize - 10"
+          :width="toolbarSize - 10"
+        />
+      </template>
     </div>
   </Transition>
 </template>
@@ -76,7 +86,7 @@ export default defineComponent({
     height: 2rem;
     align-self: center;
     overflow: hidden;
-    transition: all .2s;
+    transition: all 0.2s;
     animation: fadeIn 1s ease-in-out backwards;
 
     @include respond(tablets-landscape) {

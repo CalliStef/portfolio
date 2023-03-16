@@ -3,6 +3,18 @@
   animation: fadeIn 1s ease-in-out forwards !important;
 }
 
+.animate-fadeInBottom{
+  animation: fadeInBottom 1s ease-in-out forwards !important;
+}
+
+.animate-fadeInTop{
+  animation: fadeInTop 1s ease-in-out forwards !important;
+}
+
+.animate-fadeOut{
+  animation: fadeOut 1s ease-in-out forwards !important;
+}
+
 .animate-moveInLeft{
   animation: moveInLeft 1s ease-in-out backwards !important;
 }
@@ -19,14 +31,6 @@
   animation: moveOutRight 1s ease-in-out forwards !important;
 }
 
-.animate-fadeInBottom{
-  animation: fadeInBottom 1s ease-in-out forwards !important;
-}
-
-.animate-fadeInTop{
-  animation: fadeInTop 1s ease-in-out forwards !important;
-}
-
 // text-alignment
 .text-center {
   text-align: center;
@@ -38,4 +42,11 @@
 
 .text-right {
   text-align: right;
+}
+
+// pointers
+
+.pointer-none {
+  pointer-events: none;
+  cursor: auto;
 }

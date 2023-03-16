@@ -13,6 +13,7 @@
         ref="home_layer"
         class="home__layer"
         v-show="!showProjects"
+
         @click.prevent.stop="skipAnimation = true"
       >
         <div class="home__layer--wall"></div>

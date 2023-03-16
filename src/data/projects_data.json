@@ -1,0 +1,106 @@
+{
+  "trashQueens": {
+    "name": "Trash Queens",
+    "dataName": "trashQueens",
+    "tools": [
+      {
+        "toolName": "Vue",
+        "toolIcon": "logos:vue"
+      },
+      {
+        "toolName": "Railway",
+        "toolIcon": "simple-icons:railway"
+      }
+    ],
+    "description": "Trash Queens is a recycling game for all ages to learn about how to recycle properly. It offers a fast-paced and dynamic gameplay for users, as well as information as to the importance of recycling.  \n \n Explore the app, expand your knowledge and make the world a better place!",
+    "githubLink": "https://github.com/phoenixlai833/TrashQueens-Prod",
+    "productionLink": "https://trash-queens-dev.vercel.app/"
+  },
+  "loveIsWar": {
+    "name": "Love is War",
+    "dataName": "loveIsWar",
+    "tools": [
+      {
+        "toolName": "HTML",
+        "toolIcon": "vscode-icons:file-type-html"
+      },
+      {
+        "toolName": "SASS",
+        "toolIcon": "logos:sass"
+      },
+      {
+        "toolName": "Javascript",
+        "toolIcon": "logos:javascript"
+      },
+      {
+        "toolName": "Express.js",
+        "toolIcon": "logos:express"
+      },
+      {
+        "toolName": "MySQL",
+        "toolIcon": "logos:mysql-icon"
+      },
+      {
+        "toolName": "Socket.IO",
+        "toolIcon": "logos:socket-io"
+      },
+      {
+        "toolName": "Node.js",
+        "toolIcon": "logos:nodejs-icon"
+      }
+    ],
+    "description": "A multiplayer party game featuring a group of aliens fighting for the love of a human! Load up the lobby and compete against other players in quick rounds of trivia. When it comes to dating... Love is War!",
+    "githubLink": "https://github.com/lbeique/true-love",
+    "productionLink": "https://love-is-war.onrender.com"
+  },
+  "pathfinder": {
+    "name": "Pathfinder",
+    "dataName": "pathfinder",
+    "tools": [
+      {
+        "toolName": "Storybook",
+        "toolIcon": "logos:storybook-icon"
+      },
+      {
+        "toolName": "Next.js",
+        "toolIcon": "logos:nextjs-icon"
+      },
+      {
+        "toolName": "Express.js",
+        "toolIcon": "logos:express"
+      },
+      {
+        "toolName": "AWS",
+        "toolIcon": "logos:aws"
+      }
+    ],
+    "description": "Pathfinder is a web application that allows users to visualize the shortest path between two points on a grid. It uses the A* algorithm to find the shortest path between two points. The user can also create walls to block the path and see how the algorithm reacts to the changes.",
+    "githubLink": "https://github.com/hlee443/PathFinder-Athena",
+    "productionLink": ""
+  },
+  "innota": {
+    "name": "Innota",
+    "dataName": "innota",
+    "tools": [
+      {
+        "toolName": "React",
+        "toolIcon": "logos:react"
+      },
+      {
+        "toolName": "Tailwind CSS",
+        "toolIcon": "logos:tailwindcss-icon"
+      },
+      {
+        "toolName": "Docker",
+        "toolIcon": "logos:docker-icon"
+      },
+      {
+        "toolName": "MongoDB",
+        "toolIcon": "skill-icons:mongodb"
+      }
+    ],
+    "description": "Innota is a web application that allows users to create and share their own stories. Users can create their own stories and share them with their friends. They can also read other people's stories and leave comments on them. The application also allows users to create their own accounts and save their stories.",
+    "githubLink": "",
+    "productionLink": ""
+  }
+}

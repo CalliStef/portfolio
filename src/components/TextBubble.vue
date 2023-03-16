@@ -79,7 +79,7 @@ export default defineComponent({
     clip-path: polygon(0 0, 10% 100%, 50% 0);
 
     &--bottom-left {
-      bottom: -0.5rem;
+      bottom: 0.3rem;
     }
 
     &--bottom-right {

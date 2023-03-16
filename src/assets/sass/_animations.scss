@@ -49,6 +49,17 @@
   }
 }
 
+@keyframes fadeOut{
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    display: none;
+  }
+}
+
 @keyframes fadeInBottom{
   0% {
     opacity: 0;
@@ -255,6 +266,21 @@
     transform: scale(0), translateX(0);
     top: 0;
     left: 0;
+  }
+}
+
+
+@keyframes zoomToTrashQueen{
+  0% {
+    transform: scale(1), translateX(0);
+    top: 0;
+    right: 0;
+  }
+
+  100%{
+    transform: scale(2);
+    right: 20%;
+    top: 20%;
   }
 }
 
