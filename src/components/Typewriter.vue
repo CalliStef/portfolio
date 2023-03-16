@@ -13,18 +13,15 @@ export default defineComponent({
     skipAnimation: { type: Boolean },
   },
   mounted() {
-    if (!this.skipAnimation) {
-      let delayTime = parseInt(this.delay) * 1000;
-      setTimeout(this.animate, delayTime);
-    } else {
-      this.animate();
-    }
+    let delayTime = parseInt(this.delay) * 1000;
+    setTimeout(this.animate, delayTime);
   },
   watch: {
     skipAnimation: function (newState, prevState) {
-      if (newState === true) {
-        this.$forceUpdate();
-        // this.animate();
+      if (newState) {
+        // If skipping is true, update the delay time to 0
+        let delayTime = newState ? 0 : parseInt(this.delay) * 1000;
+        setTimeout(this.animate, delayTime);
       }
     },
   },

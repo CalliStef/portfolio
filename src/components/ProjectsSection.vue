@@ -63,11 +63,15 @@
             class="artifact__name"
             :textProp="currentProject?.name!"
             delay="2s"
+            :skipAnimation="skipAnimation"
           />
         </template>
         <template #tools>
           <div class="media__container">
-            <Transition appear :style="{ animationDelay: '3s' }">
+            <Transition
+              appear
+              :style="{ animationDelay: !skipAnimation ? '3s' : '' }"
+            >
               <Icon
                 icon="mdi:github"
                 class="media__icon"
@@ -76,9 +80,16 @@
               />
             </Transition>
             <a class="media__link" :href="currentProject?.githubLink!">
-              <Typewriter textProp="Github site" delay="4s" />
+              <Typewriter
+                textProp="Github site"
+                delay="4s"
+                :skipAnimation="skipAnimation"
+              />
             </a>
-            <Transition appear :style="{ animationDelay: '5s' }">
+            <Transition
+              appear
+              :style="{ animationDelay: !skipAnimation ? '5s' : '' }"
+            >
               <Icon
                 icon="ph:globe"
                 class="media__icon"
@@ -87,15 +98,23 @@
               />
             </Transition>
             <a class="media__link" :href="currentProject?.productionLink!">
-              <Typewriter textProp="Live site" delay="6s" />
+              <Typewriter
+                textProp="Live site"
+                delay="6s"
+                :skipAnimation="skipAnimation"
+              />
             </a>
           </div>
           <div class="artifact__tools-container">
-            <Typewriter textProp="Tools used:" delay="7s" />
+            <Typewriter
+              textProp="Tools used:"
+              delay="7s"
+              :skipAnimation="skipAnimation"
+            />
             <Toolbar
               class="artifact__toolbar"
               :toolList="currentProject?.tools!"
-              delay="8s"
+              :delay="(!skipAnimation && '8s') || '0s'"
             />
           </div>
         </template>
@@ -103,6 +122,7 @@
           <Typewriter
             class="artifact__description text-center"
             :textProp="currentProject?.description!"
+            :skipAnimation="skipAnimation"
             delay="9s"
           />
         </template>
@@ -149,9 +169,15 @@ export default defineComponent({
       currentProject: null as Project | null,
       showProjectContent: false,
       mediaIconSize: 10,
+      skipAnimation: false,
     };
   },
   methods: {
+    skipAnimationListener() {
+      console.log("skip animation listener", this.skipAnimation); // should always false
+      this.skipAnimation = true;
+      window.removeEventListener("click", this.skipAnimationListener, false);
+    },
     navigateHome() {
       this.$emit("navigateHome", { sectionName: "projects" });
     },
@@ -166,6 +192,7 @@ export default defineComponent({
       }
     },
     hideProjectContent(projectName: string) {
+      this.skipAnimation = false;
       const projectPageNode = this.$refs.projects_page as HTMLElement;
 
       // if show other projects
@@ -177,6 +204,7 @@ export default defineComponent({
       });
 
       projectPageNode.classList.remove("zoom--" + projectName);
+      console.log("skipAnimation after", this.skipAnimation);
     },
     getProjectContent(projectName: string, event: MouseEvent) {
       const projectPageNode = this.$refs.projects_page as HTMLElement;
@@ -210,7 +238,12 @@ export default defineComponent({
 
       this.currentProject = toRaw(this.projectsData[projectName]);
       this.showProjectContent = true;
-      console.log("this.currentProject", toRaw(this.projectsData[projectName]));
+      this.skipAnimation = false;
+      setTimeout(() => {
+        console.log("skipAnimation after timeout", this.skipAnimation);
+        window.addEventListener("click", this.skipAnimationListener, false);
+      }, 1000);
+      // window.addEventListener("click", this.skipAnimationListener);
     },
   },
   mounted() {
