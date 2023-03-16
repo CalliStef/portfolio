@@ -79,7 +79,12 @@ export default defineComponent({
     clip-path: polygon(0 0, 10% 100%, 50% 0);
 
     &--bottom-left {
-      bottom: 0.3rem;
+      bottom: 1rem;
+
+      @include respond(laptops) {
+        bottom: 1.2rem;
+        left: 3.5rem;
+      }
     }
 
     &--bottom-right {

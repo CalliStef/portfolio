@@ -79,7 +79,7 @@
                 :width="mediaIconSize"
               />
             </Transition>
-            <a class="media__link" :href="currentProject?.githubLink!">
+            <a class="media__link" :href="currentProject?.githubLink!" target="_blank">
               <Typewriter
                 textProp="Github site"
                 delay="4s"
@@ -97,7 +97,7 @@
                 :width="mediaIconSize"
               />
             </Transition>
-            <a class="media__link" :href="currentProject?.productionLink!">
+            <a class="media__link" :href="currentProject?.productionLink!" target="_blank">
               <Typewriter
                 textProp="Live site"
                 delay="6s"
@@ -170,6 +170,7 @@ export default defineComponent({
       showProjectContent: false,
       mediaIconSize: 10,
       skipAnimation: false,
+      selectedThumbnail: null as HTMLElement | null,
     };
   },
   methods: {
@@ -203,23 +204,25 @@ export default defineComponent({
         project.classList.remove("animate-fadeOut", "pointer-none");
       });
 
+      this.selectedThumbnail?.classList.add("artifact__thumbnail--hover-animated");
+    
       projectPageNode.classList.remove("zoom--" + projectName);
       console.log("skipAnimation after", this.skipAnimation);
     },
     getProjectContent(projectName: string, event: MouseEvent) {
       const projectPageNode = this.$refs.projects_page as HTMLElement;
-      const selectedThumbnail = event.target as HTMLElement;
+      this.selectedThumbnail = event.target as HTMLElement;
 
-      const parentThumbnail = selectedThumbnail.parentNode as HTMLElement;
+      const parentThumbnail = this.selectedThumbnail.parentNode as HTMLElement;
 
-      console.log("selectedThumbnail", selectedThumbnail);
+      console.log("this.selectedThumbnail", this.selectedThumbnail);
 
       const artifaceHeader = parentThumbnail.querySelector(
         ".artifact__header"
       ) as HTMLElement;
 
       artifaceHeader.classList.add("animate-fadeOut", "pointer-none");
-      selectedThumbnail.classList.remove("artifact__thumbnail--hover-animated");
+      this.selectedThumbnail.classList.remove("artifact__thumbnail--hover-animated");
       parentThumbnail.classList.add("pointer-none");
 
       const artifactContainers = projectPageNode.querySelectorAll(
@@ -227,7 +230,7 @@ export default defineComponent({
       );
 
       artifactContainers.forEach((container) => {
-        if (container !== selectedThumbnail.parentElement) {
+        if (container !== this.selectedThumbnail?.parentElement) {
           container.classList.add("animate-fadeOut", "pointer-none");
         }
       });
@@ -277,6 +280,7 @@ export default defineComponent({
     left: 0;
     background-color: $color-beige;
     transition: all 1s ease-in-out;
+    transition-property: transform, top, left;
   }
 
   &__button {
@@ -340,7 +344,19 @@ export default defineComponent({
     @include respond(phones) {
       transform: scale(2);
       left: 40%;
-      bottom: 20%;
+      top: 15%;
+    }
+
+    @include respond(tablets-portrait) {
+      transform: scale(2);
+      left: 25%;
+      top: 15%;
+    }
+
+    @include respond(tablets-landscape) {
+      transform: scale(1.5);
+      left: -5%;
+      top: 30%;
     }
   }
 }
@@ -362,8 +378,23 @@ export default defineComponent({
     padding: 1rem;
 
     @include respond(phones) {
-      width: 12rem;
+      width: 40%;
       height: 10rem;
+    }
+
+    @include respond(tablets-portrait) {
+      width: 30%;
+      height: 10rem;
+    }
+
+    @include respond(tablets-landscape) {
+      height: 15rem;
+      padding: 2rem;
+    }
+
+    @include respond(laptops) {
+      height: 20rem;
+      padding: 2rem;
     }
 
     &--trashQueens {
@@ -374,6 +405,16 @@ export default defineComponent({
         left: 10%;
         top: 40%;
       }
+
+      @include respond(tablets-portrait) {
+        left: 22%;
+        top: 40%;
+      }
+
+      @include respond(tablets-landscape) {
+        left: 53%;
+        top: 10%;
+      }
     }
   }
 
@@ -382,6 +423,10 @@ export default defineComponent({
     align-items: center;
     width: 100%;
     height: 1rem;
+
+    @include respond(tablets-landscape) {
+      margin: 0.5rem 0;
+    }
 
     & > p {
       white-space: nowrap;
@@ -393,6 +438,7 @@ export default defineComponent({
     width: 100%;
     height: 100%;
     align-items: center;
+    overflow: visible;
   }
 
   &__header {
@@ -434,8 +480,18 @@ export default defineComponent({
     animation: moveUpDown 1s ease-in-out infinite;
 
     @include respond(phones) {
-      bottom: 35%;
+      bottom: 38%;
       left: 28%;
+    }
+
+    @include respond(tablets-portrait) {
+      bottom: 38%;
+      left: 35%;
+    }
+
+    @include respond(tablets-landscape) {
+      bottom: 45%;
+      left: 52%;
     }
   }
 }
