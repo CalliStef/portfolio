@@ -51,6 +51,7 @@
         </div>
       </div>
     </div>
+
     <template v-if="showProjectContent">
       <TextBubble
         class="artifact__text-bubble"
@@ -67,7 +68,10 @@
           />
         </template>
         <template #tools>
-          <div class="media__container">
+          <div
+            v-if="currentProject?.githubLink && currentProject?.productionLink"
+            class="media__container"
+          >
             <Transition
               appear
               :style="{ animationDelay: !skipAnimation ? '3s' : '' }"
@@ -79,7 +83,11 @@
                 :width="mediaIconSize"
               />
             </Transition>
-            <a class="media__link" :href="currentProject?.githubLink!" target="_blank">
+            <a
+              class="media__link"
+              :href="currentProject?.githubLink!"
+              target="_blank"
+            >
               <Typewriter
                 textProp="Github site"
                 delay="4s"
@@ -97,7 +105,11 @@
                 :width="mediaIconSize"
               />
             </Transition>
-            <a class="media__link" :href="currentProject?.productionLink!" target="_blank">
+            <a
+              class="media__link"
+              :href="currentProject?.productionLink!"
+              target="_blank"
+            >
               <Typewriter
                 textProp="Live site"
                 delay="6s"
@@ -204,8 +216,10 @@ export default defineComponent({
         project.classList.remove("animate-fadeOut", "pointer-none");
       });
 
-      this.selectedThumbnail?.classList.add("artifact__thumbnail--hover-animated");
-    
+      this.selectedThumbnail?.classList.add(
+        "artifact__thumbnail--hover-animated"
+      );
+
       projectPageNode.classList.remove("zoom--" + projectName);
       console.log("skipAnimation after", this.skipAnimation);
     },
@@ -222,7 +236,9 @@ export default defineComponent({
       ) as HTMLElement;
 
       artifaceHeader.classList.add("animate-fadeOut", "pointer-none");
-      this.selectedThumbnail.classList.remove("artifact__thumbnail--hover-animated");
+      this.selectedThumbnail.classList.remove(
+        "artifact__thumbnail--hover-animated"
+      );
       parentThumbnail.classList.add("pointer-none");
 
       const artifactContainers = projectPageNode.querySelectorAll(
@@ -235,18 +251,19 @@ export default defineComponent({
         }
       });
 
-      console.log("artifactContainers", artifactContainers);
-
       projectPageNode.classList.add("zoom--" + projectName);
 
       this.currentProject = toRaw(this.projectsData[projectName]);
       this.showProjectContent = true;
       this.skipAnimation = false;
       setTimeout(() => {
-        console.log("skipAnimation after timeout", this.skipAnimation);
         window.addEventListener("click", this.skipAnimationListener, false);
+        const artifactButton = projectPageNode.querySelector(
+          ".artifact__button"
+        ) as HTMLElement;
+        console.log("artifactButton", artifactButton);
+        artifactButton.classList.add("artifact__button--" + projectName);
       }, 1000);
-      // window.addEventListener("click", this.skipAnimationListener);
     },
   },
   mounted() {
@@ -329,7 +346,7 @@ export default defineComponent({
     display: flex;
     position: absolute;
     bottom: 0;
-    width: 100%;
+    width: 120%;
     height: 14rem;
     background-color: $color-soft-orange;
   }
@@ -343,20 +360,75 @@ export default defineComponent({
 
     @include respond(phones) {
       transform: scale(2);
-      left: 40%;
       top: 15%;
     }
 
     @include respond(tablets-portrait) {
+      // still vertical
       transform: scale(2);
       left: 25%;
       top: 15%;
     }
 
     @include respond(tablets-landscape) {
+      // horizontal
       transform: scale(1.5);
       left: -5%;
       top: 30%;
+    }
+  }
+
+  &--loveIsWar {
+    transform: scale(2);
+    left: -40%;
+    top: 10%;
+
+    @include respond(tablets-portrait) {
+      transform: scale(2);
+      left: -25%;
+      top: 15%;
+    }
+
+    @include respond(tablets-landscape) {
+      transform: scale(1.5);
+      left: -45%;
+      top: 30%;
+    }
+  }
+
+  &--pathfinder {
+    transform: scale(2);
+    left: 42%;
+    top: -15%;
+
+    @include respond(tablets-portrait) {
+      transform: scale(2);
+      left: 25%;
+      top: -15%;
+    }
+
+    @include respond(tablets-landscape) {
+      transform: scale(1.5);
+      left: -5%;
+      top: 0%;
+    }
+  }
+
+  &--innota {
+    transform: scale(2);
+    left: -42%;
+    top: -10%;
+
+    @include respond(tablets-portrait) {
+      transform: scale(2);
+      left: -25%;
+      top: -10%;
+    }
+
+    @include respond(tablets-landscape) {
+      transform: scale(1.5);
+      left: -45%;
+      top: 0%;
     }
   }
 }
@@ -397,6 +469,7 @@ export default defineComponent({
       padding: 2rem;
     }
 
+    // TEXT BUBBLE PLACEMENT
     &--trashQueens {
       left: 8%;
       top: 40%;
@@ -416,6 +489,75 @@ export default defineComponent({
         top: 10%;
       }
     }
+
+    &--loveIsWar {
+      left: 48%;
+      top: 40%;
+
+      @include respond(phones) {
+        left: 50%;
+      }
+
+      @include respond(tablets-portrait) {
+        left: 48%;
+        top: 40%;
+      }
+
+      @include respond(tablets-landscape) {
+        left: 80%;
+        top: 15%;
+      }
+
+      @include respond(laptops) {
+        left: 80%;
+        top: 5%;
+      }
+    }
+
+    &--pathfinder {
+      left: 7.5%;
+      top: 53%;
+
+      @include respond(phones) {
+        left: 10%;
+        top: 55%;
+      }
+
+      @include respond(tablets-portrait) {
+        left: 22%;
+        top: 55%;
+      }
+
+      @include respond(tablets-landscape) {
+        left: 53%;
+        top: 33%;
+      }
+    }
+
+    &--innota {
+      left: 49%;
+      top: 49%;
+
+      @include respond(phones) {
+        left: 50%;
+        top: 53%;
+      }
+
+      @include respond(tablets-portrait) {
+        left: 48%;
+        top: 52%;
+      }
+
+      @include respond(tablets-landscape) {
+        left: 80%;
+        top: 33%;
+      }
+
+      @include respond(laptops) {
+        left: 80%;
+        top: 25%;
+      }
+    }
   }
 
   &__tools-container {
@@ -430,7 +572,6 @@ export default defineComponent({
 
     & > p {
       white-space: nowrap;
-      margin-left: 0.5rem;
     }
   }
 
@@ -439,6 +580,7 @@ export default defineComponent({
     height: 100%;
     align-items: center;
     overflow: visible;
+    padding-right: 0.5rem;
   }
 
   &__header {
@@ -465,33 +607,91 @@ export default defineComponent({
         animation: tilt-shaking 0.5s ease-in;
       }
     }
-
-    &--3 {
-      width: 60%;
-      height: 100%;
-    }
   }
 
   &__button {
     position: absolute;
     z-index: 2;
-    left: 27%;
-    bottom: 40%;
     animation: moveUpDown 1s ease-in-out infinite;
 
-    @include respond(phones) {
-      bottom: 38%;
-      left: 28%;
+    &--trashQueens {
+      left: 27%;
+      bottom: 40%;
+
+      @include respond(phones) {
+        bottom: 38%;
+        left: 28%;
+      }
+
+      @include respond(tablets-portrait) {
+        bottom: 38%;
+        left: 35%;
+      }
+
+      @include respond(tablets-landscape) {
+        bottom: 45%;
+        left: 52%;
+      }
     }
 
-    @include respond(tablets-portrait) {
-      bottom: 38%;
-      left: 35%;
+    &--loveIsWar {
+      left: 67%;
+      top: 57%;
+
+      @include respond(phones) {
+        left: 68%;
+        top: 60%;
+      }
+
+      @include respond(tablets-portrait) {
+        left: 61%;
+        top: 60%;
+      }
+
+      @include respond(tablets-landscape) {
+        left: 78%;
+        top: 50%;
+      }
     }
 
-    @include respond(tablets-landscape) {
-      bottom: 45%;
-      left: 52%;
+    &--pathfinder {
+      left: 26%;
+      bottom: 27%;
+
+      @include respond(phones) {
+        left: 27%;
+        bottom: 23%;
+      }
+
+      @include respond(tablets-portrait) {
+        left: 36%;
+        bottom: 23%;
+      }
+
+      @include respond(tablets-landscape) {
+        left: 52%;
+        bottom: 28%;
+      }
+    }
+
+    &--innota {
+      left: 68%;
+      top: 68%;
+
+      @include respond(phones) {
+        left: 68%;
+        top: 72%;
+      }
+
+      @include respond(tablets-portrait) {
+        left: 61%;
+        top: 72%;
+      }
+
+      @include respond(tablets-landscape) {
+        left: 78%;
+        top: 70%;
+      }
     }
   }
 }
