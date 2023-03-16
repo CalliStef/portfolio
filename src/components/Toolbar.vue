@@ -9,16 +9,19 @@
           :icon="tool.toolIcon"
           :height="toolbarSize"
           :width="toolbarSize"
+          :attributes="{ title: tool.toolName }"
         />
       </Vue3Marquee>
       <template v-else>
-        <Icon 
+        <Icon
           v-for="(tool, index) in toolArr"
           :key="index"
           class="toolbar__icon"
           :icon="tool.toolIcon"
           :height="toolbarSize - 10"
           :width="toolbarSize - 10"
+          :alt="tool.toolName"
+          :attributes="{ title: tool.toolName }"
         />
       </template>
     </div>

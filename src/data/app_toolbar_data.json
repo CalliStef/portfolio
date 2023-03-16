@@ -82,9 +82,5 @@
   {
     "toolName": "Railway",
     "toolIcon": "simple-icons:railway"
-  },
-  {
-    "toolName": "AWS",
-    "toolIcon": "logos:aws"
   }
 ]

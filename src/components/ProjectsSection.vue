@@ -38,7 +38,7 @@
             src="/assets/project-thumbnails/thumbnail-pathfinder.png"
             @click="getProjectContent('pathfinder', $event)"
           />
-          <h2 class="artifact__header text-right">Pathfinder</h2>
+          <h2 class="artifact__header text-left">Pathfinder</h2>
         </div>
 
         <div class="artifact__container">
@@ -221,7 +221,6 @@ export default defineComponent({
       );
 
       projectPageNode.classList.remove("zoom--" + projectName);
-      console.log("skipAnimation after", this.skipAnimation);
     },
     getProjectContent(projectName: string, event: MouseEvent) {
       const projectPageNode = this.$refs.projects_page as HTMLElement;
@@ -229,7 +228,6 @@ export default defineComponent({
 
       const parentThumbnail = this.selectedThumbnail.parentNode as HTMLElement;
 
-      console.log("this.selectedThumbnail", this.selectedThumbnail);
 
       const artifaceHeader = parentThumbnail.querySelector(
         ".artifact__header"
@@ -261,7 +259,6 @@ export default defineComponent({
         const artifactButton = projectPageNode.querySelector(
           ".artifact__button"
         ) as HTMLElement;
-        console.log("artifactButton", artifactButton);
         artifactButton.classList.add("artifact__button--" + projectName);
       }, 1000);
     },
@@ -376,6 +373,11 @@ export default defineComponent({
       left: -5%;
       top: 30%;
     }
+
+    @include respond(laptops) {
+      left: -5%;
+      top: 35%;
+    }
   }
 
   &--loveIsWar {
@@ -413,7 +415,7 @@ export default defineComponent({
       top: 0%;
     }
 
-    @include respond(laptops){
+    @include respond(laptops) {
       left: -5%;
       top: -5%;
     }
@@ -492,6 +494,10 @@ export default defineComponent({
       @include respond(tablets-landscape) {
         left: 53%;
         top: 10%;
+      }
+
+      @include respond(laptops) {
+        top: 5%;
       }
     }
 

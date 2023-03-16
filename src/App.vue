@@ -66,7 +66,6 @@
             @click="getSection('projects')"
           >
             <template #header>Projects</template>
-            <template #content>under construction 🛠</template>
           </TextBubble>
         </template>
         <div v-if="showContact || showAbout">
@@ -271,8 +270,9 @@ export default defineComponent({
     background-color: $color-beige;
     position: absolute;
     transition: all 1s ease-in-out;
-    /* animation: fadeIn 1s ease-in-out 3s backwards; */
     transform: scale(0);
+    left: 0;
+    top: 0;
 
     &--zoom-in {
       animation: zoomToFull 1s ease-in-out forwards;
@@ -356,13 +356,13 @@ export default defineComponent({
     width: 21rem;
     position: absolute;
     left: 50%;
-    top: 40%;
+    top: 43%;
     transform: translate(-50%, 0);
 
     @include respond(tablets-landscape) {
       width: 25rem;
       left: 65%;
-      top: 25%;
+      top: 30%;
     }
 
     @include respond(laptops) {
