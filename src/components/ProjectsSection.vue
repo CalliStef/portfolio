@@ -412,6 +412,11 @@ export default defineComponent({
       left: -5%;
       top: 0%;
     }
+
+    @include respond(laptops){
+      left: -5%;
+      top: -5%;
+    }
   }
 
   &--innota {
@@ -671,6 +676,11 @@ export default defineComponent({
       @include respond(tablets-landscape) {
         left: 52%;
         bottom: 28%;
+      }
+
+      @include respond(laptops) {
+        left: 52%;
+        bottom: 20%;
       }
     }
 
