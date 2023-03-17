@@ -1,5 +1,5 @@
 <template>
-  <div class="about__section" @click.prevent="skipAnimate">
+  <div class="about__section" ref="about_section">
     <TextBubble
       class="about__text-bubble"
       :tailDirection="windowWidth >= 576 ? 'top-left' : 'top-right'"
@@ -76,33 +76,52 @@ export default defineComponent({
     linkClick(url: string) {
       window.open(url, "_blank");
     },
-    skipAnimate() {
+    skipAnimationListener() {
+      console.log("skip animation listener", this.skipAnimation); // should always false
       this.skipAnimation = true;
+      this.aboutSection?.removeEventListener(
+        "click",
+        this.skipAnimationListener,
+        false
+      );
     },
     navigateHome() {
       this.$emit("navigateHome", { sectionName: "about" });
     },
     onResize() {
       this.windowWidth = window.innerWidth;
-
       this.homeIconSize = 30;
     },
   },
   mounted() {
+    this.aboutSection = this.$refs.about_section as HTMLElement;
     this.$nextTick(() => {
       window.addEventListener("resize", this.onResize);
     });
+
+    this.skipAnimation = false;
+    this.aboutSection?.addEventListener(
+      "click",
+      this.skipAnimationListener,
+      false
+    );
 
     this.homeIconSize = 30;
   },
   beforeUnmount() {
     window.removeEventListener("resize", this.onResize);
+    this.aboutSection?.removeEventListener(
+      "click",
+      this.skipAnimationListener,
+      false
+    );
   },
   data() {
     return {
       windowWidth: window.innerWidth,
       homeIconSize: 20,
       skipAnimation: false,
+      aboutSection: null as HTMLElement | null,
     };
   },
 });
@@ -115,6 +134,7 @@ export default defineComponent({
     width: 100vw;
     height: 100vh;
     position: relative;
+    z-index: 2;
   }
 
   &__header {
@@ -163,7 +183,7 @@ export default defineComponent({
 
   &__text-bubble {
     left: 43%;
-    bottom: 25%;
+    bottom: 23%;
     gap: 0.2rem;
     z-index: 5;
     width: 10.5rem;
@@ -201,7 +221,7 @@ export default defineComponent({
 
   &__button {
     position: absolute;
-    bottom: 24.5%;
+    bottom: 22%;
     right: 32%;
     z-index: 5;
     animation: moveUpDown 1s ease-in-out infinite;

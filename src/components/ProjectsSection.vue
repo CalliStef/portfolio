@@ -120,13 +120,25 @@
           <div class="artifact__tools-container">
             <Typewriter
               textProp="Tools used:"
-              delay="7s"
+              :delay="
+                (!currentProject?.githubLink &&
+                  !currentProject?.productionLink &&
+                  '3s') ||
+                '7s'
+              "
               :skipAnimation="skipAnimation"
             />
             <Toolbar
               class="artifact__toolbar"
               :toolList="currentProject?.tools!"
-              :delay="(!skipAnimation && '8s') || '0s'"
+              :delay="
+                (!currentProject?.githubLink &&
+                  !currentProject?.productionLink &&
+                  !skipAnimation &&
+                  '4s') ||
+                (!skipAnimation && '8s') ||
+                '0s'
+              "
             />
           </div>
         </template>
@@ -135,7 +147,12 @@
             class="artifact__description text-center"
             :textProp="currentProject?.description!"
             :skipAnimation="skipAnimation"
-            delay="9s"
+            :delay="
+              (!currentProject?.githubLink &&
+                !currentProject?.productionLink &&
+                '5s') ||
+              '9s'
+            "
           />
         </template>
       </TextBubble>
@@ -227,7 +244,6 @@ export default defineComponent({
       this.selectedThumbnail = event.target as HTMLElement;
 
       const parentThumbnail = this.selectedThumbnail.parentNode as HTMLElement;
-
 
       const artifaceHeader = parentThumbnail.querySelector(
         ".artifact__header"

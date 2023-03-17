@@ -13,7 +13,6 @@
         ref="home_layer"
         class="home__layer"
         v-show="!showProjects"
-
         @click.prevent.stop="skipAnimation = true"
       >
         <div class="home__layer--wall"></div>
@@ -29,7 +28,7 @@
               class="home__header home__header--blue"
               :skipAnimation="skipAnimation"
               textProp="Full-Stack Web Developer"
-              :delay="skipAnimation ? '0s' : '2s'"
+              delay="2s"
             />
             <Toolbar
               class="home__toolbar"
@@ -157,14 +156,14 @@ export default defineComponent({
       this.showHome = true;
     },
     getSection(sectionName: string) {
+
+      this.homeLayerElem.classList.remove("home__layer--zoom-in");
       switch (sectionName) {
         case "contact":
-          this.homeLayerElem.classList.remove("home__layer--zoom-in");
           this.homeLayerElem.classList.add("home__layer--zoom-contact");
           this.showContact = true;
           break;
         case "about":
-          this.homeLayerElem.classList.remove("home__layer--zoom-in");
           this.homeLayerElem.classList.add("home__layer--zoom-about");
           this.showAbout = true;
           break;
@@ -175,7 +174,6 @@ export default defineComponent({
 
       this.showHome = false;
     },
-    getProjectPage() {},
   },
   data() {
     return {
@@ -271,19 +269,22 @@ export default defineComponent({
     position: absolute;
     transition: all 1s ease-in-out;
     transform: scale(0);
-    left: 0;
-    top: 0;
+    /* left: 0;
+    top: 0; */
 
     &--zoom-in {
+      transition: all 1s ease-in-out;
+      transition-property: transform, top, left, right;
       animation: zoomToFull 1s ease-in-out forwards;
       top: 0;
       left: 0;
+      right: 0;
     }
 
     &--zoom-reset {
       transition: all 1s ease-in-out;
       animation: zoomToReset 1s ease-in-out forwards;
-      /* transform: scale(0);
+      /* transform: scale(1);
       top: 0;
       left: 0; */
     }
@@ -312,7 +313,7 @@ export default defineComponent({
       animation: zoomToAboutOriginal 1s ease-in-out forwards;
 
       @include respond(phones) {
-        /* animation: zoomToAboutPhones 1s ease-in-out forwards; */
+        animation: zoomToAboutPhones 1s ease-in-out forwards;
       }
 
       @include respond(tablets-portrait) {
@@ -378,11 +379,11 @@ export default defineComponent({
 
   &--contact {
     left: 10%;
-    top: 48%;
+    top: 52%;
     transition: all 0.2s;
 
     @include respond(phones) {
-      left: 25%;
+      left: 15%;
     }
 
     @include respond(tablets-portrait) {
@@ -393,14 +394,19 @@ export default defineComponent({
       left: 47%;
       top: 17rem;
     }
+
+    @include respond(laptops) {
+      top: 20rem;
+    }
   }
 
   &--about {
     left: 30%;
-    top: 40%;
+    top: 42%;
 
     @include respond(phones) {
       left: 35%;
+
     }
 
     @include respond(tablets-portrait) {
@@ -411,6 +417,10 @@ export default defineComponent({
       left: 55%;
       top: 12rem;
     }
+
+    @include respond(laptops) {
+      top: 15rem;
+    }
   }
 
   &--projects {
@@ -418,7 +428,8 @@ export default defineComponent({
     top: 58%;
 
     @include respond(phones) {
-      right: 20%;
+      right: 10%;
+      top: 60%;
     }
 
     @include respond(tablets-portrait) {

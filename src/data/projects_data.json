@@ -49,7 +49,7 @@
         "toolIcon": "logos:nodejs-icon"
       }
     ],
-    "description": "A multiplayer party game featuring a group of aliens fighting for the love of a human! Load up the lobby and compete against other players in quick rounds of trivia. When it comes to dating... Love is War!",
+    "description": "A multiplayer party game featuring a group of aliens fighting for the love of a human! Load up the lobby and compete against other players in quick rounds of trivia. \n \n When it comes to dating... Love is War!",
     "githubLink": "https://github.com/lbeique/true-love",
     "productionLink": "https://love-is-war.onrender.com"
   },
@@ -74,9 +74,9 @@
         "toolIcon": "logos:aws"
       }
     ],
-    "description": "Pathfinder is a web application that allows users to visualize the shortest path between two points on a grid. It uses the A* algorithm to find the shortest path between two points. The user can also create walls to block the path and see how the algorithm reacts to the changes.",
+    "description": "Pathfinder is a study helper that reformats educational resources such as assignment guidelines and instructions to help students with learning hurdles understand the content easily. \n \n Pathfinder offers multitude of tools such as customization of your uploaded documents (colours, font styles, etc.), a built-in dictionary, text summarization, and highlight feature.",
     "githubLink": "https://github.com/hlee443/PathFinder-Athena",
-    "productionLink": ""
+    "productionLink": "https://pathfinder-athena.vercel.app/"
   },
   "innota": {
     "name": "Innota Tech",
@@ -99,7 +99,7 @@
         "toolIcon": "skill-icons:mongodb"
       }
     ],
-    "description": "Innota is a web application that allows users to create and share their own stories. Users can create their own stories and share them with their friends. They can also read other people's stories and leave comments on them. The application also allows users to create their own accounts and save their stories.",
+    "description": "Working with a startup client, Innota is a web application designed for academic researchers and students who collaborate on research projects. \n \n It offers a Figma-like interface to upload PDF documents and research papers, making it easy for users to connect and build relationships between their notes and highlights. \n \n Innota also allows users to annotate their documents with personalized comments and thoughts, providing a streamlined and efficient tool for collaborative research.",
     "githubLink": "",
     "productionLink": ""
   }

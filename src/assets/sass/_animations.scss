@@ -159,7 +159,7 @@
   100% {
     transform: scale(2);
     left: 40%;
-    top: -17%;
+    top: -25%;
   }
 }
 
@@ -234,7 +234,21 @@
   100%{
     transform: scale(2);
     right: 43%;
-    top: -15%;
+    top: -25%;
+  }
+}
+
+@keyframes zoomToAboutPhones{
+  0% {
+    transform: scale(1), translateX(0);
+    top: 0;
+    right: 0;
+  }
+
+  100%{
+    transform: scale(2.2);
+    right: 35%;
+    top: -25%;
   }
 }
 
