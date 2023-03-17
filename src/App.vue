@@ -28,13 +28,13 @@
               class="home__header home__header--blue"
               :skipAnimation="skipAnimation"
               textProp="Full-Stack Web Developer"
-              delay="2s"
+              :delay="skipAnimation ? '0s' : '2s'"
             />
             <Toolbar
               class="home__toolbar"
               :class="skipAnimation && 'animation-fadeIn'"
               :toolList="toolArr"
-              :delay="skipAnimation? '0s' : '3s'"
+              delay="3s"
             />
           </div>
           <TextBubble
