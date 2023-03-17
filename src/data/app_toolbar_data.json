@@ -1,0 +1,86 @@
+[
+  {
+    "toolName": "HTML",
+    "toolIcon": "vscode-icons:file-type-html"
+  },
+  {
+    "toolName": "CSS",
+    "toolIcon": "vscode-icons:file-type-css"
+  },
+  {
+    "toolName": "SASS",
+    "toolIcon": "logos:sass"
+  },
+  {
+    "toolName": "Tailwind CSS",
+    "toolIcon": "logos:tailwindcss-icon"
+  },
+  {
+    "toolName": "Javascript",
+    "toolIcon": "logos:javascript"
+  },
+  {
+    "toolName": "React",
+    "toolIcon": "logos:react"
+  },
+  {
+    "toolName": "Next.js",
+    "toolIcon": "logos:nextjs-icon"
+  },
+  {
+    "toolName": "Vue",
+    "toolIcon": "logos:vue"
+  },
+  {
+    "toolName": "Node.js",
+    "toolIcon": "logos:nodejs-icon"
+  },
+  {
+    "toolName": "Express.js",
+    "toolIcon": "logos:express"
+  },
+  {
+    "toolName": "MySQL",
+    "toolIcon": "logos:mysql-icon"
+  },
+  {
+    "toolName": "Prisma",
+    "toolIcon": "vscode-icons:file-type-light-prisma"
+  },
+  {
+    "toolName": "Storybook",
+    "toolIcon": "logos:storybook-icon"
+  },
+  {
+    "toolName": "Docker",
+    "toolIcon": "logos:docker-icon"
+  },
+  {
+    "toolName": "MongoDB",
+    "toolIcon": "skill-icons:mongodb"
+  },
+  {
+    "toolName": "Socket.IO",
+    "toolIcon": "logos:socket-io"
+  },
+  {
+    "toolName": "Typescript",
+    "toolIcon": "logos:typescript-icon"
+  },
+  {
+    "toolName": "PHP",
+    "toolIcon": "logos:php"
+  },
+  {
+    "toolName": "C#",
+    "toolIcon": "logos:c-sharp"
+  },
+  {
+    "toolName": ".NET",
+    "toolIcon": "skill-icons:dotnet"
+  },
+  {
+    "toolName": "Railway",
+    "toolIcon": "simple-icons:railway"
+  }
+]

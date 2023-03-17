@@ -1,5 +1,3 @@
-@import "./variables";
-
 @keyframes moveUpDown {
   0%,
   100% {
@@ -46,11 +44,97 @@
   0% {
     opacity: 0;
   }
-
   100% {
     opacity: 1;
   }
 }
+
+@keyframes fadeOut{
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    display: none;
+  }
+}
+
+@keyframes fadeInBottom{
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInTop{
+  0% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+@keyframes moveInLeft {
+  0% {
+    // opacity: 0;
+    transform: translateX(-100vw);
+  }
+
+  100% {
+    // opacity: 1;
+    transform: translateX(0)
+  }
+}
+
+@keyframes moveInRight {
+  0% {
+    // opacity: 0;
+    transform: translateX(100vw);
+  }
+
+  100% {
+    // opacity: 1;
+    transform: translateX(0)
+  }
+}
+
+@keyframes moveOutLeft{
+  0% {
+    // opacity: 1;
+    transform: translateX(0);
+  }
+
+  100% {
+    // opacity: 0;
+    transform: translateX(-100vw);
+  }
+}
+
+@keyframes moveOutRight{
+  0% {
+    // opacity: 1;
+    transform: translateX(0);
+  }
+
+  100% {
+    // opacity: 0;
+    transform: translateX(100vw);
+  }
+}
+
+
+// @keyfr
 
 @keyframes zoomToFull {
   0% {
@@ -75,7 +159,7 @@
   100% {
     transform: scale(2);
     left: 40%;
-    top: -17%;
+    top: -25%;
   }
 }
 
@@ -150,7 +234,21 @@
   100%{
     transform: scale(2);
     right: 43%;
-    top: -15%;
+    top: -25%;
+  }
+}
+
+@keyframes zoomToAboutPhones{
+  0% {
+    transform: scale(1), translateX(0);
+    top: 0;
+    right: 0;
+  }
+
+  100%{
+    transform: scale(2.2);
+    right: 35%;
+    top: -25%;
   }
 }
 
@@ -183,6 +281,29 @@
     top: 0;
     left: 0;
   }
+}
+
+
+@keyframes zoomToTrashQueen{
+  0% {
+    transform: scale(1), translateX(0);
+    top: 0;
+    right: 0;
+  }
+
+  100%{
+    transform: scale(2);
+    right: 20%;
+    top: 20%;
+  }
+}
+
+@keyframes tilt-shaking {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(2deg); }
+  50% { transform: rotate(0eg); }
+  75% { transform: rotate(-2deg); }
+  100% { transform: rotate(0deg); }
 }
 
 

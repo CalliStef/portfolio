@@ -1,13 +1,21 @@
 <template>
-  <div class="contact__section">
+  <div class="contact__section" @click.prevent="skipAnimate">
     <TextBubble class="contact__text-bubble" tailDirection="bottom-right">
       <template #header>
-        <Typewriter class="contact__header" textProp="Contact Me" delay="1s" />
+        <Typewriter
+          class="contact__header"
+          textProp="Contact Me"
+          delay="1s"
+          :skip-animation="skipAnimation"
+        />
       </template>
       <template #content>
         <div class="media__list">
           <div class="media__container">
-            <Transition appear :style="{ animationDelay: '2s' }">
+            <Transition
+              appear
+              :style="{ animationDelay: !skipAnimation ? '2s' : '' }"
+            >
               <Icon
                 icon="logos:google-gmail"
                 class="media__icon"
@@ -16,11 +24,18 @@
               />
             </Transition>
             <a class="media__link" href="mailto:callistastefanie@gmail.com">
-              <Typewriter textProp="Send Email" delay="2s" />
+              <Typewriter
+                textProp="Send Email"
+                delay="2s"
+                :skip-animation="skipAnimation"
+              />
             </a>
           </div>
           <div class="media__container">
-            <Transition appear :style="{ animationDelay: '3s' }">
+            <Transition
+              appear
+              :style="{ animationDelay: !skipAnimation ? '3s' : '' }"
+            >
               <Icon
                 icon="logos:linkedin-icon"
                 class="media__icon"
@@ -32,11 +47,18 @@
               class="media__link"
               href="https://www.linkedin.com/in/callistef/"
             >
-              <Typewriter textProp="Linkedin" delay="3s" />
+              <Typewriter
+                textProp="Linkedin"
+                delay="3s"
+                :skip-animation="skipAnimation"
+              />
             </a>
           </div>
           <div class="media__container">
-            <Transition appear :style="{ animationDelay: '4s' }">
+            <Transition
+              appear
+              :style="{ animationDelay: !skipAnimation ? '4s' : '' }"
+            >
               <Icon
                 icon="mdi:github"
                 class="media__icon"
@@ -45,7 +67,11 @@
               />
             </Transition>
             <a class="media__link" href="https://github.com/CalliStef">
-              <Typewriter textProp="Github" delay="4s" />
+              <Typewriter
+                textProp="Github"
+                delay="4s"
+                :skip-animation="skipAnimation"
+              />
             </a>
           </div>
         </div>
@@ -76,6 +102,9 @@ export default defineComponent({
     Typewriter,
   },
   methods: {
+    skipAnimate() {
+      this.skipAnimation = true;
+    },
     navigateHome() {
       this.$emit("navigateHome", { sectionName: "contact" });
     },
@@ -101,6 +130,8 @@ export default defineComponent({
       this.mediaIconSize = 10;
       this.homeIconSize = 30;
     }
+
+    this.skipAnimation = false;
   },
   beforeUnmount() {
     window.removeEventListener("resize", this.onResize);
@@ -110,6 +141,7 @@ export default defineComponent({
       windowWidth: window.innerWidth,
       mediaIconSize: 10,
       homeIconSize: 20,
+      skipAnimation: false,
     };
   },
 });
@@ -126,6 +158,7 @@ export default defineComponent({
     width: 100vw;
     height: 100vh;
     position: relative;
+    z-index: 2;
   }
 
   &__text-bubble {
@@ -170,7 +203,7 @@ export default defineComponent({
     animation: moveUpDown 1s ease-in-out infinite;
     transform: translateX(-50%);
 
-    @include respond(taller-devices){
+    @include respond(taller-devices) {
       bottom: 20%;
     }
 

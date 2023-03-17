@@ -1,16 +1,31 @@
 <template>
-  <div class="toolbar__container">
-    <Vue3Marquee :duration="20">
-      <Icon
-        v-for="(tool, index) in toolArr"
-        :key="index"
-        class="toolbar__icon"
-        :icon="tool.toolIcon"
-        :height="toolbarSize"
-        :width="toolbarSize"
-      />
-    </Vue3Marquee>
-  </div>
+  <Transition appear :style="{ animationDelay: delay }">
+    <div class="toolbar__container">
+      <Vue3Marquee :duration="20" v-if="toolArr.length > 10">
+        <Icon
+          v-for="(tool, index) in toolArr"
+          :key="index"
+          class="toolbar__icon"
+          :icon="tool.toolIcon"
+          :height="toolbarSize"
+          :width="toolbarSize"
+          :attributes="{ title: tool.toolName }"
+        />
+      </Vue3Marquee>
+      <template v-else>
+        <Icon
+          v-for="(tool, index) in toolArr"
+          :key="index"
+          class="toolbar__icon"
+          :icon="tool.toolIcon"
+          :height="toolbarSize - 10"
+          :width="toolbarSize - 10"
+          :alt="tool.toolName"
+          :attributes="{ title: tool.toolName }"
+        />
+      </template>
+    </div>
+  </Transition>
 </template>
 
 <script lang="ts">
@@ -52,6 +67,7 @@ export default defineComponent({
   },
   props: {
     toolList: { type: Array, required: true },
+    delay: { type: String, default: null },
   },
   data() {
     return {
@@ -73,6 +89,8 @@ export default defineComponent({
     height: 2rem;
     align-self: center;
     overflow: hidden;
+    transition: all 0.2s;
+    animation: fadeIn 1s ease-in-out backwards;
 
     @include respond(tablets-landscape) {
       width: 20rem;
