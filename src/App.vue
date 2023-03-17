@@ -34,7 +34,7 @@
               class="home__toolbar"
               :class="skipAnimation && 'animation-fadeIn'"
               :toolList="toolArr"
-              delay="3s"
+              :delay="skipAnimation? '0s' : '3s'"
             />
           </div>
           <TextBubble
