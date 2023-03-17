@@ -1,7 +1,6 @@
 <template>
   <p class="typewriter__text" ref="type__text"></p>
 </template>
-
 <script lang="ts">
 import { defineComponent } from "vue";
 
@@ -13,19 +12,29 @@ export default defineComponent({
     skipAnimation: { type: Boolean },
   },
   mounted() {
-    let delayTime = parseInt(this.delay) * 1000;
-    setTimeout(this.animate, delayTime);
+    this.startAnimation();
   },
   watch: {
     skipAnimation: function (newState, prevState) {
-      if (newState) {
-        // If skipping is true, update the delay time to 0
-        let delayTime = newState ? 0 : parseInt(this.delay) * 1000;
-        setTimeout(this.animate, delayTime);
+      if (newState !== prevState) {
+        // If skipping is true, immediately show the entire remaining string
+        const remainingText = this.textContent
+          .substring(this.characterIndex)
+          .replace(/\n/g, "<br>");
+        (this.$refs.type__text as HTMLElement).innerHTML += remainingText;
+        this.characterIndex = this.textContent.length;
       }
     },
   },
   methods: {
+    startAnimation() {
+      if (this.skipAnimation) {
+        (this.$refs.type__text as HTMLElement).innerHTML = this.textContent;
+        return;
+      }
+      let delayTime = parseInt(this.delay) * 1000;
+      setTimeout(this.animate, delayTime);
+    },
     animate() {
       const lines = this.textContent.split("\n");
       const currentLine = lines[this.lineIndex];
@@ -50,15 +59,6 @@ export default defineComponent({
         this.lineIndex++;
         this.characterIndex = 0;
         setTimeout(this.animate, 50);
-      } else if (this.skipAnimation) {
-        // If skipping is true, immediately show the entire remaining string
-        const remainingText = lines
-          .slice(this.lineIndex)
-          .join("<br>")
-          .substring(this.characterIndex)
-          .replace(/\n/g, "<br>");
-        (this.$refs.type__text as HTMLElement).innerHTML += remainingText;
-        this.characterIndex = currentLine.length;
       }
     },
   },
@@ -71,5 +71,4 @@ export default defineComponent({
   },
 });
 </script>
-
 <style scoped lang="scss"></style>

@@ -589,6 +589,7 @@ export default defineComponent({
 
   &__tools-container {
     display: flex;
+    justify-content: center;
     align-items: center;
     width: 100%;
     height: 1rem;
@@ -603,7 +604,7 @@ export default defineComponent({
   }
 
   &__toolbar {
-    width: 100%;
+    width: auto;
     height: 100%;
     align-items: center;
     overflow: visible;
