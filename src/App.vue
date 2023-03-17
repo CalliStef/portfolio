@@ -156,8 +156,10 @@ export default defineComponent({
       this.showHome = true;
     },
     getSection(sectionName: string) {
-
-      this.homeLayerElem.classList.remove("home__layer--zoom-in");
+      this.homeLayerElem.classList.remove(
+        "home__layer--zoom-in",
+        "home__layer--zoom-reset"
+      );
       switch (sectionName) {
         case "contact":
           this.homeLayerElem.classList.add("home__layer--zoom-contact");
@@ -406,7 +408,6 @@ export default defineComponent({
 
     @include respond(phones) {
       left: 35%;
-
     }
 
     @include respond(tablets-portrait) {
