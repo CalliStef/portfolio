@@ -73,8 +73,8 @@ export default defineComponent({
   &__tail {
     display: block;
     position: absolute;
-    width: 4rem;
-    height: 2rem;
+    width: 6vw;
+    height: 3vw;
     background-color: $color-white;
     clip-path: polygon(0 0, 10% 100%, 50% 0);
 

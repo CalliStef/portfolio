@@ -98,7 +98,8 @@ export default defineComponent({
     }
 
     @include respond(laptops) {
-      width: 25rem;
+      width: 25vw;
+      height: 2vw;
     }
   }
 

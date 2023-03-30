@@ -186,8 +186,8 @@ export default defineComponent({
     @include respond(tablets-landscape) {
       left: 20%;
       top: 40%;
-      width: 15rem;
-      height: 10rem;
+      width: 17vw;
+      height: 12vw;
     }
 
     @include respond(laptops) {

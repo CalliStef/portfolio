@@ -38,7 +38,7 @@
             />
           </div>
           <TextBubble
-            class="text-bubble--contact"
+            class="text-bubble--contact home__text-bubble"
             :class="skipAnimation && 'animation-fadeIn'"
             delay="4s"
             tailDirection="bottom-right"
@@ -48,7 +48,7 @@
           </TextBubble>
 
           <TextBubble
-            class="text-bubble--about"
+            class="text-bubble--about home__text-bubble"
             :class="skipAnimation && 'animation-fadeIn'"
             delay="5s"
             tailDirection="bottom-right"
@@ -58,7 +58,7 @@
           </TextBubble>
 
           <TextBubble
-            class="text-bubble--projects"
+            class="text-bubble--projects home__text-bubble"
             :class="skipAnimation && 'animation-fadeIn'"
             delay="6s"
             tailDirection="top-left"
@@ -220,7 +220,7 @@ export default defineComponent({
     font-size: $font-size-medium;
     white-space: nowrap;
 
-    @include respond(laptops) {
+    @include respond(tablets-landscape) {
       font-size: $font-size-big;
     }
 
@@ -230,7 +230,7 @@ export default defineComponent({
       flex-direction: column;
       min-width: auto;
       /* width: 20rem; */
-      height: 10rem;
+      height: 100vw;
       text-align: center;
       left: 50%;
       top: 20%;
@@ -343,7 +343,7 @@ export default defineComponent({
       position: absolute;
       bottom: 0;
       width: 100%;
-      height: 14rem;
+      height: 15.5vw;
       background-color: $color-soft-orange;
     }
   }
@@ -355,30 +355,56 @@ export default defineComponent({
     position: relative;
   }
 
+  &__text-bubble{
+    width: 20vw;
+    height: 5vw;
+
+
+    @include respond(phones) {
+      width: 15vw;
+    }
+
+    @include respond(tablets-landscape) {
+      width: 10vw;
+    }
+
+    /* @include respond(laptops) {
+     height: 5vw;
+    } */
+  }
+
   &__scene {
-    width: 21rem;
+    width: 90%;
     position: absolute;
     left: 50%;
     top: 43%;
     transform: translate(-50%, 0);
 
+    @include respond(phones) {
+      width: 60%;
+    }
+
+    @include respond(tablets-portrait) {
+      width: 50%;
+    }
+
     @include respond(tablets-landscape) {
-      width: 25rem;
+      width: 45%;
       left: 65%;
       top: 30%;
     }
 
     @include respond(laptops) {
-      width: 30rem;
+      width: 35%;
+    }
+
+    @include respond(large-laptop-desktops) {
+      width: 35%;
     }
   }
 }
 
 .text-bubble {
-  /* &__nav:hover{
-    animation: scaleUpDown 1.5s ease 0s infinite backwards;
-  } */
-
   &--contact {
     left: 10%;
     top: 52%;
@@ -389,7 +415,7 @@ export default defineComponent({
     }
 
     @include respond(tablets-portrait) {
-      left: 30%;
+      left: 25%;
     }
 
     @include respond(tablets-landscape) {
@@ -398,7 +424,7 @@ export default defineComponent({
     }
 
     @include respond(laptops) {
-      top: 20rem;
+      top: 45%;
     }
   }
 
@@ -420,7 +446,7 @@ export default defineComponent({
     }
 
     @include respond(laptops) {
-      top: 15rem;
+      top: 30%;
     }
   }
 
@@ -434,12 +460,12 @@ export default defineComponent({
     }
 
     @include respond(tablets-portrait) {
-      right: 30%;
+      right: 20%;
     }
 
     @include respond(tablets-landscape) {
       right: 15%;
-      top: 25rem;
+      top: 55%;
     }
   }
 }

@@ -213,8 +213,8 @@ export default defineComponent({
 
     @include respond(laptops) {
       left: 78%;
-      width: 15rem;
-      height: 10rem;
+      width: 17vw;
+      height: 12vw;
       justify-content: center;
     }
   }

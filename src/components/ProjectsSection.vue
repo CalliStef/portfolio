@@ -360,7 +360,7 @@ export default defineComponent({
     position: absolute;
     bottom: 0;
     width: 120%;
-    height: 14rem;
+    height: 15.5vw;
     background-color: $color-soft-orange;
   }
 }
