@@ -73,10 +73,15 @@ export default defineComponent({
   &__tail {
     display: block;
     position: absolute;
-    width: 6vw;
-    height: 3vw;
+    width: 4rem;
+    height: 1rem;
     background-color: $color-white;
     clip-path: polygon(0 0, 10% 100%, 50% 0);
+
+    @include respond(tablets-landscape) {
+      width: 6vw;
+      height: 3vw;
+    }
 
     &--bottom-left {
       bottom: 1rem;

@@ -217,8 +217,16 @@ export default defineComponent({
 .home {
   &__header {
     font-family: "FuzzyBubbles-Regular";
-    font-size: $font-size-medium;
+    font-size: 4.5vw;
     white-space: nowrap;
+
+    @include respond(phones) {
+      font-size: 3vw;
+    }
+
+    @include respond(tablets-portrait) {
+      font-size: 2.5vw;
+    }
 
     @include respond(tablets-landscape) {
       font-size: $font-size-big;
@@ -343,8 +351,16 @@ export default defineComponent({
       position: absolute;
       bottom: 0;
       width: 100%;
-      height: 15.5vw;
+      height: 60vw;
       background-color: $color-soft-orange;
+
+      @include respond(phones) {
+        height: 12rem;
+      }
+
+      @include respond(laptops) {
+        height: 15.5vw;
+      }
     }
   }
 

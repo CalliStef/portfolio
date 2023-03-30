@@ -360,8 +360,12 @@ export default defineComponent({
     position: absolute;
     bottom: 0;
     width: 120%;
-    height: 15.5vw;
+    height: 60vw;
     background-color: $color-soft-orange;
+
+    @include respond(laptops) {
+      height: 15.5vw;
+    }
   }
 }
 
