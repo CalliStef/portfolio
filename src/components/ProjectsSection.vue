@@ -359,9 +359,13 @@ export default defineComponent({
     display: flex;
     position: absolute;
     bottom: 0;
-    width: 120%;
+    width: 100%;
     height: 60vw;
     background-color: $color-soft-orange;
+
+    @include respond(phones) {
+      height: 12rem;
+    }
 
     @include respond(laptops) {
       height: 15.5vw;
