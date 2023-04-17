@@ -100,7 +100,7 @@
       }
     ],
     "description": "Working with a startup client, Innota is a web application designed for academic researchers and students who collaborate on research projects. \n \n It offers a Figma-like interface to upload PDF documents and research papers, making it easy for users to connect and build relationships between their notes and highlights. \n \n Innota also allows users to annotate their documents with personalized comments and thoughts, providing a streamlined and efficient tool for collaborative research.",
-    "githubLink": "",
-    "productionLink": ""
+    "demoLink": "https://youtu.be/TYhk05ouNJA",
+    "productionLink": "https://innota-tech.up.railway.app/"
   }
 }

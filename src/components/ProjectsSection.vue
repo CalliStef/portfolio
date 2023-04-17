@@ -69,7 +69,11 @@
         </template>
         <template #tools>
           <div
-            v-if="currentProject?.githubLink && currentProject?.productionLink"
+            v-if="
+              currentProject?.demoLink ||
+              currentProject?.githubLink ||
+              currentProject?.productionLink
+            "
             class="media__container"
           >
             <Transition
@@ -77,7 +81,9 @@
               :style="{ animationDelay: !skipAnimation ? '3s' : '' }"
             >
               <Icon
-                icon="mdi:github"
+                :icon="
+                  currentProject?.demoLink ? 'ph:video-fill' : 'mdi:github'
+                "
                 class="media__icon"
                 :height="mediaIconSize"
                 :width="mediaIconSize"
@@ -85,11 +91,17 @@
             </Transition>
             <a
               class="media__link"
-              :href="currentProject?.githubLink!"
+              :href="currentProject?.demoLink! || currentProject?.githubLink!"
               target="_blank"
             >
               <Typewriter
-                textProp="Github site"
+                :textProp="
+                  currentProject?.demoLink
+                    ? 'Demo Video'
+                    : currentProject?.githubLink
+                    ? 'Github Site'
+                    : ''
+                "
                 delay="4s"
                 :skipAnimation="skipAnimation"
               />
@@ -121,7 +133,8 @@
             <Typewriter
               textProp="Tools used:"
               :delay="
-                (!currentProject?.githubLink &&
+                (!currentProject?.demoLink &&
+                  !currentProject?.githubLink &&
                   !currentProject?.productionLink &&
                   '3s') ||
                 '7s'
@@ -132,7 +145,8 @@
               class="artifact__toolbar"
               :toolList="currentProject?.tools!"
               :delay="
-                (!currentProject?.githubLink &&
+                (!currentProject?.demoLink &&
+                  !currentProject?.githubLink &&
                   !currentProject?.productionLink &&
                   !skipAnimation &&
                   '4s') ||
@@ -359,7 +373,7 @@ export default defineComponent({
     display: flex;
     position: absolute;
     bottom: 0;
-    width: 100%;
+    width: 120%;
     height: 60vw;
     background-color: $color-soft-orange;
 
