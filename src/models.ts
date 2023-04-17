@@ -9,5 +9,6 @@ export interface Project {
   tools?: Tool[];
   description?: string;
   githubLink?: string;
+  demoLink?: string;
   productionLink?: string;
 }
