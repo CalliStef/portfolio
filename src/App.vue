@@ -116,6 +116,13 @@ export default defineComponent({
     AboutSection,
     ProjectsView,
   },
+  // mounted() {
+  //   setTimeout(() => {
+  //     if(!this.skipAnimation){ // if the user has not skipped the animation
+  //       this.warning = true;
+  //     }
+  //   }, 2000);
+  // },
   methods: {
     zoomHomeLayer() {
       this.homeLayerElem = this.$refs.home_layer as HTMLElement;
@@ -185,6 +192,7 @@ export default defineComponent({
       showAbout: false,
       showProjects: false,
       panzoom: null as any,
+      warning: false,
       homeLayerElem: null as any as HTMLElement,
       toolArr: toolbar_data,
     };

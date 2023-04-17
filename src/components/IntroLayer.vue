@@ -11,7 +11,7 @@
         <Transition
           appear
           name="intro__emoji"
-          :style="{ transitionDelay: '2.5s' }"
+          :style="{ transitionDelay: '2.3s' }"
         >
           <img
             src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Hand%20gestures/Waving%20Hand.png"
@@ -21,6 +21,7 @@
         /></Transition>
       </div>
       <DoorComponent ref="door" class="intro__door" @door-open="zoomToHome" />
+      <p class="intro__warning">👉 Click anywhere to skip the animations 👈</p>
     </div>
   </div>
   <!-- </div> -->
@@ -36,6 +37,18 @@ export default {
   components: {
     DoorComponent,
     Typewriter,
+  },
+  mounted() {
+    window.addEventListener("keyup", (e) => {
+      if (e.key === "Enter") {
+        (this.$refs.door as typeof DoorComponent).doorOpen();
+      }
+    });
+    window.addEventListener("wheel", (e) => {
+      if (e.deltaY > 0) {
+        (this.$refs.door as typeof DoorComponent).doorOpen();
+      }
+    });
   },
   methods: {
     zoomToHome() {
@@ -54,11 +67,6 @@ export default {
       this.$emit("show-home");
     },
   },
-  data() {
-    return {
-      // createHeader: false,
-    };
-  },
 };
 </script>
 
@@ -76,6 +84,7 @@ export default {
     height: 100vh;
     z-index: 2;
     position: absolute;
+    transition: all 0.2s ease-in;
     /* background-color: $color-beige; */
   }
 
@@ -92,6 +101,20 @@ export default {
     /* @include respond(tablets-landscape) {
       flex-direction: row;
     } */
+  }
+
+  &__warning {
+    font-size: $font-size-small;
+    font-family: "FuzzyBubbles-Bold";
+    color: $color-soft-orange;
+    white-space: nowrap;
+    text-align: center;
+    top: 60vh;
+    position: absolute;
+
+    @include respond(tablets-portrait) {
+      font-size: $font-size-medium;
+    }
   }
 
   &__header {
