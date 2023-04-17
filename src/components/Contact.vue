@@ -11,69 +11,78 @@
       </template>
       <template #content>
         <div class="media__list">
-          <div class="media__container">
-            <Transition
-              appear
-              :style="{ animationDelay: !skipAnimation ? '2s' : '' }"
-            >
-              <Icon
-                icon="logos:google-gmail"
-                class="media__icon"
-                :height="mediaIconSize"
-                :width="mediaIconSize"
-              />
-            </Transition>
-            <a class="media__link" href="mailto:callistastefanie@gmail.com">
+          <a
+            class="media__link"
+            @click.prevent="linkClick('mailto:callistastefanie@gmail.com')"
+          >
+            <div class="media__container">
+              <Transition
+                appear
+                :style="{ animationDelay: !skipAnimation ? '2s' : '' }"
+              >
+                <Icon
+                  icon="logos:google-gmail"
+                  class="media__icon"
+                  :height="mediaIconSize"
+                  :width="mediaIconSize"
+                />
+              </Transition>
+
               <Typewriter
                 textProp="Send Email"
                 delay="2s"
                 :skip-animation="skipAnimation"
               />
-            </a>
-          </div>
-          <div class="media__container">
-            <Transition
-              appear
-              :style="{ animationDelay: !skipAnimation ? '3s' : '' }"
-            >
-              <Icon
-                icon="logos:linkedin-icon"
-                class="media__icon"
-                :height="mediaIconSize"
-                :width="mediaIconSize"
-              />
-            </Transition>
-            <a
-              class="media__link"
-              href="https://www.linkedin.com/in/callistef/"
-            >
+            </div>
+          </a>
+          <a
+            class="media__link"
+            @click.prevent="linkClick('https://www.linkedin.com/in/callistef/')"
+          >
+            <div class="media__container">
+              <Transition
+                appear
+                :style="{ animationDelay: !skipAnimation ? '3s' : '' }"
+              >
+                <Icon
+                  icon="logos:linkedin-icon"
+                  class="media__icon"
+                  :height="mediaIconSize"
+                  :width="mediaIconSize"
+                />
+              </Transition>
+
               <Typewriter
                 textProp="Linkedin"
                 delay="3s"
                 :skip-animation="skipAnimation"
               />
-            </a>
-          </div>
-          <div class="media__container">
-            <Transition
-              appear
-              :style="{ animationDelay: !skipAnimation ? '4s' : '' }"
-            >
-              <Icon
-                icon="mdi:github"
-                class="media__icon"
-                :height="mediaIconSize"
-                :width="mediaIconSize"
-              />
-            </Transition>
-            <a class="media__link" href="https://github.com/CalliStef">
+            </div>
+          </a>
+          <a
+            class="media__link"
+            @click.prevent="linkClick('https://github.com/CalliStef')"
+          >
+            <div class="media__container">
+              <Transition
+                appear
+                :style="{ animationDelay: !skipAnimation ? '4s' : '' }"
+              >
+                <Icon
+                  icon="mdi:github"
+                  class="media__icon"
+                  :height="mediaIconSize"
+                  :width="mediaIconSize"
+                  color="#000000"
+                />
+              </Transition>
               <Typewriter
                 textProp="Github"
                 delay="4s"
                 :skip-animation="skipAnimation"
               />
-            </a>
-          </div>
+            </div>
+          </a>
         </div>
       </template>
     </TextBubble>
@@ -94,6 +103,7 @@ import { Icon } from "@iconify/vue";
 import TextBubble from "./TextBubble.vue";
 import Typewriter from "./Typewriter.vue";
 
+
 export default defineComponent({
   name: "ContactSection",
   components: {
@@ -102,6 +112,9 @@ export default defineComponent({
     Typewriter,
   },
   methods: {
+    linkClick(url: string) {
+      window.open(url, "_blank");
+    },
     skipAnimate() {
       this.skipAnimation = true;
     },
@@ -158,7 +171,6 @@ export default defineComponent({
     width: 100vw;
     height: 100vh;
     position: relative;
-    z-index: 2;
   }
 
   &__text-bubble {
@@ -199,9 +211,10 @@ export default defineComponent({
     position: absolute;
     bottom: 24%;
     left: 26%;
-    z-index: 3;
     animation: moveUpDown 1s ease-in-out infinite;
     transform: translateX(-50%);
+    z-index: 5;
+    cursor: pointer;
 
     @include respond(taller-devices) {
       bottom: 20%;
@@ -233,7 +246,6 @@ export default defineComponent({
   &__list {
     display: flex;
     flex-direction: column;
-    /* align-items: center; */
     gap: 0.2rem;
     padding-bottom: 0.5rem;
   }
@@ -254,6 +266,7 @@ export default defineComponent({
     text-decoration: none;
     color: $color-turquoise;
     font-size: 0.5rem;
+    cursor: pointer;
 
     @include respond(tablets-landscape) {
       font-size: $font-size-small;

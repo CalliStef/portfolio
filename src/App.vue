@@ -13,7 +13,7 @@
         ref="home_layer"
         class="home__layer"
         v-show="!showProjects"
-        @click.prevent.stop="skipAnimation = true"
+        @click.prevent="skipAnimation = true"
       >
         <div class="home__layer--wall"></div>
         <div class="home__layer--floor"></div>
@@ -52,7 +52,7 @@
             :class="skipAnimation && 'animation-fadeIn'"
             delay="5s"
             tailDirection="bottom-right"
-            @click="getSection('about')"
+            @click.prevent="getSection('about')"
           >
             <template #header>About</template>
           </TextBubble>
@@ -62,7 +62,7 @@
             :class="skipAnimation && 'animation-fadeIn'"
             delay="6s"
             tailDirection="top-left"
-            @click="getSection('projects')"
+            @click.prevent="getSection('projects')"
           >
             <template #header>Projects</template>
           </TextBubble>
@@ -124,7 +124,6 @@ export default defineComponent({
         disablePan: true,
         disableZoom: true,
         cursor: "auto",
-        touchAction: "",
       });
       setTimeout(() => {
         this.showHome = true;
@@ -371,10 +370,10 @@ export default defineComponent({
     position: relative;
   }
 
-  &__text-bubble{
+  &__text-bubble {
     width: 20vw;
     height: 5vw;
-
+    cursor: pointer;
 
     @include respond(phones) {
       width: 15vw;
@@ -383,10 +382,6 @@ export default defineComponent({
     @include respond(tablets-landscape) {
       width: 10vw;
     }
-
-    /* @include respond(laptops) {
-     height: 5vw;
-    } */
   }
 
   &__scene {
