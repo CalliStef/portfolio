@@ -19,7 +19,7 @@
             class="about__link"
             @click.prevent="
               linkClick(
-                'https://drive.google.com/file/d/119Q-lo-4zrpV2-WmzgNFLbnmr8m7MzOI/view?usp=sharing'
+                'https://drive.google.com/file/d/1mtKifErC02MGiHz3dxsrzrMiZc2Aeo52/view?usp=sharing'
               )
             "
           >
@@ -169,6 +169,7 @@ export default defineComponent({
     margin-bottom: 0.2rem;
     padding: 0.1rem 0.3rem;
     animation: fadeIn 0.5s ease-in-out backwards;
+    cursor: pointer;
 
     &:hover {
       transform: translateY(-1px);
