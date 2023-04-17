@@ -439,7 +439,7 @@ export default defineComponent({
 
     @include respond(tablets-landscape) {
       left: 47%;
-      top: 17rem;
+      top: 22rem;
     }
 
     @include respond(laptops) {
@@ -461,7 +461,7 @@ export default defineComponent({
 
     @include respond(tablets-landscape) {
       left: 55%;
-      top: 12rem;
+      top: 15rem;
     }
 
     @include respond(laptops) {
