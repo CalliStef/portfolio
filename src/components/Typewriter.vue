@@ -2,7 +2,7 @@
   <p class="typewriter__text" ref="typeTextRef"></p>
 </template>
 <script lang="ts">
-import { defineComponent, ref, watch } from "vue";
+import { defineComponent, ref, watch, onMounted } from "vue";
 
 export default defineComponent({
   name: "TypeWriter",
@@ -24,6 +24,7 @@ export default defineComponent({
       }
       let delayTime = parseInt(props.delay) * 1000;
       setTimeout(animate, delayTime);
+
     };
 
     const animate = () => {
@@ -32,7 +33,7 @@ export default defineComponent({
       const escapeSequence = /\\n/g;
       let match = escapeSequence.exec(currentLine);
 
-      if (characterIndex.value < currentLine.length && !props.skipAnimation ) {
+      if (characterIndex.value < currentLine.length && !props.skipAnimation) {
         if (match !== null && match.index === characterIndex.value) {
           (typeTextRef.value as HTMLElement).innerHTML += "<br>";
           lineIndex.value++;
@@ -53,13 +54,10 @@ export default defineComponent({
       }
     };
 
-    const textElement = ref(null);
-
     watch(
       () => props.skipAnimation,
       (newState, prevState) => {
         if (newState !== prevState) {
-          // If skipping is true, immediately show the entire remaining string
           const remainingText = textContent.value
             .substring(characterIndex.value)
             .replace(/\n/g, "<br>");
@@ -69,10 +67,11 @@ export default defineComponent({
       }
     );
 
-    startAnimation();
+    onMounted(() => {
+      startAnimation();
+    });
 
     return {
-      textElement,
       typeTextRef,
     };
   },

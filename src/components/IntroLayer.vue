@@ -61,13 +61,13 @@ export default defineComponent({
 
     const handleKeyUp = (e: KeyboardEvent) => {
       if (e.key === "Enter") {
-        (doorRef.value as any).doorOpen(); // Using any to bypass TypeScript type checking
+        (doorRef.value as InstanceType<typeof DoorComponent>).doorOpen(); 
       }
     };
 
     const handleWheel = (e: WheelEvent) => {
       if (e.deltaY > 0) {
-        (doorRef.value as any).doorOpen(); // Using any to bypass TypeScript type checking
+        (doorRef.value as InstanceType<typeof DoorComponent>).doorOpen(); 
       }
     };
 
