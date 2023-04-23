@@ -12,7 +12,7 @@
         "toolIcon": "simple-icons:railway"
       }
     ],
-    "description": "Trash Queens is a recycling game for all ages to learn about how to recycle properly. It offers a fast-paced and dynamic gameplay for users, as well as information as to the importance of recycling.  \n \n Explore the app, expand your knowledge and make the world a better place!",
+    "description": "Role: front-end web developer \n \n Trash Queens is a recycling game for all ages to learn about how to recycle properly. It offers a fast-paced and dynamic gameplay for users, as well as information as to the importance of recycling.  \n \n Explore the app, expand your knowledge and make the world a better place!",
     "githubLink": "https://github.com/phoenixlai833/TrashQueens-Prod",
     "productionLink": "https://trash-queens-dev.vercel.app/"
   },
@@ -49,7 +49,7 @@
         "toolIcon": "logos:nodejs-icon"
       }
     ],
-    "description": "A multiplayer party game featuring a group of aliens fighting for the love of a human! Load up the lobby and compete against other players in quick rounds of trivia. \n \n When it comes to dating... Love is War!",
+    "description": "Role: front-end web developer \n \n A multiplayer party game featuring a group of aliens fighting for the love of a human! Load up the lobby and compete against other players in quick rounds of trivia. \n \n When it comes to dating... Love is War!",
     "githubLink": "https://github.com/lbeique/true-love",
     "productionLink": "https://love-is-war.onrender.com"
   },
@@ -74,7 +74,7 @@
         "toolIcon": "logos:aws"
       }
     ],
-    "description": "Pathfinder is a study helper that reformats educational resources such as assignment guidelines and instructions to help students with learning hurdles understand the content easily. \n \n Pathfinder offers multitude of tools such as customization of your uploaded documents (colours, font styles, etc.), a built-in dictionary, text summarization, and highlight feature.",
+    "description": "Role: full-stack web developer \n \n Pathfinder is a study helper that reformats educational resources such as assignment guidelines and instructions to help students with learning hurdles understand the content easily. \n \n Pathfinder offers multitude of tools such as customization of your uploaded documents (colours, font styles, etc.), a built-in dictionary, text summarization, and highlight feature.",
     "githubLink": "https://github.com/hlee443/PathFinder-Athena",
     "productionLink": "https://pathfinder-athena.vercel.app/"
   },
@@ -99,7 +99,7 @@
         "toolIcon": "skill-icons:mongodb"
       }
     ],
-    "description": "Working with a startup client, Innota is a web application designed for academic researchers and students who collaborate on research projects. \n \n It offers a Figma-like interface to upload PDF documents and research papers, making it easy for users to connect and build relationships between their notes and highlights. \n \n Innota also allows users to annotate their documents with personalized comments and thoughts, providing a streamlined and efficient tool for collaborative research.",
+    "description": "Role: full-stack web developer \n \n Production password: 'InnotaIsAwesome2023' \n \n Working with a startup client, Innota is a web application designed for academic researchers and students who collaborate on research projects. \n \n It offers a Figma-like interface to upload PDF documents and research papers, making it easy for users to connect and build relationships between their notes and highlights. \n \n Innota also allows users to annotate their documents with personalized comments and thoughts, providing a streamlined and efficient tool for collaborative research.",
     "demoLink": "https://youtu.be/TYhk05ouNJA",
     "productionLink": "https://innota-tech.up.railway.app/"
   }

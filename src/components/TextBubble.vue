@@ -15,14 +15,11 @@
   </Transition>
 </template>
 
-<!-- bottom left, bottom right, top left, top right -->
-
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, computed } from "vue";
 
 export default defineComponent({
   name: "text-bubble",
-  components: {},
   props: {
     delay: { type: String, default: null },
     headerText: { type: String, default: null },
@@ -30,22 +27,22 @@ export default defineComponent({
     contentText: { type: String, default: null },
     toolArr: { type: Array, default: null },
   },
-  methods: {},
-  computed: {
-    getTailDirection(): string {
-      return this.tailDirection === "bottom-left"
+  setup(props) {
+    const getTailDirection = computed(() => {
+      return props.tailDirection === "bottom-left"
         ? "text-bubble__tail--bottom-left"
-        : this.tailDirection === "bottom-right"
+        : props.tailDirection === "bottom-right"
         ? "text-bubble__tail--bottom-right"
-        : this.tailDirection === "top-left"
+        : props.tailDirection === "top-left"
         ? "text-bubble__tail--top-left"
-        : this.tailDirection === "top-right"
+        : props.tailDirection === "top-right"
         ? "text-bubble__tail--top-right"
         : "text-bubble__tail";
-    },
-  },
-  data() {
-    return {};
+    });
+
+    return {
+      getTailDirection,
+    };
   },
 });
 </script>

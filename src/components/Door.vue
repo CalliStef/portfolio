@@ -4,7 +4,7 @@
     data-name="door"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 423.21 493.41"
-    ref="svg"
+    ref="doorSvgRef"
   >
     <g id="door_group" data-name="door group">
       <ellipse
@@ -22,7 +22,7 @@
           points="90.67 482.91 90.67 0 321.72 0 321.72 482.91 309.23 482.91 310.62 10.41 101.77 11.8 102.47 482.91 90.67 482.91"
         />
         <image
-          ref="door__inside"
+          ref="innerDoorRef"
           href="/assets/home-scene-day.png"
           x="101.77"
           y="15.41"
@@ -74,24 +74,29 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
 
 export default defineComponent({
   name: "DoorComponent",
-  methods: {
-    doorOpen() {
-      this.isOpen = true;
-      (this.$refs.door__inside as HTMLElement).remove();
-      (this.$refs.svg as HTMLElement).style.backgroundColor = "transparent";
-      this.$emit("door-open");
-    },
-  },
-  mounted() {
-    this.$emit("door-rendered");
-  },
-  data() {
+  setup(_, context) {
+    const isOpen = ref(false);
+    const innerDoorRef = ref<HTMLElement | null>(null);
+    const doorSvgRef = ref<HTMLElement | null>(null);
+
+    const doorOpen = () => {
+      isOpen.value = true;
+      (innerDoorRef.value as HTMLElement).remove();
+      (doorSvgRef.value as HTMLElement).style.backgroundColor = "transparent";
+      context.emit("door-open");
+    };
+
+    context.emit("door-rendered");
+
     return {
-      isOpen: false,
+      isOpen,
+      doorOpen,
+      innerDoorRef,
+      doorSvgRef,
     };
   },
 });

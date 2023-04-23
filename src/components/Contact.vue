@@ -98,11 +98,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, ref, onBeforeUnmount } from "vue";
 import { Icon } from "@iconify/vue";
 import TextBubble from "./TextBubble.vue";
 import Typewriter from "./Typewriter.vue";
-
 
 export default defineComponent({
   name: "ContactSection",
@@ -111,50 +110,49 @@ export default defineComponent({
     TextBubble,
     Typewriter,
   },
-  methods: {
-    linkClick(url: string) {
-      window.open(url, "_blank");
-    },
-    skipAnimate() {
-      this.skipAnimation = true;
-    },
-    navigateHome() {
-      this.$emit("navigateHome", { sectionName: "contact" });
-    },
-    onResize() {
-      this.windowWidth = window.innerWidth;
-      if (this.windowWidth >= 992) {
-        this.mediaIconSize = 20;
-        this.homeIconSize = 40;
-      } else {
-        this.mediaIconSize = 10;
-        this.homeIconSize = 30;
-      }
-    },
-  },
-  mounted() {
-    this.$nextTick(() => {
-      window.addEventListener("resize", this.onResize);
-    });
-    if (this.windowWidth >= 992) {
-      this.mediaIconSize = 20;
-      this.homeIconSize = 40;
-    } else {
-      this.mediaIconSize = 10;
-      this.homeIconSize = 30;
-    }
+  setup(_, context) {
+    const windowWidth = ref(window.innerWidth);
+    const mediaIconSize = ref(windowWidth.value >= 992 ? 20 : 10);
+    const homeIconSize = ref(windowWidth.value >= 992 ? 40 : 30);
+    const skipAnimation = ref(false);
 
-    this.skipAnimation = false;
-  },
-  beforeUnmount() {
-    window.removeEventListener("resize", this.onResize);
-  },
-  data() {
+    const linkClick = (url: string) => {
+      window.open(url, "_blank");
+    };
+
+    const skipAnimate = () => {
+      skipAnimation.value = true;
+    };
+
+    const navigateHome = () => {
+      context.emit("navigateHome", { sectionName: "contact" });
+    };
+
+    const onResize = () => {
+      windowWidth.value = window.innerWidth;
+      if (windowWidth.value >= 992) {
+        mediaIconSize.value = 20;
+        homeIconSize.value = 40;
+      } else {
+        mediaIconSize.value = 10;
+        homeIconSize.value = 30;
+      }
+    };
+
+    window.addEventListener("resize", onResize);
+
+    onBeforeUnmount(() => {
+      window.removeEventListener("resize", onResize);
+    });
+
     return {
-      windowWidth: window.innerWidth,
-      mediaIconSize: 10,
-      homeIconSize: 20,
-      skipAnimation: false,
+      windowWidth,
+      mediaIconSize,
+      homeIconSize,
+      skipAnimation,
+      linkClick,
+      skipAnimate,
+      navigateHome,
     };
   },
 });

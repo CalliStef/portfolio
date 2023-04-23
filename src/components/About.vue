@@ -1,5 +1,5 @@
 <template>
-  <div class="about__section" ref="about_section">
+  <div class="about__section" ref="aboutSectionRef">
     <TextBubble
       class="about__text-bubble"
       :tailDirection="windowWidth >= 576 ? 'top-left' : 'top-right'"
@@ -55,7 +55,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, onMounted, onBeforeUnmount, ref } from "vue";
 import { Icon } from "@iconify/vue";
 import TextBubble from "./TextBubble.vue";
 import Typewriter from "./Typewriter.vue";
@@ -67,61 +67,63 @@ export default defineComponent({
     Typewriter,
     Icon,
   },
-  computed: {
-    // getFileUrl(){
-    //   const newFile = new Blob('')
-    // }
-  },
-  methods: {
-    linkClick(url: string) {
+  setup(_, context) {
+    const windowWidth = ref(window.innerWidth);
+    const homeIconSize = ref(30);
+    const skipAnimation = ref(false);
+    const aboutSectionRef = ref<HTMLElement | null>(null);
+
+    const linkClick = (url: string) => {
       window.open(url, "_blank");
-    },
-    skipAnimationListener() {
-      console.log("skip animation listener", this.skipAnimation); // should always false
-      this.skipAnimation = true;
-      this.aboutSection?.removeEventListener(
+    };
+
+    const skipAnimationListener = () => {
+      skipAnimation.value = true;
+      aboutSectionRef.value?.removeEventListener(
         "click",
-        this.skipAnimationListener,
+        skipAnimationListener,
         false
       );
-    },
-    navigateHome() {
-      this.$emit("navigateHome", { sectionName: "about" });
-    },
-    onResize() {
-      this.windowWidth = window.innerWidth;
-      this.homeIconSize = 30;
-    },
-  },
-  mounted() {
-    this.aboutSection = this.$refs.about_section as HTMLElement;
-    this.$nextTick(() => {
-      window.addEventListener("resize", this.onResize);
+    };
+
+    const navigateHome = () => {
+      context.emit("navigateHome", { sectionName: "about" });
+    };
+
+    const onResize = () => {
+      windowWidth.value = window.innerWidth;
+      homeIconSize.value = 30;
+    };
+
+    onMounted(() => {
+      window.addEventListener("resize", onResize);
+
+      skipAnimation.value = false;
+      aboutSectionRef.value?.addEventListener(
+        "click",
+        skipAnimationListener,
+        false
+      );
+
+      homeIconSize.value = 30;
     });
 
-    this.skipAnimation = false;
-    this.aboutSection?.addEventListener(
-      "click",
-      this.skipAnimationListener,
-      false
-    );
+    onBeforeUnmount(() => {
+      window.removeEventListener("resize", onResize);
+      aboutSectionRef.value?.removeEventListener(
+        "click",
+        skipAnimationListener,
+        false
+      );
+    });
 
-    this.homeIconSize = 30;
-  },
-  beforeUnmount() {
-    window.removeEventListener("resize", this.onResize);
-    this.aboutSection?.removeEventListener(
-      "click",
-      this.skipAnimationListener,
-      false
-    );
-  },
-  data() {
     return {
-      windowWidth: window.innerWidth,
-      homeIconSize: 20,
-      skipAnimation: false,
-      aboutSection: null as HTMLElement | null,
+      windowWidth,
+      homeIconSize,
+      skipAnimation,
+      linkClick,
+      navigateHome,
+      aboutSectionRef,
     };
   },
 });
