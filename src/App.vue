@@ -94,7 +94,7 @@ import Intro from "@/components/IntroLayer.vue";
 import CharacterComponent from "@/components/Character.vue";
 import TextBubble from "@/components/TextBubble.vue";
 import Panzoom from "@panzoom/panzoom";
-import { PanzoomObject } from "@panzoom/panzoom";
+import type { PanzoomObject } from "@panzoom/panzoom";
 import Typewriter from "@/components/Typewriter.vue";
 import Toolbar from "@/components/Toolbar.vue";
 import ContactSection from "./components/Contact.vue";
