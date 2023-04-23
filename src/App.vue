@@ -1,16 +1,12 @@
 <template>
   <div class="main__layer">
-    <Intro
-      ref="intro__layer"
-      @show-home="zoomHomeLayer"
-      v-if="!hideIntro"
-    ></Intro>
+    <Intro @show-home="zoomHomeLayer" v-if="!hideIntro" />
     <Transition
       enter-active-class="animate-moveInLeft"
       leave-active-class="animate-moveOutLeft"
     >
       <div
-        ref="home_layer"
+        ref="homeLayerRef"
         class="home__layer"
         v-show="!showProjects"
         @click.prevent="skipAnimation = true"
@@ -33,7 +29,7 @@
             <Toolbar
               class="home__toolbar"
               :class="skipAnimation && 'animation-fadeIn'"
-              :toolList="toolArr"
+              :toolList="toolbar_data"
               delay="3s"
             />
           </div>
@@ -92,12 +88,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
 import toolbar_data from "@/data/app_toolbar_data.json";
 import Intro from "@/components/IntroLayer.vue";
 import CharacterComponent from "@/components/Character.vue";
 import TextBubble from "@/components/TextBubble.vue";
 import Panzoom from "@panzoom/panzoom";
+import { PanzoomObject } from "@panzoom/panzoom";
 import Typewriter from "@/components/Typewriter.vue";
 import Toolbar from "@/components/Toolbar.vue";
 import ContactSection from "./components/Contact.vue";
@@ -116,85 +113,96 @@ export default defineComponent({
     AboutSection,
     ProjectsView,
   },
-  // mounted() {
-  //   setTimeout(() => {
-  //     if(!this.skipAnimation){ // if the user has not skipped the animation
-  //       this.warning = true;
-  //     }
-  //   }, 2000);
-  // },
-  methods: {
-    zoomHomeLayer() {
-      this.homeLayerElem = this.$refs.home_layer as HTMLElement;
-      this.homeLayerElem.classList.add("home__layer--zoom-in");
-      this.panzoom = Panzoom(this.homeLayerElem, {
-        disablePan: true,
-        disableZoom: true,
-        cursor: "auto",
-      });
-      setTimeout(() => {
-        this.showHome = true;
-        this.hideIntro = true;
-      }, 1000);
-    },
-    onNavigateHome(sectionObject: { sectionName: string }) {
+  setup() {
+    const hideIntro = ref(false);
+    const showHome = ref(false);
+    const skipAnimation = ref(false);
+    const showContact = ref(false);
+    const showAbout = ref(false);
+    const showProjects = ref(false);
+    let homeLayerRef = ref<HTMLElement | null>(null);
+    let panzoom = ref<PanzoomObject | null>(null);
+
+    const zoomHomeLayer = () => {
+      if (homeLayerRef.value) {
+        homeLayerRef.value.classList.add("home__layer--zoom-in");
+        panzoom.value = Panzoom(homeLayerRef.value, {
+          disablePan: true,
+          disableZoom: true,
+          cursor: "auto",
+        });
+        setTimeout(() => {
+          showHome.value = true;
+          hideIntro.value = true;
+        }, 1000);
+      }
+    };
+
+    const onNavigateHome = (sectionObject: { sectionName: string }) => {
       const { sectionName } = sectionObject;
 
-      this.skipAnimation = true;
+      skipAnimation.value = true;
 
-      switch (sectionName) {
-        case "contact":
-          this.homeLayerElem.classList.add("home__layer--zoom-reset");
-          this.homeLayerElem.classList.remove("home__layer--zoom-contact");
-          this.showContact = false;
-          break;
-        case "about":
-          this.homeLayerElem.classList.add("home__layer--zoom-reset");
-          this.homeLayerElem.classList.remove("home__layer--zoom-about");
-          this.showAbout = false;
-          break;
-        case "projects":
-          this.homeLayerElem.classList.remove("home__layer--zoom-in");
-          this.showProjects = false;
-          break;
+      if (homeLayerRef.value) {
+        switch (sectionName) {
+          case "contact":
+            homeLayerRef.value.classList.add("home__layer--zoom-reset");
+            homeLayerRef.value.classList.remove("home__layer--zoom-contact");
+            showContact.value = false;
+            break;
+          case "about":
+            homeLayerRef.value.classList.add("home__layer--zoom-reset");
+            homeLayerRef.value.classList.remove("home__layer--zoom-about");
+            showAbout.value = false;
+            break;
+          case "projects":
+            homeLayerRef.value.classList.remove("home__layer--zoom-in");
+            showProjects.value = false;
+            break;
+        }
+
+        showHome.value = true;
       }
+    };
 
-      this.showHome = true;
-    },
-    getSection(sectionName: string) {
-      this.homeLayerElem.classList.remove(
-        "home__layer--zoom-in",
-        "home__layer--zoom-reset"
-      );
-      switch (sectionName) {
-        case "contact":
-          this.homeLayerElem.classList.add("home__layer--zoom-contact");
-          this.showContact = true;
-          break;
-        case "about":
-          this.homeLayerElem.classList.add("home__layer--zoom-about");
-          this.showAbout = true;
-          break;
-        case "projects":
-          this.showProjects = true;
-          break;
+    const getSection = (sectionName: string) => {
+      if (homeLayerRef.value) {
+        homeLayerRef.value.classList.remove(
+          "home__layer--zoom-in",
+          "home__layer--zoom-reset"
+        );
+
+        switch (sectionName) {
+          case "contact":
+            homeLayerRef.value.classList.add("home__layer--zoom-contact");
+            showContact.value = true;
+            break;
+          case "about":
+            homeLayerRef.value.classList.add("home__layer--zoom-about");
+            showAbout.value = true;
+            break;
+          case "projects":
+            showProjects.value = true;
+            break;
+        }
+
+        showHome.value = false;
       }
+    };
 
-      this.showHome = false;
-    },
-  },
-  data() {
     return {
-      skipAnimation: false,
-      hideIntro: false,
-      showHome: false,
-      showContact: false,
-      showAbout: false,
-      showProjects: false,
-      panzoom: null as any,
-      warning: false,
-      homeLayerElem: null as any as HTMLElement,
-      toolArr: toolbar_data,
+      hideIntro,
+      showHome,
+      skipAnimation,
+      showContact,
+      showAbout,
+      showProjects,
+      zoomHomeLayer,
+      onNavigateHome,
+      getSection,
+      toolbar_data,
+      homeLayerRef,
+      panzoom,
     };
   },
 });

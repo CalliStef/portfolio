@@ -1,6 +1,5 @@
 <template>
-  <!-- <div class="intro__layer"> -->
-  <div ref="panzoom__element" class="intro__body">
+  <div ref="introLayerRef" class="intro__body">
     <div class="intro__content">
       <div class="intro__header-container">
         <Typewriter
@@ -18,41 +17,34 @@
             alt="Waving Hand"
             width="30"
             height="30"
-        /></Transition>
+          />
+        </Transition>
       </div>
       <DoorComponent ref="door" class="intro__door" @door-open="zoomToHome" />
       <p class="intro__warning">👉 Click anywhere to skip the animations 👈</p>
     </div>
   </div>
-  <!-- </div> -->
 </template>
 
 <script lang="ts">
+import { defineComponent, ref } from "vue";
 import DoorComponent from "./Door.vue";
 import Typewriter from "./Typewriter.vue";
 import Panzoom from "@panzoom/panzoom";
 
-export default {
+export default defineComponent({
   name: "Intro-layer",
   components: {
     DoorComponent,
     Typewriter,
   },
-  mounted() {
-    window.addEventListener("keyup", (e) => {
-      if (e.key === "Enter") {
-        (this.$refs.door as typeof DoorComponent).doorOpen();
-      }
-    });
-    window.addEventListener("wheel", (e) => {
-      if (e.deltaY > 0) {
-        (this.$refs.door as typeof DoorComponent).doorOpen();
-      }
-    });
-  },
-  methods: {
-    zoomToHome() {
-      const elem = this.$refs.panzoom__element as HTMLElement;
+  setup(_, context) {
+    const introLayerRef = ref<HTMLElement | null>(null);
+    const doorRef = ref<InstanceType<typeof DoorComponent> | null>(null);
+
+
+    const zoomToHome = () => {
+      const elem = introLayerRef.value as HTMLElement;
       const panzoom = Panzoom(elem, {
         maxScale: 20,
         disablePan: true,
@@ -64,10 +56,32 @@ export default {
         easing: "ease-in-out",
       });
       panzoom.zoomIn;
-      this.$emit("show-home");
-    },
+      context.emit("show-home");
+    };
+
+    const handleKeyUp = (e: KeyboardEvent) => {
+      if (e.key === "Enter") {
+        (doorRef.value as any).doorOpen(); // Using any to bypass TypeScript type checking
+      }
+    };
+
+    const handleWheel = (e: WheelEvent) => {
+      if (e.deltaY > 0) {
+        (doorRef.value as any).doorOpen(); // Using any to bypass TypeScript type checking
+      }
+    };
+
+    // Attaching event listeners on mounted
+    window.addEventListener("keyup", handleKeyUp);
+    window.addEventListener("wheel", handleWheel);
+
+    return {
+      doorRef,
+      introLayerRef,
+      zoomToHome,
+    };
   },
-};
+});
 </script>
 
 <style scoped lang="scss">

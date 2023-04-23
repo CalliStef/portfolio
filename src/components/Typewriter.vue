@@ -1,74 +1,82 @@
 <template>
-  <p class="typewriter__text" ref="type__text"></p>
+  <p class="typewriter__text" ref="typeTextRef"></p>
 </template>
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, ref, watch } from "vue";
 
 export default defineComponent({
-  name: "Type-writer",
+  name: "TypeWriter",
   props: {
     delay: { type: String, default: null },
     textProp: { type: String, required: true },
     skipAnimation: { type: Boolean },
   },
-  mounted() {
-    this.startAnimation();
-  },
-  watch: {
-    skipAnimation: function (newState, prevState) {
-      if (newState !== prevState) {
-        // If skipping is true, immediately show the entire remaining string
-        const remainingText = this.textContent
-          .substring(this.characterIndex)
-          .replace(/\n/g, "<br>");
-        (this.$refs.type__text as HTMLElement).innerHTML += remainingText;
-        this.characterIndex = this.textContent.length;
-      }
-    },
-  },
-  methods: {
-    startAnimation() {
-      if (this.skipAnimation) {
-        (this.$refs.type__text as HTMLElement).innerHTML = this.textContent;
+  setup(props) {
+    const textContent = ref(props.textProp);
+    const characterIndex = ref(0);
+    const lineIndex = ref(0);
+    const typeTextRef = ref<HTMLElement | null>(null);
+
+    const startAnimation = () => {
+      if (props.skipAnimation && typeTextRef.value) {
+        typeTextRef.value.innerHTML = textContent.value;
         return;
       }
-      let delayTime = parseInt(this.delay) * 1000;
-      setTimeout(this.animate, delayTime);
-    },
-    animate() {
-      const lines = this.textContent.split("\n");
-      const currentLine = lines[this.lineIndex];
+      let delayTime = parseInt(props.delay) * 1000;
+      setTimeout(animate, delayTime);
+    };
+
+    const animate = () => {
+      const lines = textContent.value.split("\n");
+      const currentLine = lines[lineIndex.value];
       const escapeSequence = /\\n/g;
       let match = escapeSequence.exec(currentLine);
 
-      if (this.characterIndex < currentLine.length && !this.skipAnimation) {
-        if (match !== null && match.index === this.characterIndex) {
-          (this.$refs.type__text as HTMLElement).innerHTML += "<br>";
-          this.lineIndex++;
-          this.characterIndex = 0;
+      if (characterIndex.value < currentLine.length && !props.skipAnimation ) {
+        if (match !== null && match.index === characterIndex.value) {
+          (typeTextRef.value as HTMLElement).innerHTML += "<br>";
+          lineIndex.value++;
+          characterIndex.value = 0;
           match = escapeSequence.exec(currentLine);
         }
 
-        (this.$refs.type__text as HTMLElement).innerHTML += currentLine.charAt(
-          this.characterIndex
+        (typeTextRef.value as HTMLElement).innerHTML += currentLine.charAt(
+          characterIndex.value
         );
-        this.characterIndex++;
-        setTimeout(this.animate, 50);
-      } else if (this.lineIndex < lines.length - 1 && !this.skipAnimation) {
-        (this.$refs.type__text as HTMLElement).innerHTML += "<br>";
-        this.lineIndex++;
-        this.characterIndex = 0;
-        setTimeout(this.animate, 50);
+        characterIndex.value++;
+        setTimeout(animate, 50);
+      } else if (lineIndex.value < lines.length - 1 && !props.skipAnimation) {
+        (typeTextRef.value as HTMLElement).innerHTML += "<br>";
+        lineIndex.value++;
+        characterIndex.value = 0;
+        setTimeout(animate, 50);
       }
-    },
-  },
-  data() {
+    };
+
+    const textElement = ref(null);
+
+    watch(
+      () => props.skipAnimation,
+      (newState, prevState) => {
+        if (newState !== prevState) {
+          // If skipping is true, immediately show the entire remaining string
+          const remainingText = textContent.value
+            .substring(characterIndex.value)
+            .replace(/\n/g, "<br>");
+          (typeTextRef.value as HTMLElement).innerHTML += remainingText;
+          characterIndex.value = textContent.value.length;
+        }
+      }
+    );
+
+    startAnimation();
+
     return {
-      textContent: this.textProp,
-      characterIndex: 0,
-      lineIndex: 0,
+      textElement,
+      typeTextRef,
     };
   },
 });
 </script>
+
 <style scoped lang="scss"></style>

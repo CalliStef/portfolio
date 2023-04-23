@@ -1,5 +1,5 @@
 <template>
-  <div ref="projects_page" class="projects__page">
+  <div ref="projectPageRef" class="projects__page">
     <Icon
       v-if="!showProjectContent"
       class="projects__button"
@@ -184,7 +184,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, toRaw } from "vue";
+import { defineComponent, toRaw, ref, onUnmounted } from "vue";
 import { Icon } from "@iconify/vue";
 import type { Project } from "@/models";
 import projectsData from "@/data/projects_data.json";
@@ -204,109 +204,124 @@ export default defineComponent({
     Typewriter,
     Toolbar,
   },
-  data() {
-    return {
-      projectIconSize: 50,
-      windowWidth: window.innerWidth,
-      projectsData: projectsData as ProjectsProps,
-      currentProject: null as Project | null,
-      showProjectContent: false,
-      mediaIconSize: 10,
-      skipAnimation: false,
-      selectedThumbnail: null as HTMLElement | null,
+  setup(_, context) {
+    const projectIconSize = ref(50);
+    const windowWidth = ref(window.innerWidth);
+    const projectsDataRaw = ref<ProjectsProps>(toRaw(projectsData));
+    const currentProject = ref<Project | null>(null);
+    const showProjectContent = ref(false);
+    const mediaIconSize = ref(10);
+    const skipAnimation = ref(false);
+    const selectedThumbnail = ref<HTMLElement | null>(null);
+    const projectPageRef = ref<HTMLElement | null>(null);
+
+    const skipAnimationListener = () => {
+      skipAnimation.value = true;
+      window.removeEventListener("click", skipAnimationListener, false);
     };
-  },
-  methods: {
-    skipAnimationListener() {
-      console.log("skip animation listener", this.skipAnimation); // should always false
-      this.skipAnimation = true;
-      window.removeEventListener("click", this.skipAnimationListener, false);
-    },
-    navigateHome() {
-      this.$emit("navigateHome", { sectionName: "projects" });
-    },
-    onResize() {
-      this.windowWidth = window.innerWidth;
-      if (this.windowWidth >= 992) {
-        this.projectIconSize = 70;
-        this.mediaIconSize = 20;
+
+    const navigateHome = () => {
+      context.emit("navigateHome", { sectionName: "projects" });
+    };
+
+    const onResize = () => {
+      windowWidth.value = window.innerWidth;
+      if (windowWidth.value >= 992) {
+        projectIconSize.value = 70;
+        mediaIconSize.value = 20;
       } else {
-        this.projectIconSize = 50;
-        this.mediaIconSize = 10;
+        projectIconSize.value = 50;
+        mediaIconSize.value = 10;
       }
-    },
-    hideProjectContent(projectName: string) {
-      this.skipAnimation = false;
-      const projectPageNode = this.$refs.projects_page as HTMLElement;
+    };
 
-      // if show other projects
-      this.showProjectContent = false;
-      const hiddenProjects = projectPageNode.querySelectorAll(".pointer-none");
+    const hideProjectContent = (projectName: string) => {
+     
 
-      hiddenProjects.forEach((project) => {
-        project.classList.remove("animate-fadeOut", "pointer-none");
-      });
+      if (projectPageRef.value) {
+        skipAnimation.value = false;
 
-      this.selectedThumbnail?.classList.add(
-        "artifact__thumbnail--hover-animated"
-      );
+        showProjectContent.value = false;
+        const hiddenProjects =
+          projectPageRef.value.querySelectorAll(".pointer-none");
 
-      projectPageNode.classList.remove("zoom--" + projectName);
-    },
-    getProjectContent(projectName: string, event: MouseEvent) {
-      const projectPageNode = this.$refs.projects_page as HTMLElement;
-      this.selectedThumbnail = event.target as HTMLElement;
+        hiddenProjects.forEach((project) => {
+          project.classList.remove("animate-fadeOut", "pointer-none");
+        });
 
-      const parentThumbnail = this.selectedThumbnail.parentNode as HTMLElement;
+        selectedThumbnail.value?.classList.add(
+          "artifact__thumbnail--hover-animated"
+        );
 
-      const artifaceHeader = parentThumbnail.querySelector(
-        ".artifact__header"
-      ) as HTMLElement;
+        projectPageRef.value.classList.remove("zoom--" + projectName);
+      }
+    };
 
-      artifaceHeader.classList.add("animate-fadeOut", "pointer-none");
-      this.selectedThumbnail.classList.remove(
-        "artifact__thumbnail--hover-animated"
-      );
-      parentThumbnail.classList.add("pointer-none");
+    const getProjectContent = (projectName: string, event: MouseEvent) => {
+      if (projectPageRef.value) {
+        selectedThumbnail.value = event.target as HTMLElement;
 
-      const artifactContainers = projectPageNode.querySelectorAll(
-        ".artifact__container"
-      );
+        const parentThumbnail = selectedThumbnail.value
+          .parentNode as HTMLElement;
 
-      artifactContainers.forEach((container) => {
-        if (container !== this.selectedThumbnail?.parentElement) {
-          container.classList.add("animate-fadeOut", "pointer-none");
-        }
-      });
-
-      projectPageNode.classList.add("zoom--" + projectName);
-
-      this.currentProject = toRaw(this.projectsData[projectName]);
-      this.showProjectContent = true;
-      this.skipAnimation = false;
-      setTimeout(() => {
-        window.addEventListener("click", this.skipAnimationListener, false);
-        const artifactButton = projectPageNode.querySelector(
-          ".artifact__button"
+        const artifaceHeader = parentThumbnail.querySelector(
+          ".artifact__header"
         ) as HTMLElement;
-        artifactButton.classList.add("artifact__button--" + projectName);
-      }, 1000);
-    },
-  },
-  mounted() {
-    this.$nextTick(() => {
-      window.addEventListener("resize", this.onResize);
+
+        artifaceHeader.classList.add("animate-fadeOut", "pointer-none");
+        selectedThumbnail.value.classList.remove(
+          "artifact__thumbnail--hover-animated"
+        );
+        parentThumbnail.classList.add("pointer-none");
+
+        const artifactContainers = projectPageRef.value.querySelectorAll(
+          ".artifact__container"
+        );
+
+        artifactContainers.forEach((container) => {
+          if (container !== selectedThumbnail.value?.parentElement) {
+            container.classList.add("animate-fadeOut", "pointer-none");
+          }
+        });
+
+        projectPageRef.value.classList.add("zoom--" + projectName);
+
+        currentProject.value = projectsDataRaw.value[projectName];
+        showProjectContent.value = true;
+        skipAnimation.value = false;
+        setTimeout(() => {
+          window.addEventListener("click", skipAnimationListener, false);
+
+          if (projectPageRef.value) {
+            const artifactButton = projectPageRef.value.querySelector(
+              ".artifact__button"
+            ) as HTMLElement;
+            artifactButton.classList.add("artifact__button--" + projectName);
+          }
+        }, 1000);
+      }
+    };
+
+    // Lifecycle hooks
+    window.addEventListener("resize", onResize);
+
+    onUnmounted(() => {
+      window.removeEventListener("resize", onResize);
     });
-    if (this.windowWidth >= 992) {
-      this.projectIconSize = 70;
-      this.mediaIconSize = 20;
-    } else {
-      this.projectIconSize = 50;
-      this.mediaIconSize = 10;
-    }
-  },
-  beforeUnmount() {
-    window.removeEventListener("resize", this.onResize);
+
+    return {
+      projectIconSize,
+      projectsDataRaw,
+      currentProject,
+      showProjectContent,
+      mediaIconSize,
+      skipAnimation,
+      selectedThumbnail,
+      navigateHome,
+      getProjectContent,
+      hideProjectContent,
+      projectPageRef,
+    };
   },
 });
 </script>
@@ -331,6 +346,7 @@ export default defineComponent({
     position: absolute;
     top: 50%;
     left: 2%;
+    cursor: pointer;
   }
 
   &__content {
@@ -663,6 +679,7 @@ export default defineComponent({
     position: absolute;
     z-index: 2;
     animation: moveUpDown 1s ease-in-out infinite;
+    cursor: pointer;
 
     &--trashQueens {
       left: 27%;
