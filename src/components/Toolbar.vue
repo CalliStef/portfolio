@@ -29,10 +29,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, onMounted, onBeforeUnmount, ref } from "vue";
 import { Icon } from "@iconify/vue";
 import { Vue3Marquee } from "vue3-marquee";
 import "vue3-marquee/dist/style.css";
+
+interface Tool {
+  toolName: string;
+  toolIcon: string;
+}
 
 export default defineComponent({
   // eslint-disable-next-line vue/multi-word-component-names
@@ -41,43 +46,47 @@ export default defineComponent({
     Icon,
     Vue3Marquee,
   },
-  methods: {
-    onResize() {
-      this.windowWidth = window.innerWidth;
-      if (this.windowWidth >= 992) {
-        this.toolbarSize = 30;
-      } else {
-        this.toolbarSize = 20;
-      }
-    },
-  },
-  mounted() {
-    this.toolArr = JSON.parse(JSON.stringify(this.toolList));
-    this.$nextTick(() => {
-      window.addEventListener("resize", this.onResize);
-    });
-    if (this.windowWidth >= 992) {
-      this.toolbarSize = 30;
-    } else {
-      this.toolbarSize = 20;
-    }
-  },
-  beforeUnmount() {
-    window.removeEventListener("resize", this.onResize);
-  },
   props: {
     toolList: { type: Array, required: true },
     delay: { type: String, default: null },
   },
-  data() {
+  setup(props) {
+    const toolbarSize = ref(20);
+    const windowWidth = ref(window.innerWidth);
+    const toolArr = ref([] as Tool[]);
+
+    const onResize = () => {
+      windowWidth.value = window.innerWidth;
+      if (windowWidth.value >= 768) {
+        toolbarSize.value = 30;
+      } else {
+        toolbarSize.value = 20;
+      }
+    };
+
+    onMounted(() => {
+      toolArr.value = JSON.parse(JSON.stringify(props.toolList));
+      window.addEventListener("resize", onResize);
+      if (windowWidth.value >= 768) {
+        toolbarSize.value = 30;
+      } else {
+        toolbarSize.value = 20;
+      }
+    });
+
+    onBeforeUnmount(() => {
+      window.removeEventListener("resize", onResize);
+    });
+
     return {
-      toolbarSize: 20,
-      windowWidth: window.innerWidth,
-      toolArr: [] as { toolName: string; toolIcon: string }[],
+      toolbarSize,
+      windowWidth,
+      toolArr,
     };
   },
 });
 </script>
+
 
 <style scoped lang="scss">
 .toolbar {
