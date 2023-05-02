@@ -13,11 +13,11 @@
     <div class="projects__content">
       <div class="projects__content--child animate-fadeInBottom">
         <div class="artifact__container">
-          <h2 class="artifact__header text-left">Trash Queens</h2>
+          <h2 class="artifact__header text-left">Journry</h2>
           <img
             class="artifact__thumbnail artifact__thumbnail--1 artifact__thumbnail--hover-animated"
-            src="/assets/project-thumbnails/thumbnail-trashQueen.png"
-            @click="getProjectContent('trashQueens', $event)"
+            src="/assets/project-thumbnails/thumbnail-journry.png"
+            @click="getProjectContent('journry', $event)"
           />
         </div>
 
@@ -404,7 +404,7 @@ export default defineComponent({
 }
 
 .zoom {
-  &--trashQueens {
+  &--journry {
     transform: scale(2);
     left: 40%;
     top: 10%;
@@ -531,7 +531,7 @@ export default defineComponent({
     }
 
     // TEXT BUBBLE PLACEMENT
-    &--trashQueens {
+    &--journry {
       left: 8%;
       top: 40%;
 
@@ -681,7 +681,7 @@ export default defineComponent({
     animation: moveUpDown 1s ease-in-out infinite;
     cursor: pointer;
 
-    &--trashQueens {
+    &--journry {
       left: 27%;
       bottom: 40%;
 

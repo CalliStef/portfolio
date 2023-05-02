@@ -16,6 +16,39 @@
     "githubLink": "https://github.com/phoenixlai833/TrashQueens-Prod",
     "productionLink": "https://trash-queens-dev.vercel.app/"
   },
+  "journry": {
+    "name": "Journry",
+    "dataName": "journry",
+    "tools": [
+      {
+        "toolName": "PHP",
+        "toolIcon": "logos:php"
+      },
+      {
+        "toolName": "Tailwind CSS",
+        "toolIcon": "logos:tailwindcss-icon"
+      },
+      {
+        "toolName": "MySQL",
+        "toolIcon": "logos:mysql-icon"
+      },
+      {
+        "toolName": "Twilio",
+        "toolIcon": "logos:twilio"
+      },
+      {
+        "toolName": "Composer",
+        "toolIcon": "devicon:composer"
+      },
+      {
+        "toolName": "MySQL",
+        "toolIcon": "logos:mysql-icon"
+      }
+    ],
+    "description": "Role: full-stack web developer \n \n Journry is a note-taking app that allows users to keep track of their daily tasks, important events, and personal thoughts. \n \n This app was created as part of a technical project to help us gain experience with new tools and technologies. During the development of the app, we utilized various programming languages, libraries, and frameworks.",
+    "githubLink": "https://github.com/CalliStef/Journry",
+    "productionLink": "https://journry.up.railway.app/"
+  },
   "loveIsWar": {
     "name": "Love is War",
     "dataName": "loveIsWar",
