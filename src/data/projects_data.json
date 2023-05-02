@@ -29,10 +29,6 @@
         "toolIcon": "logos:tailwindcss-icon"
       },
       {
-        "toolName": "MySQL",
-        "toolIcon": "logos:mysql-icon"
-      },
-      {
         "toolName": "Twilio",
         "toolIcon": "logos:twilio"
       },
