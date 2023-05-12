@@ -82,7 +82,7 @@
         "toolIcon": "simple-icons:railway"
       }
     ],
-    "description": "Role: full-stack web developer \n \n Journry is a note-taking app that allows users to keep track of their daily tasks, important events, and personal thoughts. \n \n This app was created as part of a technical project to help us gain experience with new tools and technologies. During the development of the app, we utilized various programming languages, libraries, and frameworks.",
+    "description": "Role: full-stack web developer \n \n In this project, I designed and built a social media application that closely resembles Reddit. Users can create communities and share posts within those communities. To promote a positive and healthy online environment, I integrated a robust AI model that accurately detects and flags toxic content. \n \n The application's interface allows for real-time user engagement, and it offers standard functionalities for managing communities and posts. In addition to the aforementioned features, I added a 3D bot model to the application, serving as a friendly companion to users. \n \n The bot animates, creating an immersive and enjoyable experience that encourages users to engage with the platform and its communities.",
     "githubLink": "https://github.com/CalliStef/AdoBot",
     "productionLink": "https://ado-bot.up.railway.app/"
   },
@@ -119,7 +119,7 @@
         "toolIcon": "logos:nodejs-icon"
       }
     ],
-    "description": "Role: front-end web developer \n \n A multiplayer party game featuring a group of aliens fighting for the love of a human! Load up the lobby and compete against other players in quick rounds of trivia. \n \n When it comes to dating... Love is War!",
+    "description": "Role: front-end web developer \n \n Working in a team of developers and designers, we created a dynamic and engaging multiplayer trivia game. The game features an intuitive user interface with a real-time leaderboard that updates dynamically as players compete against each other. \n \n Throughout the development process, we followed the agile methodology, which enabled us to make consistent progress and deliver successful weekly updates. We meticulously organized and revamped the game's structure and core to ensure a seamless and enjoyable gameplay experience. \n \n In the end, the final product is a captivating and challenging game that players of all ages and backgrounds can enjoy. With its sleek design, intuitive controls, and thrilling gameplay, the multiplayer trivia game offers endless hours of entertainment and fun.",
     "githubLink": "https://github.com/lbeique/true-love",
     "productionLink": "http://love-is-war.up.railway.app"
   },

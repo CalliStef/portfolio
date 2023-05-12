@@ -35,10 +35,10 @@
         <div class="artifact__container">
           <img
             class="artifact__thumbnail artifact__thumbnail--3 artifact__thumbnail--hover-animated"
-            src="/assets/project-thumbnails/thumbnail-pathfinder.png"
-            @click="getProjectContent('pathfinder', $event)"
+            src="/assets/project-thumbnails/thumbnail-adoBot.png"
+            @click="getProjectContent('adoBot', $event)"
           />
-          <h2 class="artifact__header text-left">Pathfinder</h2>
+          <h2 class="artifact__header text-left">Ado Bot Communities</h2>
         </div>
 
         <div class="artifact__container">
@@ -452,7 +452,7 @@ export default defineComponent({
     }
   }
 
-  &--pathfinder {
+  &--adoBot {
     transform: scale(2);
     left: 42%;
     top: -15%;
@@ -579,7 +579,7 @@ export default defineComponent({
       }
     }
 
-    &--pathfinder {
+    &--adoBot {
       left: 7.5%;
       top: 53%;
 
@@ -721,7 +721,7 @@ export default defineComponent({
       }
     }
 
-    &--pathfinder {
+    &--adoBot {
       left: 26%;
       bottom: 27%;
 
