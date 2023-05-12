@@ -19,7 +19,7 @@
             class="about__link"
             @click.prevent="
               linkClick(
-                'https://drive.google.com/file/d/1r2_o-vJNR70Wu_mjiLAWVBpaYaq-4ASw/view?usp=sharing'
+                'https://drive.google.com/file/d/12eVjCXAGngIdOg3nZRgbR7m_O6-MPUv0/view?usp=sharing'
               )
             "
           >
