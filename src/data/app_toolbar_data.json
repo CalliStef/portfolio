@@ -16,6 +16,10 @@
     "toolIcon": "logos:tailwindcss-icon"
   },
   {
+    "toolName": "Typescript",
+    "toolIcon": "logos:typescript-icon"
+  },
+  {
     "toolName": "Javascript",
     "toolIcon": "logos:javascript"
   },
@@ -26,6 +30,10 @@
   {
     "toolName": "Next.js",
     "toolIcon": "logos:nextjs-icon"
+  },
+  {
+    "toolName": "Three.js",
+    "toolIcon": "devicon:threejs-wordmark"
   },
   {
     "toolName": "Vue",
@@ -60,13 +68,14 @@
     "toolIcon": "skill-icons:mongodb"
   },
   {
+    "toolName": "PostgreSQL",
+    "toolIcon": "logos:postgresql"
+  },
+  {
     "toolName": "Socket.IO",
     "toolIcon": "logos:socket-io"
   },
-  {
-    "toolName": "Typescript",
-    "toolIcon": "logos:typescript-icon"
-  },
+
   {
     "toolName": "PHP",
     "toolIcon": "logos:php"

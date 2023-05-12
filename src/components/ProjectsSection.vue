@@ -1,5 +1,5 @@
 <template>
-  <div ref="projectPageRef" class="projects__page">
+  <div ref="projectPageRef" class="projects__page scrollX">
     <Icon
       v-if="!showProjectContent"
       class="projects__button"
@@ -11,43 +11,72 @@
     />
     <div class="projects__floor"></div>
     <div class="projects__content">
-      <div class="projects__content--child animate-fadeInBottom">
-        <div class="artifact__container">
-          <h2 class="artifact__header text-left">Journry</h2>
-          <img
-            class="artifact__thumbnail artifact__thumbnail--1 artifact__thumbnail--hover-animated"
-            src="/assets/project-thumbnails/thumbnail-journry.png"
-            @click="getProjectContent('journry', $event)"
-          />
+      <!-- The four projects -->
+      <div class="projects__container projects__container--1">
+        <div class="projects__container--child animate-fadeInBottom">
+          <div class="artifact__container">
+            <h2 class="artifact__header text-left">Journry</h2>
+            <img
+              class="artifact__thumbnail artifact__thumbnail--hover-animated"
+              src="/assets/project-thumbnails/thumbnail-journry.png"
+              @click="getProjectContent('journry', $event)"
+            />
+          </div>
+
+          <div class="artifact__container">
+            <h2 class="artifact__header text-right">Love is War</h2>
+            <img
+              class="artifact__thumbnail artifact__thumbnail--hover-animated"
+              src="/assets/project-thumbnails/thumbnail-loveIsWar.png"
+              @click="getProjectContent('loveIsWar', $event)"
+            />
+          </div>
         </div>
 
-        <div class="artifact__container">
-          <h2 class="artifact__header text-right">Love is War</h2>
-          <img
-            class="artifact__thumbnail artifact__thumbnail--2 artifact__thumbnail--hover-animated"
-            src="/assets/project-thumbnails/thumbnail-loveIsWar.png"
-            @click="getProjectContent('loveIsWar', $event)"
-          />
+        <div class="projects__container--child animate-fadeInTop">
+          <div class="artifact__container">
+            <img
+              class="artifact__thumbnail artifact__thumbnail--hover-animated"
+              src="/assets/project-thumbnails/thumbnail-pathfinder.png"
+              @click="getProjectContent('pathfinder', $event)"
+            />
+            <h2 class="artifact__header text-left">Pathfinder</h2>
+          </div>
+
+          <div class="artifact__container">
+            <img
+              class="artifact__thumbnail artifact__thumbnail--hover-animated"
+              src="/assets/project-thumbnails/thumbnail-innota.png"
+              @click="getProjectContent('innota', $event)"
+            />
+            <h2 class="artifact__header text-right">Innota Tech</h2>
+          </div>
         </div>
       </div>
-
-      <div class="projects__content--child animate-fadeInTop">
-        <div class="artifact__container">
-          <img
-            class="artifact__thumbnail artifact__thumbnail--3 artifact__thumbnail--hover-animated"
-            src="/assets/project-thumbnails/thumbnail-pathfinder.png"
-            @click="getProjectContent('pathfinder', $event)"
-          />
-          <h2 class="artifact__header text-left">Pathfinder</h2>
+      <!-- Adobot -->
+      <div class="projects__container projects__container--2">
+        <div class="projects__container--child animate-fadeInTop">
+          <div class="artifact__container">
+            <h2 class="artifact__header text-right">Ado Bot Communities</h2>
+            <img
+              class="artifact__thumbnail artifact__thumbnail--hover-animated artifact__thumbnail--sm"
+              src="/assets/project-thumbnails/thumbnail-adoBot.png"
+              @click="getProjectContent('adoBot', $event)"
+            />
+          </div>
         </div>
-
-        <div class="artifact__container">
-          <img
-            class="artifact__thumbnail artifact__thumbnail--4 artifact__thumbnail--hover-animated"
-            src="/assets/project-thumbnails/thumbnail-innota.png"
-            @click="getProjectContent('innota', $event)"
-          />
-          <h2 class="artifact__header text-right">Innota Tech</h2>
+      </div>
+      <!-- four projects -->
+      <div class="projects__container projects__container--1">
+        <div class="projects__container--child animate-fadeInBottom">
+          <div class="artifact__container">
+            <h2 class="artifact__header text-left">Trash Queens</h2>
+            <img
+              class="artifact__thumbnail artifact__thumbnail--hover-animated"
+              src="/assets/project-thumbnails/thumbnail-trashQueen.png"
+              @click="getProjectContent('trashQueen', $event)"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -236,10 +265,9 @@ export default defineComponent({
     };
 
     const hideProjectContent = (projectName: string) => {
-     
-
       if (projectPageRef.value) {
         skipAnimation.value = false;
+        projectPageRef.value.classList.add("scrollX");
 
         showProjectContent.value = false;
         const hiddenProjects =
@@ -284,11 +312,23 @@ export default defineComponent({
           }
         });
 
+        // projectPageRef.value.scroll({
+        //   left: -1000,
+        //   behavior: "smooth",
+        // });
+
+        // setTimeout(() => {
+        //   if (projectPageRef.value) {
+        projectPageRef.value.classList.remove("scrollX");
+
         projectPageRef.value.classList.add("zoom--" + projectName);
 
         currentProject.value = projectsDataRaw.value[projectName];
         showProjectContent.value = true;
         skipAnimation.value = false;
+        // }
+        // }, 500);
+
         setTimeout(() => {
           window.addEventListener("click", skipAnimationListener, false);
 
@@ -327,6 +367,10 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+.scrollX {
+  overflow-x: scroll;
+}
+
 .projects {
   &__page {
     display: flex;
@@ -343,7 +387,8 @@ export default defineComponent({
   }
 
   &__button {
-    position: absolute;
+    position: sticky;
+    z-index: 10;
     top: 50%;
     left: 2%;
     cursor: pointer;
@@ -351,23 +396,45 @@ export default defineComponent({
 
   &__content {
     display: flex;
-    flex-direction: column;
-    align-items: center;
     position: absolute;
+    align-items: center;
+    gap: 1rem;
     width: 80%;
-    gap: 0.5rem;
-    left: 50%;
+    left: 70%;
     top: 37%;
     transform: translate(-50%, -50%);
+  }
 
-    @include respond(tablets-portrait) {
-      width: 50%;
-      gap: 1rem;
+  &__container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-shrink: 0;
+    gap: 0.5rem;
+    /* position: absolute; */
+    /* width: 80%;
+    gap: 0.5rem;
+    left: 50%;
+    top: 37%; */
+    /* transform: translate(-50%, -50%); */
+
+    &--1 {
+      width: 100%;
+      @include respond(tablets-portrait) {
+        width: 50%;
+        gap: 1rem;
+      }
+    }
+
+    &--2 {
+      width: 20%;
+      height: 20%;
+      justify-content: center;
     }
 
     &--child {
       display: flex;
-      min-width: auto;
+      width: auto;
       height: 100%;
       gap: 0.5rem;
 
@@ -389,7 +456,7 @@ export default defineComponent({
     display: flex;
     position: absolute;
     bottom: 0;
-    width: 120%;
+    width: 150vw;
     height: 60vw;
     background-color: $color-soft-orange;
 
@@ -492,6 +559,29 @@ export default defineComponent({
       top: 0%;
     }
   }
+
+  &--adoBot {
+    transform: scale(2);
+    left: 40%;
+    top: -40%;
+
+    @include respond(tablets-portrait) {
+      transform: scale(2);
+      left: 25%;
+      top: -40%;
+    }
+
+    @include respond(tablets-landscape) {
+      transform: scale(1.5);
+      left: -5%;
+      top: -25%;
+    }
+
+    @include respond(laptops) {
+      left: -5%;
+      top: -30%;
+    }
+  }
 }
 
 .artifact {
@@ -499,7 +589,7 @@ export default defineComponent({
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: end;
+    align-items: flex-start;
     width: 100%;
     height: 100%;
     cursor: pointer;
@@ -650,7 +740,7 @@ export default defineComponent({
   }
 
   &__header {
-    width: 100%;
+    width: auto;
     margin: 0.5rem 0;
     font-family: "FuzzyBubbles-Bold";
     font-size: $font-size-small;
