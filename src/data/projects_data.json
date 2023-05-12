@@ -45,6 +45,47 @@
     "githubLink": "https://github.com/CalliStef/Journry",
     "productionLink": "https://journry.up.railway.app/"
   },
+  "adoBot": {
+    "name": "Ado Bot Communities",
+    "dataName": "adoBot",
+    "tools": [
+      {
+        "toolName": "React",
+        "toolIcon": "logos:react"
+      },
+      {
+        "toolName": "Typescript",
+        "toolIcon": "logos:typescript-icon"
+      },
+      {
+        "toolName": "Tailwind CSS",
+        "toolIcon": "logos:tailwindcss-icon"
+      },
+      {
+        "toolName": "Three.js",
+        "toolIcon": "devicon:threejs-wordmark"
+      },
+      {
+        "toolName": "C#",
+        "toolIcon": "logos:c-sharp"
+      },
+      {
+        "toolName": ".NET",
+        "toolIcon": "skill-icons:dotnet"
+      },
+      {
+        "toolName": "PostgreSQL",
+        "toolIcon": "logos:postgresql"
+      },
+      {
+        "toolName": "Railway",
+        "toolIcon": "simple-icons:railway"
+      }
+    ],
+    "description": "Role: full-stack web developer \n \n Journry is a note-taking app that allows users to keep track of their daily tasks, important events, and personal thoughts. \n \n This app was created as part of a technical project to help us gain experience with new tools and technologies. During the development of the app, we utilized various programming languages, libraries, and frameworks.",
+    "githubLink": "https://github.com/CalliStef/AdoBot",
+    "productionLink": "https://ado-bot.up.railway.app/"
+  },
   "loveIsWar": {
     "name": "Love is War",
     "dataName": "loveIsWar",
